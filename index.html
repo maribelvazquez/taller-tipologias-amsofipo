@@ -169,6 +169,10 @@ label{font-size:14px;color:var(--tx3);text-transform:uppercase;letter-spacing:.0
 .kpi b{display:block;font-size:40px;font-variant-numeric:tabular-nums;line-height:1.2}
 .kpi small{color:var(--tx3);font-size:15px}
 .hr{height:1px;background:var(--line);margin:22px 0}
+footer.legal{margin:46px auto 0;padding:16px 0 8px;border-top:1px solid var(--line);
+  font-size:12.5px;line-height:1.5;color:#9184A0;max-width:1240px}
+footer.legal b{font-weight:600;color:#7A6A8A}
+@media print{footer.legal{display:none}}
 .note{display:none;font-size:17px;color:#5B4A6B;border-left:3px solid var(--acc);background:#FBF4FD;
   padding:12px 16px;margin-top:16px;border-radius:0 8px 8px 0}
 .note::before{content:"Nota del facilitador · ";font-weight:700;color:var(--acc);letter-spacing:.02em}
@@ -561,6 +565,15 @@ body.notas #btnNotas{opacity:1;background:#fff;color:#6F2693;border-color:#fff}
     </div>
   </div>
 </section>
+
+
+<footer class="legal">
+  Material del <b>Taller de Tipologías de AMSOFIPO</b>, elaborado con fines exclusivamente didácticos y de
+  capacitación. No constituye asesoría ni consultoría jurídica, regulatoria o de cumplimiento, ni sustituye
+  el criterio del oficial de cumplimiento de cada institución. Los casos, expedientes y situaciones que aquí
+  se presentan son ilustrativos y no corresponden a institución, cliente u operación real alguna.
+  Desarrollado por <b>360educa</b> y <b>Lexquo</b>.
+</footer>
 
 </div></main>
 </div>
@@ -1034,9 +1047,12 @@ function generarPDF(){
      <li>Se consolida la lista de códigos faltantes para llevar ante la UIF.</li>
      <li>Se confirma la fecha de la sesión de septiembre.</li>
    </ul>
-   <div class="pa-pie">Documento generado automáticamente por el micrositio del taller.
-   Insumo de trabajo de la Comisión de PLD de AMSOFIPO; no constituye una versión final del manual de tipologías.
-   Los casos utilizados en la sesión son ilustrativos y no corresponden a institución o cliente real alguno.</div>`;
+   <div class="pa-pie">Documento generado automáticamente por el micrositio del taller. Insumo de trabajo de la
+   Comisión de PLD de AMSOFIPO; no constituye una versión final del manual de tipologías.<br>
+   Material elaborado con fines exclusivamente didácticos y de capacitación. No constituye asesoría ni consultoría
+   jurídica, regulatoria o de cumplimiento, ni sustituye el criterio del oficial de cumplimiento de cada institución.
+   Los casos son ilustrativos y no corresponden a institución, cliente u operación real alguna.
+   Desarrollado por 360educa y Lexquo.</div>`;
 
   document.getElementById('print-area').innerHTML=H;
   setTimeout(()=>window.print(),120);
