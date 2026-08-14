@@ -347,28 +347,33 @@ header{overflow:hidden}
   </div>
 
   <div class="card" id="cardSala">
-    <h3>Cómo participan hoy</h3>
-    <p style="color:var(--tx2)">Los aportes ya no dependen de que la facilitadora alcance a teclearlos. Cada quien puede
-    mandar los suyos desde su propio dispositivo, y también entre sesiones —ahí es donde se acumulan los casos reales
-    que alimentan las fichas del manual.</p>
+    <h3>Cómo participa el comité</h3>
+    <p style="color:var(--tx2)">Los aportes ya no dependen de que la facilitadora alcance a teclearlos. Hay dos ligas
+    y sirven para momentos distintos; las dos siguen vivas entre sesiones, que es donde se acumulan los casos reales
+    que alimentan las fichas.</p>
     <div class="grid g2">
       <div>
-        <p style="margin:0 0 6px"><b>Liga para participar</b></p>
+        <p style="margin:0 0 6px"><b>🔎 Liga para estudiar y aportar</b></p>
+        <p class="note" style="margin:0 0 8px">El sitio completo: recomendaciones, simuladores, generador de casos y
+        el analizador con IA. Aportan desde donde estén leyendo.</p>
         <div style="display:flex;gap:9px;flex-wrap:wrap;align-items:center">
-          <code id="ligaPart" style="background:var(--bg2);border:1px solid var(--line);border-radius:9px;padding:8px 14px;font-size:15px">—</code>
-          <button class="btn sm" onclick="copiarLiga()">Copiar liga</button>
-          <button class="btn sm ghost" onclick="abrirSala()">⚙ Sala</button>
-          <a class="btn sm ghost" href="/herramientas" target="_blank" style="text-decoration:none">Todas las herramientas ↗</a>
+          <code id="ligaPart" style="background:var(--bg2);border:1px solid var(--line);border-radius:9px;padding:8px 14px;font-size:14px;word-break:break-all">—</code>
+          <button class="btn sm" onclick="copiarLiga()">Copiar</button>
         </div>
       </div>
       <div>
-        <p style="margin:0 0 6px"><b>Los aportes van a</b></p>
+        <p style="margin:0 0 6px"><b>⚡ Liga rápida, para el celular en la sesión</b></p>
+        <p class="note" style="margin:0 0 8px">Solo el formulario. Para mandar una idea en dos toques mientras están
+        viendo la pantalla compartida.</p>
         <div style="display:flex;gap:9px;flex-wrap:wrap;align-items:center">
-          <b id="codigoVis" style="font-size:26px;color:var(--acc2)">—</b>
-          <span class="note" style="margin:0">La liga sigue viva entre sesiones: pueden mandar casos durante todo el mes.</span>
+          <code id="ligaForm" style="background:var(--bg2);border:1px solid var(--line);border-radius:9px;padding:8px 14px;font-size:14px;word-break:break-all">—</code>
+          <button class="btn sm" onclick="copiarLigaForm()">Copiar</button>
         </div>
       </div>
     </div>
+    <p class="note" style="margin-top:12px">Las dos mandan a <b id="codigoVis">—</b>. Lo único que cambia entre una
+    sesión y otra es el número al final de la liga. <button class="btn sm ghost" style="margin-left:6px" onclick="abrirSala()">⚙ Sala</button>
+    <a class="btn sm ghost" href="/herramientas" target="_blank" style="text-decoration:none">Todas las herramientas ↗</a></p>
   </div>
 
   <button class="btn primary" style="margin-top:10px" onclick="go(1)">Comenzar el taller →</button>
@@ -950,11 +955,19 @@ header{overflow:hidden}
 
   <label>Modo de esta pantalla</label>
   <select id="slModo">
-    <option value="facilitador">Facilitador — proyecto y mando el tablero</option>
-    <option value="copiloto">Copiloto — veo el mismo tablero y capturo (Amanda)</option>
-    <option value="local">Local — sin conexión, solo esta computadora</option>
+    <option value="participante">Soy oficial de cumplimiento — estudio el sitio y mando mis aportes</option>
+    <option value="facilitador">Conduzco la sesión — proyecto y controlo el tablero</option>
+    <option value="copiloto">Apoyo la captura — veo el mismo tablero de quien conduce</option>
+    <option value="local">Solo estoy viendo — no se comparte nada</option>
   </select>
-  <p class="hint">En modo copiloto se ven en vivo los votos, las señales, las banderas y las capas que va marcando la facilitadora.</p>
+  <p class="hint">Si eres de una SOFIPO, la primera. Solo una persona conduce la sesión a la vez; las demás del equipo facilitador entran como apoyo.</p>
+
+  <div style="height:10px"></div>
+  <div class="frow">
+    <div><label>Tu nombre</label><input id="slQuien" placeholder="Nombre y apellido" autocomplete="name"></div>
+    <div><label>Institución</label><input id="slInst" placeholder="Tu SOFIPO" autocomplete="organization"></div>
+  </div>
+  <p class="hint">Se usa para atribuir tus aportes en el manual. Se guarda en tu navegador, no hay que teclearlo cada vez.</p>
 
   <div style="height:8px"></div>
   <label>Qué hay guardado en la nube</label>
@@ -1034,7 +1047,7 @@ const PADRON=['Miriam Chávez','Ana Lidia','Andrea','Carla','Carlos Cedillo','Da
 
 /* ============ ESTADO ============ */
 const CLAVE='amsofipo_taller_v4';
-let ST={sesion:2, sala:{codigo:'',modo:'local'}, roster:PADRON.slice(), ses:{}, propuestas:[]};
+let ST={sesion:2, sala:{codigo:'',modo:'local'}, perfil:{quien:'',institucion:''}, roster:PADRON.slice(), ses:{}, propuestas:[]};
 
 function sesionVacia(){return {aportes:[],votos:{},activas:[],hall:[],credito:[],capas:0,listas:{}}}
 let aportes=[],votos={},activas=new Set(),hall=[],credito=new Set(),capasAbiertas=0,listaSel={};
@@ -1058,8 +1071,22 @@ function cargarEstado(){
     const d=JSON.parse(localStorage.getItem(CLAVE)||'null');
     if(d&&d.ses){ST={...ST,...d};ST.sala=d.sala||{codigo:'',modo:'local'};ST.roster=d.roster&&d.roster.length?d.roster:PADRON.slice();}
   }catch(e){}
+  if(!ST.perfil)ST.perfil={quien:'',institucion:''};
+  leerLiga();
   if(!ST.ses[ST.sesion])ST.ses[ST.sesion]=sesionVacia();
   cargarSesionEnVivo();
+}
+/* La liga que reciben los oficiales trae el modo y la sesión, para que no
+   tengan que configurar nada: …/?modo=participante&sesion=1 */
+let LIGA_FIJA=false;
+function leerLiga(){
+  try{
+    const p=new URLSearchParams(location.search);
+    const m=(p.get('modo')||'').toLowerCase();
+    const s=p.get('sesion');
+    if(s&&SESIONES[+s])ST.sesion=+s;
+    if(m==='participante'){ST.sala.modo='participante';LIGA_FIJA=true}
+  }catch(e){}
 }
 
 /* ============ SESIÓN ACTIVA ============ */
@@ -1644,6 +1671,9 @@ function abrirAporte(t){
   if(t){const s=document.getElementById('apTip');
     const op=[...s.options].find(o=>o.value===t); if(op)s.value=t;
     document.getElementById('apCampo').value=t==='Propuesta a la UIF'?'Propuesta a la UIF':document.getElementById('apCampo').value;}
+  const q=document.getElementById('apQuien'), i=document.getElementById('apInst');
+  if(q&&!q.value&&ST.perfil.quien)q.value=ST.perfil.quien;
+  if(i&&!i.value&&ST.perfil.institucion)i.value=ST.perfil.institucion;
   document.getElementById('dlg').showModal();
   setTimeout(()=>document.getElementById('apTexto').focus(),50);
 }
@@ -1652,7 +1682,8 @@ function guardarAporte(){
   const tx=g('apTexto'); if(!tx)return;
   const a={cid:cid(),sesion:String(ST.sesion),tip:g('apTip'),campo:g('apCampo'),texto:tx,
     variable:g('apVar'),umbral:g('apUmb'),ventana:g('apVen'),deteccion:g('apDet'),
-    quien:g('apQuien'),institucion:g('apInst'),origen:ST.sala.modo==='copiloto'?'copiloto':'facilitador',
+    quien:g('apQuien')||ST.perfil.quien,institucion:g('apInst')||ST.perfil.institucion,
+    origen:ST.sala.modo==='local'?'facilitador':ST.sala.modo,
     hora:ahora(),ts:Date.now(),enviado:false};
   aportes.push(a);
   ['apTexto','apVar','apUmb','apVen','apInst'].forEach(id=>{const e=document.getElementById(id);if(e)e.value=''});
@@ -1856,18 +1887,26 @@ async function arrancarSync(){
         ? 'Reglas de Firebase: sin permiso' : 'Sin conexión con la sala')
     ));
 
-    // El tablero de la facilitadora, para que el copiloto vea lo mismo.
-    desuscribir.push(fns.onSnapshot(
-      fns.doc(db,COL_ESTADO,String(ST.sesion)),
-      snap=>{if(snap.exists())aplicarEstadoRemoto(snap.data())},
-      ()=>{}
-    ));
+    // El tablero de la facilitadora, solo para el copiloto. El participante
+    // navega por su cuenta y no quiere que le muevan la pantalla.
+    if(ST.sala.modo==='copiloto'){
+      desuscribir.push(fns.onSnapshot(
+        fns.doc(db,COL_ESTADO,String(ST.sesion)),
+        snap=>{if(snap.exists())aplicarEstadoRemoto(snap.data())},
+        ()=>{}
+      ));
+    }
 
     marcarSala('on');
     reenviarPendientes();
     if(ST.sala.modo==='facilitador')programarEnvioEstado();
   }catch(e){
-    marcarSala('err','No cargó Firebase — modo local');
+    const cod=String(e&&e.code||'');
+    marcarSala('err', cod.includes('unauthorized-domain')
+      ? 'Dominio no autorizado en Firebase'
+      : (cod.includes('operation-not-allowed')
+         ? 'Falta habilitar el acceso anónimo'
+         : 'No cargó Firebase — modo local'));
   }
   pintarLigaParticipante();
 }
@@ -1882,26 +1921,41 @@ function marcarSala(est,txt){
   if(est==='conectando'){tx.textContent='Conectando…';return}
   if(est==='err'){ind.classList.add('err');tx.textContent=txt||'Sin conexión';return}
   ind.classList.add('on');
-  tx.textContent=(ST.sala.modo==='copiloto'?'Copiloto · ':'En vivo · ')+'Sesión '+ST.sesion;
+  const etiqueta=ST.sala.modo==='copiloto'?'Apoyo · '
+                :ST.sala.modo==='participante'?((ST.perfil.quien||'Participante').split(' ')[0]+' · ')
+                :'En vivo · ';
+  tx.textContent=etiqueta+'Sesión '+ST.sesion;
 }
 function pintarSala(){marcarSala(ST.sala.modo==='local'?'local':(FS?'on':'conectando'))}
 
 function pintarLigaParticipante(){
-  const c=document.getElementById('ligaPart'), v=document.getElementById('codigoVis');
+  const c=document.getElementById('ligaPart'), f=document.getElementById('ligaForm'),
+        v=document.getElementById('codigoVis');
   if(!c)return;
-  if(!fbConfigurado()){c.textContent='Falta configurar la base — ver CONFIGURAR-FIREBASE.md';v.textContent='—';return}
-  if(ST.sala.modo==='local'){c.textContent='Actívala en ⚙ Sala';v.textContent='—';return}
+  if(!fbConfigurado()){
+    c.textContent='Falta configurar la base'; if(f)f.textContent='—';
+    if(v)v.textContent='—'; return;
+  }
   const base=location.origin&&location.origin!=='null'?location.origin:'';
-  c.textContent=(base||'…')+'/participa?sesion='+ST.sesion;
-  v.textContent='Sesión '+ST.sesion;
+  c.textContent=(base||'…')+'/?modo=participante&sesion='+ST.sesion;
+  if(f)f.textContent=(base||'…')+'/participa?sesion='+ST.sesion;
+  if(v)v.textContent='Sesión '+ST.sesion;
 }
 function copiarLiga(){
   const t=document.getElementById('ligaPart').textContent;
   navigator.clipboard.writeText(t).then(()=>alert('Liga copiada:\n'+t),()=>{});
 }
+function copiarLigaForm(){
+  const t=document.getElementById('ligaForm').textContent;
+  navigator.clipboard.writeText(t).then(()=>alert('Liga copiada:\n'+t),()=>{});
+}
 function abrirSala(){
-  document.getElementById('slModo').value=ST.sala.modo||'local';
-  document.getElementById('slEstado').innerHTML='';
+  document.getElementById('slModo').value=ST.sala.modo||'participante';
+  document.getElementById('slQuien').value=ST.perfil.quien||'';
+  document.getElementById('slInst').value=ST.perfil.institucion||'';
+  document.getElementById('slModo').disabled=LIGA_FIJA;
+  document.getElementById('slEstado').innerHTML=LIGA_FIJA
+    ? '<p class="note">Entraste por la liga de participantes, así que el modo ya viene fijado.</p>' : '';
   pintarResumenSala();
   document.getElementById('dlgSala').showModal();
 }
@@ -1919,7 +1973,15 @@ function pintarResumenSala(){
     : '<p class="note" style="margin:6px 0 0">Todavía no hay aportes en la nube.</p>';
 }
 function guardarSala(){
-  ST.sala={codigo:'',modo:document.getElementById('slModo').value};
+  const modo=document.getElementById('slModo').value;
+  ST.perfil={quien:document.getElementById('slQuien').value.trim(),
+             institucion:document.getElementById('slInst').value.trim()};
+  if(modo==='participante'&&!ST.perfil.quien){
+    document.getElementById('slEstado').innerHTML=
+      '<p class="note" style="color:var(--bad)">Pon tu nombre para que tus aportes queden atribuidos en el manual.</p>';
+    return;
+  }
+  ST.sala={codigo:'',modo};
   guardarEstado(); arrancarSync();
   document.getElementById('dlgSala').close();
 }
@@ -1936,10 +1998,15 @@ async function probarSala(){
       La sala responde${snap.empty?' (todavía sin aportes)':''}.</p>`;
     pintarResumenSala();
   }catch(err){
-    const permiso=String(err&&err.code)==='permission-denied';
-    e.innerHTML=`<p class="note" style="color:var(--warn)">${permiso
-      ? 'Firebase respondió <b>sin permiso</b>: falta habilitar el acceso anónimo y publicar las reglas del archivo REGLAS-FIREBASE.txt.'
-      : 'No se pudo conectar. El taller funciona igual en modo local.'}</p>`;
+    const cod=String(err&&err.code||'');
+    let msg='No se pudo conectar. El taller funciona igual en modo local.';
+    if(cod==='permission-denied')
+      msg='Firebase respondió <b>sin permiso</b>: hay que publicar las reglas del archivo REGLAS-FIREBASE.txt.';
+    else if(cod.includes('unauthorized-domain'))
+      msg='El dominio de este sitio <b>no está autorizado</b> en Firebase. Agrégalo en Authentication → Configuración → Dominios autorizados. Si abriste el archivo con doble clic, publícalo primero: desde un archivo local Firebase siempre rechaza.';
+    else if(cod.includes('operation-not-allowed'))
+      msg='Falta <b>habilitar el acceso anónimo</b> en Authentication → Sign-in method → Anónimo.';
+    e.innerHTML=`<p class="note" style="color:var(--warn)">${msg}</p>`;
   }
 }
 function avisar(txt){
@@ -2149,6 +2216,13 @@ dibujarRed(); pintarExp(); pintarCredito(); pintarCapas(); pintarListas(); nuevo
 document.querySelectorAll('.sig').forEach(b=>b.classList.toggle('on',activas.has(b.id.slice(3))));
 aplicarSesion();
 arrancarSync();
+/* Si entró por la liga de participantes y todavía no dice quién es, se le pide una vez. */
+if(ST.sala.modo==='participante'&&!ST.perfil.quien){
+  setTimeout(()=>{abrirSala();
+    document.getElementById('slEstado').innerHTML=
+      '<p class="note">Bienvenido. Pon tu nombre y tu institución para que tus aportes queden atribuidos en el manual. Solo se pide esta vez.</p>';
+  },600);
+}
 if(aportes.length||Object.keys(votos).length||hall.length||activas.size||credito.size||capasAbiertas){
   avisar(`Se recuperó el trabajo de la sesión ${ST.sesion}.`);
 }

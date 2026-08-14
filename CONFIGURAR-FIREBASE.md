@@ -92,12 +92,17 @@ Debe quedar como *Habilitado*. Nadie va a ver una pantalla de login: es invisibl
 
 1. Menú de la izquierda: **Compilación → Firestore Database**.
 2. Clic en **Crear base de datos**.
-3. Ubicación: elige una de Estados Unidos, por ejemplo **`us-central1`** o **`nam5`**.
-   Es la más cercana y la más barata. **La ubicación no se puede cambiar después**, así que
-   no la dejes en Europa por descuido.
-4. Cuando pregunte por el modo, elige **modo de producción** (bloqueado).
+3. **Edición:** deja **Standard**. Enterprise no entra en el plan gratuito y el taller no
+   usa nada de lo que ofrece.
+4. **ID de la base:** déjalo en `(default)`. El micrositio busca la base predeterminada.
+5. **Ubicación:** **`northamerica-south1`** (Querétaro, México). Firestore sí tiene región
+   mexicana, y poder decir que los datos del comité están en México es una respuesta más
+   cómoda ante oficiales de cumplimiento que decir que están en Iowa.
+   **La ubicación no se puede cambiar después.**
+6. **Modo:** elige **modo de producción** (bloqueado), nunca *modo de prueba* —ese deja la
+   base abierta 30 días y luego se cierra sola a media operación—.
    No importa que quede todo cerrado: el siguiente paso pone las reglas correctas.
-5. Clic en **Crear**.
+7. Clic en **Crear**.
 
 No hay que crear ninguna colección a mano. `taller_aportes` y `taller_estado` se crean solas
 con el primer aporte.
@@ -111,16 +116,49 @@ Este paso es **obligatorio**. Sin él la base queda cerrada y el taller se queda
 1. En **Firestore Database**, pestaña **Reglas**.
 2. Borra todo lo que haya en el recuadro.
 3. Abre el archivo **`REGLAS-FIREBASE.txt`**, copia el bloque de reglas completo y pégalo.
+   Va desde `rules_version = '2';` hasta la última llave, y **son dos llaves de cierre al
+   final**, una para el bloque `match` y otra para `service`. Si al pegar queda una sola,
+   el editor marca en rojo *"Line NN: missing '}'"*.
 4. Clic en **Publicar**.
 
 Debe aparecer un aviso de que las reglas se publicaron correctamente.
 
 ---
 
+## Paso 6 bis · Autorizar el dominio del sitio
+
+**Este paso es fácil de olvidar y sin él nada funciona.**
+
+Por seguridad, Firebase solo permite iniciar sesión desde dominios que estén en su lista
+blanca. Por omisión trae `localhost` y los dominios propios de Firebase, pero **no el de
+Netlify**. Si falta, el micrositio falla con un error de dominio no autorizado.
+
+1. Menú izquierdo: **Authentication**.
+2. Pestaña **Configuración** (o *Settings*).
+3. Sección **Dominios autorizados** → **Agregar dominio**.
+4. Escribe el dominio del sitio **sin `https://` y sin diagonales**, por ejemplo:
+
+   ```
+   taller-tipologias.netlify.app
+   ```
+
+5. Si más adelante se le pone un dominio propio (por ejemplo `taller.amsofipo.mx`),
+   hay que agregarlo también. Son dos entradas distintas, no se heredan.
+
+### Por qué el doble clic ya no sirve para probar
+
+Abrir `index.html` directamente desde la carpeta funciona para ensayar el taller, pero
+**no para probar Firebase**: un archivo local no tiene dominio, así que Firebase lo rechaza
+siempre. En ese caso el micrositio trabaja en modo local, que es correcto pero no sincroniza.
+
+Para probar la sincronización de verdad, el sitio tiene que estar publicado.
+
+---
+
 ## Paso 7 · Probar que quedó
 
-1. Publica el micrositio en Netlify con el archivo `config-firebase.js` ya editado.
-   (Si estás probando en tu computadora, abre `index.html` con doble clic; funciona igual.)
+1. Publica el micrositio en Netlify con el archivo `config-firebase.js` ya editado, y
+   asegúrate de que el dominio esté autorizado (paso 6 bis).
 2. En el micrositio: **⚙ Sala → Probar conexión**.
    Debe decir **"Conectado a taller-tipologias-amsofipo"**.
 3. Elige el modo **Facilitador** y clic en **Activar**. El indicador del encabezado debe
@@ -136,7 +174,7 @@ Debe aparecer un aviso de que las reglas se publicaron correctamente.
 |---|---|
 | "Falta configurar Firebase" | El `config-firebase.js` sigue con los valores de ejemplo, o no se guardó |
 | "Firebase respondió sin permiso" | Falta el paso 4 (acceso anónimo) o el paso 6 (publicar reglas) |
-| "No cargó Firebase — modo local" | No hay internet, o la red del lugar bloquea `gstatic.com` |
+| "No cargó Firebase — modo local" | Falta el paso 6 bis (dominio autorizado), no hay internet, o se abrió el archivo con doble clic en vez de publicado |
 
 En los tres casos el taller **sigue funcionando** en modo local: cada quien guarda lo suyo en
 su navegador y no hay sincronización. La sesión no se rompe.
