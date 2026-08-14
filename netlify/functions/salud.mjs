@@ -11,11 +11,11 @@ export default async () => {
     revisado: new Date().toISOString(),
     apiKey: { puesta: false, valida: null, nota: "" },
     modelo: { configurado: process.env.CLAUDE_MODEL || "claude-sonnet-5 (por omisión)", responde: null, nota: "" },
-    sala: { disponible: null, nota: "" },
+    sala: { motor: "Firestore (social-tracker360)", nota: "La sala vive en Firestore, no en Netlify: se revisa desde el propio micrositio con ⚙ Sala → Probar conexión." },
     candados: {
       codigoTaller: !!process.env.CODIGO_TALLER,
       origenesPermitidos: process.env.ORIGENES_PERMITIDOS || "(solo el propio sitio)",
-      llaveFacilitador: !!process.env.LLAVE_FACILITADOR,
+
     },
     veredicto: "",
   };
@@ -58,17 +58,6 @@ export default async () => {
       r.modelo.responde = false;
       r.modelo.nota = "No se pudo contactar la API: " + String(e).slice(0, 150);
     }
-  }
-
-  try {
-    const { getStore } = await import("@netlify/blobs");
-    const store = getStore({ name: "taller-amsofipo", consistency: "strong" });
-    await store.list({ prefix: "estado/" });
-    r.sala.disponible = true;
-    r.sala.nota = "La captura compartida está lista.";
-  } catch (e) {
-    r.sala.disponible = false;
-    r.sala.nota = "Sin sala compartida: el taller trabaja en modo local. " + String(e).slice(0, 150);
   }
 
   r.veredicto = r.modelo.responde

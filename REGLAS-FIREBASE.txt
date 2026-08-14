@@ -1,0 +1,133 @@
+REGLAS DE FIREBASE — proyecto del taller de tipologías
+======================================================
+
+(Firebase es la plataforma; Firestore es la base de datos que vive dentro de ella.
+ Estas reglas son las que deciden quién puede leer y escribir.)
+
+Este proyecto es EXCLUSIVO del taller. No contiene ni toca datos de ningún otro sistema.
+
+Dónde se pegan:
+  console.firebase.google.com  →  proyecto del taller
+  →  Compilación / Build  →  Firestore Database  →  pestaña "Reglas"
+  →  borrar lo que haya, pegar el bloque de abajo, botón "Publicar"
+
+Antes hay que habilitar el acceso anónimo (paso 4 de CONFIGURAR-FIREBASE.md):
+  Authentication  →  Sign-in method  →  Anónimo  →  Habilitar  →  Guardar
+
+Con eso el micrositio entra solo, sin pedirle login a nadie, pero quien intente escribir
+desde fuera con un script tiene que autenticarse primero. No es una contraseña, pero corta
+el abuso casual.
+
+
+===============================================================================
+COPIAR DE AQUÍ HACIA ABAJO
+===============================================================================
+
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // ---------- APORTES DEL COMITÉ ----------
+    // Se pueden leer y crear con sesión anónima.
+    // No se pueden editar ni borrar desde el navegador: lo que entra, queda.
+    // Para corregir o eliminar algo se hace desde la consola de Firebase.
+    match /taller_aportes/{id} {
+      allow read:   if request.auth != null;
+      allow create: if request.auth != null && aporteValido(request.resource.data);
+      allow update, delete: if false;
+    }
+
+    // ---------- TABLERO DE LA FACILITADORA ----------
+    // Un documento por sesión: votos, señales encendidas, banderas y capas.
+    match /taller_estado/{sesion} {
+      allow read: if request.auth != null;
+      allow write: if request.auth != null
+                   && request.resource.data.keys().hasOnly(
+                        ['sesion','votos','activas','hall','credito','capas','listas','actualizado'])
+                   && request.resource.data.size() < 30;
+      allow delete: if false;
+    }
+
+    function aporteValido(d) {
+      return d.texto is string
+          && d.texto.size() > 10
+          && d.texto.size() < 2500
+          && d.sesion is string
+          && d.sesion.size() < 10
+          && d.keys().hasOnly(['cid','sesion','tip','campo','texto','variable','umbral',
+                               'ventana','deteccion','quien','institucion','origen','hora','ts'])
+          && d.size() <= 14;
+    }
+
+    // ---------- TODO LO DEMÁS ----------
+    // Cualquier colección que no esté nombrada arriba queda cerrada.
+    match /{document=**} { allow read, write: if false; }
+  }
+}
+
+===============================================================================
+COPIAR HASTA AQUÍ
+===============================================================================
+
+
+QUÉ HACE CADA COSA, EN CORTO
+----------------------------
+
+request.auth != null
+    Exige una sesión, aunque sea anónima. Es lo que separa "cualquiera con la URL"
+    de "cualquiera con un script".
+
+allow update, delete: if false
+    Nadie borra ni edita aportes desde el navegador, ni por error ni a propósito.
+    Si algún día hay que corregir uno, se hace desde la consola de Firebase.
+
+keys().hasOnly([...])
+    Solo se aceptan los campos que el micrositio manda. Si alguien intenta meter
+    campos raros o inflar el documento, Firestore lo rechaza.
+
+texto.size() < 2500
+    Tope de tamaño. Evita que alguien llene la base con un solo envío.
+
+match /{document=**} { allow read, write: if false; }
+    Cierra por omisión. Si mañana se crea una colección nueva y se olvida darle
+    reglas, queda cerrada en lugar de abierta. Es la línea más importante del archivo.
+
+
+CÓMO COMPROBAR QUE QUEDÓ BIEN
+-----------------------------
+
+1. En el micrositio: ⚙ Sala → Probar conexión.
+   Debe decir "Conectado a <nombre del proyecto>".
+   Si dice "sin permiso", falta habilitar el acceso anónimo o publicar estas reglas.
+
+2. Abre la liga de participantes en tu teléfono y manda un aporte de prueba.
+   Debe aparecer en el tablero de cierre de tu computadora en el momento.
+
+3. Borra ese aporte de prueba desde la consola:
+   Firestore Database → taller_aportes → seleccionar el documento → eliminar.
+
+
+APARTE: EL OTRO PROYECTO
+------------------------
+
+Esto no tiene que ver con el taller, pero conviene anotarlo.
+
+El proyecto social-tracker360, el del tablero de redes y leads, hoy tiene sus colecciones
+abiertas: cualquiera que conozca el ID del proyecto puede leer y escribir esa base. Para
+métricas de redes el daño posible es bajo, pero se cierra en dos pasos, EN ESTE ORDEN:
+
+  1. En el código de ese proyecto (src/firebase.js) agregar el login anónimo:
+
+       import { getAuth, signInAnonymously } from "firebase/auth";
+       const auth = getAuth(app);
+       signInAnonymously(auth);
+
+     Publicar el sitio y comprobar que sigue cargando.
+
+  2. Recién entonces, en las reglas DE ESE PROYECTO:
+
+       match /metricas_redes/{id} { allow read, write: if request.auth != null; }
+       match /leads/{id}          { allow read, write: if request.auth != null; }
+       match /{document=**}       { allow read, write: if false; }
+
+Si se aprietan las reglas antes de publicar el cambio de código, ese tablero deja de cargar.

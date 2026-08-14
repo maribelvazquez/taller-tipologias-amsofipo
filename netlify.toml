@@ -6,6 +6,9 @@
   directory = "netlify/functions"
   node_bundler = "esbuild"
 
+[build.environment]
+  SECRETS_SCAN_SMART_DETECTION_ENABLED = "false"
+
 # Compatibilidad con la ruta que usaba la versión anterior del micrositio.
 [[redirects]]
   from = "/.netlify/functions/analizar"

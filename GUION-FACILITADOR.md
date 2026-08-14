@@ -12,14 +12,15 @@ va marcando el consumo de cada bloque en la barra segmentada.
 
 1. Abre **`/api/salud`**. Si dice *"Todo listo para la sesión"*, sigue. Si dice que no hay IA,
    no pasa nada: el motor de reglas local responde igual y en la sesión no se nota.
-2. Abre **⚙ Sala** en el encabezado. Código sugerido: `AMSOFIPO-S2`. Modo **Facilitador**.
-3. Comprueba que Amanda entró en modo **Copiloto** con el mismo código.
-4. Elige **Sesión 2** en el selector del encabezado. El cronómetro y la barra lateral se
-   reconfiguran solos.
+2. Elige **Sesión 2** en el selector del encabezado. El cronómetro y la barra lateral se
+   reconfiguran solos y el tablero arranca en blanco.
+3. Abre **⚙ Sala** y elige modo **Facilitador**. Verifica con *Probar conexión* que diga
+   "Conectado a social-tracker360".
+4. Amanda entra en modo **Copiloto**: verá tu mismo tablero en vivo y podrá capturar en paralelo.
 
 ## Lo primero que dices (antes del bloque 1)
 
-Dicta el código de la sala y la liga de participantes —están en grande en la portada—.
+Manda la liga de participantes por el chat de la reunión —está en grande en la portada—.
 Pídeles que la abran **ahora**, no cuando llegue el espacio de aporte. Ese medio minuto es
 lo que decide si esta sesión captura 13 aportes o 30.
 
@@ -108,7 +109,8 @@ Descarga el insumo con **Generar PDF** y con **Descargar .md**. El `.md` es el q
 Compromisos que deben quedar dichos en voz alta:
 
 - Un caso real anonimizado por institución, por tipología, **usando la liga de participantes**,
-  antes de la próxima sesión.
+  antes de la próxima sesión. Diles que la liga de la sesión 2 sigue viva todo el mes: no se
+  cierra al terminar la reunión.
 - Andrea comparte su resumen de detecciones: domicilios y beneficiarios en común, contrapartes
   repetidas y códigos de comercio.
 - Fecha de la sesión 3 y las dos tipologías que le tocan.

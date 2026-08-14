@@ -45,6 +45,9 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:var(--acc)}
 .mios{border-left:3px solid var(--line2);padding:10px 0 2px 14px;margin-top:10px}
 .mios div{font-size:14.5px;color:var(--tx2);margin-bottom:8px}
 .mios b{color:var(--acc2)}
+.sesbadge{background:#F0E2F7;border:1px solid #D9BEE8;color:#6F2693;border-radius:10px;
+  padding:11px 15px;font-size:15px;margin-bottom:16px}
+.sesbadge b{font-weight:700}
 .seccion{font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--tx3);font-weight:600;
   border-top:1px solid var(--line);padding-top:16px;margin-top:20px}
 footer{font-size:12.5px;color:var(--tx3);line-height:1.5;padding:0 18px 40px;max-width:720px;margin:0 auto}
@@ -61,17 +64,9 @@ footer{font-size:12.5px;color:var(--tx3);line-height:1.5;padding:0 18px 40px;max
   <div id="aviso"></div>
 
   <div class="card">
-    <div class="row">
-      <div>
-        <label>Código de la sala</label>
-        <input id="codigo" placeholder="AMSOFIPO-S2" style="text-transform:uppercase;letter-spacing:.08em" autocomplete="off">
-        <p class="hint">Se dicta al abrir la sesión.</p>
-      </div>
-      <div>
-        <label>Tu nombre</label>
-        <input id="quien" placeholder="Nombre y apellido" autocomplete="name">
-      </div>
-    </div>
+    <div class="sesbadge">Tus aportes se guardan en <b id="sesionVis">Sesión 1</b></div>
+    <label>Tu nombre</label>
+    <input id="quien" placeholder="Nombre y apellido" autocomplete="name">
     <label>Institución</label>
     <input id="institucion" placeholder="Nombre de la SOFIPO" autocomplete="organization">
 
@@ -145,26 +140,59 @@ footer{font-size:12.5px;color:var(--tx3);line-height:1.5;padding:0 18px 40px;max
   cumplimiento de cada institución. Desarrollado por 360educa y Lexquo.
 </footer>
 
+<script src="config-firebase.js"></script>
 <script>
 const K='amsofipo_participa';
 const $=id=>document.getElementById(id);
 function esc(s){return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')}
 
-let mios=[];
+/* La configuración vive en config-firebase.js, que es el único archivo que hay que
+   editar para conectar el taller a su base. Si no está configurado, el taller trabaja
+   en modo local y lo dice con todas sus letras. */
+const FB_CONFIG=(window.FB_CONFIG||{});
+const FB_COLS=(window.FB_COLECCIONES||{aportes:'taller_aportes',estado:'taller_estado'});
+const FB_VER='10.14.1';
+const COL_APORTES=FB_COLS.aportes;
+const COL_ESTADO=FB_COLS.estado;
+function fbConfigurado(){
+  return !!(FB_CONFIG.projectId&&!String(FB_CONFIG.projectId).startsWith('PEGA-AQUI'));
+}
+let FS=null;
+
+async function conectar(){
+  if(FS)return FS;
+  const [{initializeApp},fs,auth]=await Promise.all([
+    import(`https://www.gstatic.com/firebasejs/${FB_VER}/firebase-app.js`),
+    import(`https://www.gstatic.com/firebasejs/${FB_VER}/firebase-firestore.js`),
+    import(`https://www.gstatic.com/firebasejs/${FB_VER}/firebase-auth.js`)
+  ]);
+  const app=initializeApp(FB_CONFIG,'taller-amsofipo');
+  const a=auth.getAuth(app);
+  if(!a.currentUser)await auth.signInAnonymously(a);
+  FS={db:fs.getFirestore(app),fns:fs};
+  return FS;
+}
+
+let mios=[], SESION='1';
 (function init(){
   const p=new URLSearchParams(location.search);
   let g={};
   try{g=JSON.parse(localStorage.getItem(K)||'{}')}catch(e){}
-  $('codigo').value=(p.get('sala')||g.codigo||'').toUpperCase();
+  SESION=String(p.get('sesion')||g.sesion||'1');
+  $('sesionVis').textContent='Sesión '+SESION;
   $('quien').value=g.quien||'';
   $('institucion').value=g.institucion||'';
-  mios=g.mios||[];
+  mios=(g.mios||[]).filter(m=>String(m.sesion)===SESION);
   pintarMios();
+  if(!fbConfigurado()){
+    aviso('err','Esta página todavía no está conectada a su base de datos. Avisa al equipo facilitador.');
+    $('btn').disabled=true;
+  } else conectar().catch(()=>{});
 })();
 
 function recordar(){
   try{localStorage.setItem(K,JSON.stringify({
-    codigo:$('codigo').value.toUpperCase(),quien:$('quien').value,institucion:$('institucion').value,mios:mios.slice(-20)
+    sesion:SESION,quien:$('quien').value,institucion:$('institucion').value,mios:mios.slice(-20)
   }))}catch(e){}
 }
 function pintarMios(){
@@ -179,35 +207,33 @@ function aviso(tipo,txt){
 }
 
 async function enviar(){
-  const codigo=$('codigo').value.toUpperCase().replace(/[^A-Z0-9-]/g,'');
   const texto=$('texto').value.trim();
-  if(codigo.length<3){aviso('err','Falta el código de la sala. Es el que se dicta al abrir la sesión.');return}
   if(texto.length<15){aviso('err','Describe el aporte con un poco más de detalle.');return}
   if(!$('quien').value.trim()){aviso('err','Pon tu nombre para que el aporte quede atribuido en el manual.');return}
 
   const a={
     cid:Date.now().toString(36)+'-'+Math.random().toString(36).slice(2,8),
+    sesion:SESION,
     tip:$('tip').value,campo:$('campo').value,texto,
     variable:$('variable').value.trim(),umbral:$('umbral').value.trim(),ventana:$('ventana').value.trim(),
     deteccion:$('deteccion').value,quien:$('quien').value.trim(),institucion:$('institucion').value.trim(),
     origen:'participante',
-    hora:new Date().toLocaleTimeString('es-MX',{hour:'2-digit',minute:'2-digit'})
+    hora:new Date().toLocaleTimeString('es-MX',{hour:'2-digit',minute:'2-digit'}),
+    ts:Date.now()
   };
 
   $('btn').disabled=true;$('btn').textContent='Enviando…';
   try{
-    const r=await fetch('/api/sala',{method:'POST',headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({op:'aporte',codigo,aporte:a})});
-    const j=await r.json().catch(()=>({}));
-    if(r.ok){
-      mios.push(a);recordar();pintarMios();
-      $('texto').value='';['variable','umbral','ventana'].forEach(i=>$(i).value='');
-      aviso('ok','Aporte enviado. Ya aparece en el tablero de la sesión. Puedes mandar otro.');
-    }else{
-      aviso('err',j.error||'No se pudo enviar. Verifica el código de la sala.');
-    }
+    const {db,fns}=await conectar();
+    await fns.addDoc(fns.collection(db,COL_APORTES),a);
+    mios.push(a);recordar();pintarMios();
+    $('texto').value='';['variable','umbral','ventana'].forEach(i=>$(i).value='');
+    aviso('ok','Aporte enviado. Ya aparece en el tablero de la sesión. Puedes mandar otro.');
   }catch(e){
-    aviso('err','No hay conexión con la sala. Copia tu texto por si acaso y vuelve a intentar en un momento.');
+    const permiso=String(e&&e.code)==='permission-denied';
+    aviso('err',permiso
+      ? 'El servidor rechazó el envío por permisos. Avisa al equipo facilitador.'
+      : 'No hay conexión. Copia tu texto por si acaso y vuelve a intentar en un momento.');
   }
   $('btn').disabled=false;$('btn').textContent='Enviar aporte';
 }

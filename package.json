@@ -1,10 +1,7 @@
 {
   "name": "taller-tipologias-amsofipo",
-  "version": "4.0.0",
+  "version": "5.0.0",
   "private": true,
   "description": "Micrositio del Taller de Tipologías de AMSOFIPO · Comisión de PLD",
-  "type": "module",
-  "dependencies": {
-    "@netlify/blobs": "^8.1.0"
-  }
+  "type": "module"
 }

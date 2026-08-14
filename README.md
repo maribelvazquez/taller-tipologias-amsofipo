@@ -3,9 +3,10 @@
 Micrositio del taller de tipologías de financiamiento ilícito en SOFIPOS.
 Modalidad remota, 60 minutos por sesión, con captura en vivo de los aportes del comité.
 
-**Versión 4.0** — deja de ser material de una sola sesión y pasa a ser la herramienta
-permanente de la Comisión: soporta varias sesiones sin pisarse, recibe aportes de los
-participantes desde su propio dispositivo y acumula las propuestas para la UIF.
+**Versión 5.0** — deja de ser material de una sola sesión y pasa a ser la herramienta
+permanente de la Comisión: soporta varias sesiones sin pisarse, sincroniza en tiempo real
+entre facilitadora, copiloto y participantes sobre Firebase, mantiene viva la sesión
+anterior mientras la nueva arranca en blanco, y acumula las propuestas para la UIF.
 
 ---
 
@@ -49,7 +50,8 @@ Navegación con la barra lateral o con las teclas `0`–`9`.
 
 Descarga el repo y abre `index.html` con doble clic. Funciona completo: el analizador cae a su
 **motor de reglas local** de 32 patrones cuando no hay función de IA disponible, y el taller
-trabaja en **modo local** sin sala compartida. No requiere internet, ni cuenta, ni costo.
+trabaja en **modo local**, sin sincronización entre pantallas. No requiere internet, ni cuenta,
+ni costo.
 
 ### Opción B — publicado en Netlify
 
@@ -64,34 +66,59 @@ trabaja en **modo local** sin sala compartida. No requiere internet, ni cuenta, 
    | `CLAUDE_MODEL` | no | Cambiar de modelo sin tocar código. Por omisión `claude-sonnet-5` |
    | `CODIGO_TALLER` | recomendada | Si está puesta, el analizador solo atiende peticiones con ese código. Evita que un tercero consuma el saldo |
    | `ORIGENES_PERMITIDOS` | no | Lista de orígenes autorizados separados por comas. Por omisión solo el propio sitio |
-   | `LLAVE_FACILITADOR` | no | Permite borrar una sala desde la API |
 
 4. Deploy. Nada más.
 
 Antes de cada sesión, abre **`/api/salud`**: dice en español si la key está puesta, si es válida,
-qué modelo está configurado, si ese modelo responde y si la sala compartida está lista.
+qué modelo está configurado y si ese modelo responde. La sala se revisa desde el propio
+micrositio con **⚙ Sala → Probar conexión**.
 
 ---
 
-## La sala compartida
+## La sala en vivo
 
-Resuelve el cuello de botella de la sesión 1: que todo aporte tuviera que pasar por la facilitadora
-tecleando en vivo.
+Resuelve el cuello de botella de la sesión 1: que todo aporte tuviera que pasar por la
+facilitadora tecleando mientras facilitaba.
 
-1. La facilitadora abre **⚙ Sala** en el encabezado, pone un código (por ejemplo `AMSOFIPO-S2`) y
-   elige el modo **Facilitador**.
-2. La portada muestra la liga `…/participa?sala=AMSOFIPO-S2` y el código en grande, para dictarlo.
-3. Los participantes abren esa liga desde su teléfono o computadora y mandan sus aportes con campos
+Corre sobre **Firebase**, en un proyecto **exclusivo del taller** —separado de cualquier otro
+sistema, para poder entregárselo a la Comisión— con actualización en tiempo real.
+No hay que configurar nada en Netlify.
+
+**Antes de la primera sesión en vivo hay que crear ese proyecto.** Son 15 minutos y está
+explicado clic por clic en **`CONFIGURAR-FIREBASE.md`**. Lo único que se edita es el archivo
+`config-firebase.js`.
+
+1. La facilitadora abre **⚙ Sala** en el encabezado y elige el modo **Facilitador**.
+2. La portada muestra la liga `…/participa?sesion=N` para dictarla o mandarla por chat.
+3. Los participantes abren esa liga desde su teléfono y mandan aportes con campos
    estructurados: variable, umbral, ventana, institución y si lo detecta el sistema o el analista.
-4. Un segundo capturista (modo **Copiloto**) puede entrar a la misma sala y capturar en paralelo.
-5. Todo aparece en el tablero de cierre de la facilitadora en menos de siete segundos.
+4. Amanda entra en modo **Copiloto** y ve **el mismo tablero**: los votos, las señales
+   encendidas, las banderas y las capas que va marcando la facilitadora, además de todos
+   los aportes. Puede capturar en paralelo.
+5. Todo aparece al instante en todas las pantallas. No hay refresco ni espera.
 
-Si la sala no está disponible, **nada se rompe**: el taller sigue en modo local exactamente como antes.
+Si no hay internet, el taller trabaja en **modo local** y sube lo pendiente en cuanto vuelve
+la conexión. **Nunca se rompe la sesión.**
 
-La liga de participantes también sirve **entre sesiones**. Es la vía para cumplir el compromiso de
-un caso real anonimizado por tipología antes de cada sesión.
+### Sesión viva y sesión nueva
 
----
+Cada aporte lleva grabado el número de sesión al que pertenece. Eso permite las dos cosas
+a la vez:
+
+- **La sesión anterior sigue viva.** Su liga `?sesion=1` sigue recibiendo casos reales
+  durante todo el mes. Es la vía para cumplir el compromiso de un caso anonimizado por
+  tipología antes de cada sesión.
+- **La sesión nueva arranca de cero.** Al cambiar el selector a la Sesión 2, el simulador,
+  el expediente, los votos y el tablero están en blanco. Nada se mezcla.
+
+El bloque **El taller acumulado** en el cierre muestra cuántos aportes hay por sesión y el
+total, y exporta el acumulado completo en un solo `.md` para armar las fichas.
+
+### Reglas de la base
+
+Ver **`REGLAS-FIREBASE.txt`**: hay que habilitar el acceso anónimo y publicar las reglas.
+Sin eso, la conexión responde "sin permiso" y el taller se queda en modo local —que sigue
+funcionando, pero sin sincronización entre pantallas.
 
 ## Estructura
 
@@ -100,13 +127,14 @@ index.html                        micrositio del taller (HTML + CSS + JS en un a
 participa.html                    formulario de aportes para los participantes
 herramientas.html                 hub con las tres herramientas de la Comisión
 netlify/functions/analizar.mjs    analizador con IA, con topes de costo y candados de acceso
-netlify/functions/sala.mjs        sala compartida (Netlify Blobs)
 netlify/functions/salud.mjs       diagnóstico en español del despliegue
 netlify.toml                      configuración de despliegue y rutas
-package.json                      dependencia de @netlify/blobs
+config-firebase.js                ÚNICO archivo a editar: la conexión a la base
+CONFIGURAR-FIREBASE.md            guía paso a paso para crear el proyecto de Firebase
+REGLAS-FIREBASE.txt               reglas para copiar y pegar en la consola de Firebase
 assets/logo-amsofipo.png          logo institucional
 GUION-FACILITADOR.md              guion de uso interno, no se proyecta
-LEEME-v4.md                       qué cambió en esta versión y por qué
+LEEME-v5.md                       qué cambió en esta versión y por qué
 ESTRUCTURA-DRIVE.md               árbol de carpetas propuesto para el repositorio del comité
 ```
 
