@@ -6,13 +6,26 @@
   directory = "netlify/functions"
   node_bundler = "esbuild"
 
+# Compatibilidad con la ruta que usaba la versión anterior del micrositio.
 [[redirects]]
   from = "/.netlify/functions/analizar"
   to = "/api/analizar"
+  status = 200
+
+[[redirects]]
+  from = "/participa"
+  to = "/participa.html"
+  status = 200
+
+[[redirects]]
+  from = "/herramientas"
+  to = "/herramientas.html"
   status = 200
 
 [[headers]]
   for = "/*"
   [headers.values]
     X-Frame-Options = "SAMEORIGIN"
+    X-Content-Type-Options = "nosniff"
     Referrer-Policy = "strict-origin-when-cross-origin"
+    Permissions-Policy = "geolocation=(), microphone=(), camera=()"

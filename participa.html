@@ -1,0 +1,216 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Aporta al manual · Taller de Tipologías AMSOFIPO</title>
+<style>
+:root{
+  --bg:#FAF8FC; --panel:#FFFFFF; --panel2:#F6F2FA; --line:#E2D8EC; --line2:#CDBBDE;
+  --tx:#1C1026; --tx2:#4E3E60; --tx3:#7A6A8A; --acc:#8B2A93; --acc2:#6F2693;
+  --ok:#0E7C5A; --warn:#A66A00; --bad:#C0392B; --hdr1:#301457; --hdr2:#210E3A;
+  --f:"Segoe UI",system-ui,-apple-system,Roboto,Helvetica,Arial,sans-serif;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--tx);font-family:var(--f);font-size:17px;line-height:1.6}
+header{background:linear-gradient(90deg,var(--hdr1),var(--hdr2) 60%,#150725);color:#fff;padding:18px 20px}
+header b{display:block;font-size:18px}
+header span{font-size:12.5px;color:rgba(255,255,255,.72);letter-spacing:.07em;text-transform:uppercase}
+.wrap{max-width:720px;margin:0 auto;padding:22px 18px 60px}
+h1{font-size:26px;margin:0 0 6px;letter-spacing:-.01em}
+.lead{color:var(--tx2);margin:0 0 20px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:20px 22px;margin-bottom:16px;
+  box-shadow:0 1px 3px rgba(45,20,70,.05)}
+label{display:block;font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--tx3);margin:14px 0 5px;font-weight:600}
+label:first-child{margin-top:0}
+input,select,textarea{width:100%;padding:12px 14px;border:1px solid var(--line2);border-radius:10px;background:var(--panel);
+  color:var(--tx);font-family:inherit;font-size:16.5px}
+textarea{min-height:130px;resize:vertical}
+input:focus,select:focus,textarea:focus{outline:none;border-color:var(--acc)}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.row3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px}
+@media(max-width:620px){.row,.row3{grid-template-columns:1fr}}
+.btn{padding:14px 22px;border-radius:11px;border:1px solid var(--line2);background:var(--panel);color:var(--tx);
+  font-family:inherit;font-size:16.5px;cursor:pointer;transition:.15s}
+.btn:hover{background:#F3EAF8;border-color:var(--acc2)}
+.btn.primary{background:var(--acc2);border-color:var(--acc2);color:#fff;font-weight:600;width:100%}
+.btn.primary:hover{background:var(--acc)}
+.btn.primary:disabled{opacity:.5;cursor:default}
+.anon{background:#FBEFD6;border:1px solid #E8CE93;border-radius:10px;padding:12px 15px;font-size:14.5px;color:#6b4500;margin:14px 0}
+.note{font-size:13.5px;color:var(--tx3);margin:8px 0 0}
+.hint{font-size:13.5px;color:var(--tx3);margin:-2px 0 10px}
+.ok{background:#DDF3EA;border:1px solid #A9DCC8;color:#0b5f45;border-radius:11px;padding:15px 18px;margin-bottom:14px}
+.err{background:#FBE3E0;border:1px solid #EEB6AE;color:#8f2418;border-radius:11px;padding:15px 18px;margin-bottom:14px}
+.mios{border-left:3px solid var(--line2);padding:10px 0 2px 14px;margin-top:10px}
+.mios div{font-size:14.5px;color:var(--tx2);margin-bottom:8px}
+.mios b{color:var(--acc2)}
+.seccion{font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--tx3);font-weight:600;
+  border-top:1px solid var(--line);padding-top:16px;margin-top:20px}
+footer{font-size:12.5px;color:var(--tx3);line-height:1.5;padding:0 18px 40px;max-width:720px;margin:0 auto}
+</style>
+</head>
+<body>
+<header><b>Taller de Tipologías</b><span>AMSOFIPO · Comisión de PLD</span></header>
+
+<div class="wrap">
+  <h1>Aporta al manual</h1>
+  <p class="lead">Lo que mandes aquí entra directo al insumo de la ficha. Sirve durante la sesión y también entre sesiones:
+  aquí es donde se sube <b>el caso real anonimizado por tipología</b> que quedó de compromiso.</p>
+
+  <div id="aviso"></div>
+
+  <div class="card">
+    <div class="row">
+      <div>
+        <label>Código de la sala</label>
+        <input id="codigo" placeholder="AMSOFIPO-S2" style="text-transform:uppercase;letter-spacing:.08em" autocomplete="off">
+        <p class="hint">Se dicta al abrir la sesión.</p>
+      </div>
+      <div>
+        <label>Tu nombre</label>
+        <input id="quien" placeholder="Nombre y apellido" autocomplete="name">
+      </div>
+    </div>
+    <label>Institución</label>
+    <input id="institucion" placeholder="Nombre de la SOFIPO" autocomplete="organization">
+
+    <div class="seccion">Tu aporte</div>
+
+    <div class="row">
+      <div>
+        <label>Tipología / bloque</label>
+        <select id="tip">
+          <option>Cuentas mula</option>
+          <option>Empresas fachada</option>
+          <option>Crédito con pago anticipado atípico</option>
+          <option>Beneficiario controlador oculto</option>
+          <option>Listas y jurisdicciones</option>
+          <option>Tentativas</option>
+          <option>Metodología</option>
+          <option>Propuesta a la UIF</option>
+          <option>Otro</option>
+        </select>
+      </div>
+      <div>
+        <label>Tipo de aporte</label>
+        <select id="campo">
+          <option>Caso real</option>
+          <option>Señal de alerta</option>
+          <option>Parámetro de alertamiento</option>
+          <option>Mecanismo de detección</option>
+          <option>Definición</option>
+          <option>Recomendación de reporte</option>
+          <option>Duda o desacuerdo</option>
+          <option>Propuesta a la UIF</option>
+        </select>
+      </div>
+    </div>
+
+    <label>Descríbelo</label>
+    <textarea id="texto" placeholder="Ej.: teníamos una alerta configurada por número de claves distintas que recibe o envía una cuenta en el mes. Cuando pasa de cinco, la revisamos a mano. Ahí es donde hemos encontrado más inusualidades."></textarea>
+
+    <div class="anon">
+      <b>Sin datos identificables.</b> Nada de nombres, RFC, números de cuenta ni montos exactos de un cliente real.
+      Describe <i>comportamiento</i>, no personas. Si el caso solo se entiende con cifras, redondéalas.
+    </div>
+
+    <div class="seccion">Parámetro — si tu aporte es una regla de alertamiento</div>
+    <p class="hint">Esto es lo que más sirve para la ficha. Si no aplica, déjalo vacío.</p>
+    <div class="row3">
+      <div><label>Variable</label><input id="variable" placeholder="claves distintas por cuenta"></div>
+      <div><label>Umbral</label><input id="umbral" placeholder="5 o más"></div>
+      <div><label>Ventana</label><input id="ventana" placeholder="mes calendario"></div>
+    </div>
+
+    <label>¿Quién lo detecta?</label>
+    <select id="deteccion">
+      <option>Sistema automatizado</option>
+      <option>Análisis del oficial</option>
+      <option>Ambos</option>
+      <option>No aplica</option>
+    </select>
+
+    <div style="height:20px"></div>
+    <button class="btn primary" id="btn" onclick="enviar()">Enviar aporte</button>
+    <p class="note">Puedes mandar todos los que quieras. Cada envío es independiente.</p>
+
+    <div id="mios"></div>
+  </div>
+</div>
+
+<footer>
+  Material del <b>Taller de Tipologías de AMSOFIPO</b>, elaborado con fines exclusivamente didácticos y de capacitación.
+  No constituye asesoría ni consultoría jurídica, regulatoria o de cumplimiento, ni sustituye el criterio del oficial de
+  cumplimiento de cada institución. Desarrollado por 360educa y Lexquo.
+</footer>
+
+<script>
+const K='amsofipo_participa';
+const $=id=>document.getElementById(id);
+function esc(s){return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')}
+
+let mios=[];
+(function init(){
+  const p=new URLSearchParams(location.search);
+  let g={};
+  try{g=JSON.parse(localStorage.getItem(K)||'{}')}catch(e){}
+  $('codigo').value=(p.get('sala')||g.codigo||'').toUpperCase();
+  $('quien').value=g.quien||'';
+  $('institucion').value=g.institucion||'';
+  mios=g.mios||[];
+  pintarMios();
+})();
+
+function recordar(){
+  try{localStorage.setItem(K,JSON.stringify({
+    codigo:$('codigo').value.toUpperCase(),quien:$('quien').value,institucion:$('institucion').value,mios:mios.slice(-20)
+  }))}catch(e){}
+}
+function pintarMios(){
+  $('mios').innerHTML=mios.length?
+    '<div class="seccion">Lo que ya enviaste</div><div class="mios">'+
+    mios.map(m=>`<div><b>${esc(m.tip)}</b> · ${esc(m.campo)} — ${esc(m.texto.slice(0,110))}${m.texto.length>110?'…':''}</div>`).join('')+
+    '</div>':'';
+}
+function aviso(tipo,txt){
+  $('aviso').innerHTML=`<div class="${tipo}">${esc(txt)}</div>`;
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+async function enviar(){
+  const codigo=$('codigo').value.toUpperCase().replace(/[^A-Z0-9-]/g,'');
+  const texto=$('texto').value.trim();
+  if(codigo.length<3){aviso('err','Falta el código de la sala. Es el que se dicta al abrir la sesión.');return}
+  if(texto.length<15){aviso('err','Describe el aporte con un poco más de detalle.');return}
+  if(!$('quien').value.trim()){aviso('err','Pon tu nombre para que el aporte quede atribuido en el manual.');return}
+
+  const a={
+    cid:Date.now().toString(36)+'-'+Math.random().toString(36).slice(2,8),
+    tip:$('tip').value,campo:$('campo').value,texto,
+    variable:$('variable').value.trim(),umbral:$('umbral').value.trim(),ventana:$('ventana').value.trim(),
+    deteccion:$('deteccion').value,quien:$('quien').value.trim(),institucion:$('institucion').value.trim(),
+    origen:'participante',
+    hora:new Date().toLocaleTimeString('es-MX',{hour:'2-digit',minute:'2-digit'})
+  };
+
+  $('btn').disabled=true;$('btn').textContent='Enviando…';
+  try{
+    const r=await fetch('/api/sala',{method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({op:'aporte',codigo,aporte:a})});
+    const j=await r.json().catch(()=>({}));
+    if(r.ok){
+      mios.push(a);recordar();pintarMios();
+      $('texto').value='';['variable','umbral','ventana'].forEach(i=>$(i).value='');
+      aviso('ok','Aporte enviado. Ya aparece en el tablero de la sesión. Puedes mandar otro.');
+    }else{
+      aviso('err',j.error||'No se pudo enviar. Verifica el código de la sala.');
+    }
+  }catch(e){
+    aviso('err','No hay conexión con la sala. Copia tu texto por si acaso y vuelve a intentar en un momento.');
+  }
+  $('btn').disabled=false;$('btn').textContent='Enviar aporte';
+}
+</script>
+</body>
+</html>

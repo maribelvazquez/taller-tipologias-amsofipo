@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Herramientas · Comisión de PLD AMSOFIPO</title>
+<style>
+:root{
+  --bg:#FAF8FC; --panel:#FFFFFF; --panel2:#F6F2FA; --line:#E2D8EC; --line2:#CDBBDE;
+  --tx:#1C1026; --tx2:#4E3E60; --tx3:#7A6A8A; --acc:#8B2A93; --acc2:#6F2693;
+  --hdr1:#301457; --hdr2:#210E3A;
+  --f:"Segoe UI",system-ui,-apple-system,Roboto,Helvetica,Arial,sans-serif;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--tx);font-family:var(--f);font-size:17px;line-height:1.6}
+header{background:linear-gradient(90deg,var(--hdr1),var(--hdr2) 60%,#150725);color:#fff;padding:26px 20px}
+.hw{max-width:960px;margin:0 auto}
+header b{display:block;font-size:20px}
+header span{font-size:12.5px;color:rgba(255,255,255,.72);letter-spacing:.07em;text-transform:uppercase}
+.wrap{max-width:960px;margin:0 auto;padding:30px 20px 60px}
+h1{font-size:30px;margin:0 0 8px;letter-spacing:-.015em}
+.lead{color:var(--tx2);margin:0 0 26px;max-width:720px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:18px}
+.h{display:block;text-decoration:none;color:inherit;background:var(--panel);border:1px solid var(--line);
+  border-radius:16px;padding:24px 26px;transition:.18s;box-shadow:0 1px 3px rgba(45,20,70,.05)}
+.h:hover{border-color:var(--acc);transform:translateY(-2px);box-shadow:0 8px 22px rgba(60,25,90,.10)}
+.h .ic{font-size:30px;line-height:1;margin-bottom:12px}
+.h h3{margin:0 0 8px;font-size:19px}
+.h p{margin:0;font-size:15px;color:var(--tx2)}
+.h .cta{display:inline-block;margin-top:14px;font-size:14.5px;font-weight:600;color:var(--acc2)}
+.tag{display:inline-block;padding:4px 11px;border-radius:20px;font-size:12.5px;background:#F0E2F7;color:#6F2693;
+  border:1px solid #D9BEE8;font-weight:600;margin-bottom:10px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:24px 28px;margin-top:26px}
+.card h3{margin:0 0 10px;font-size:19px}
+.card ul{margin:0;padding-left:20px;color:var(--tx2)}
+.card li{margin-bottom:7px}
+footer{font-size:12.5px;color:var(--tx3);line-height:1.5;max-width:960px;margin:0 auto;padding:0 20px 40px}
+</style>
+</head>
+<body>
+<header><div class="hw"><b>Comisión de PLD · AMSOFIPO</b><span>Manual sectorial de tipologías</span></div></header>
+
+<div class="wrap">
+  <h1>Herramientas del taller</h1>
+  <p class="lead">Una sola liga que guardar. Aquí viven las tres herramientas de la Comisión y la forma de mandar aportes
+  entre sesiones. Se pueden usar en cualquier momento, no solo durante el taller.</p>
+
+  <div class="grid">
+    <a class="h" href="/">
+      <div class="ic">🕸</div>
+      <span class="tag">Taller</span>
+      <h3>Micrositio del taller</h3>
+      <p>Las sesiones completas con sus herramientas interactivas: simulador de red de cuentas mula, expediente vivo de
+      empresa fachada, línea de vida del crédito y estructura de propiedad en capas.</p>
+      <span class="cta">Abrir el taller →</span>
+    </a>
+
+    <a class="h" href="/participa">
+      <div class="ic">📝</div>
+      <span class="tag">Aportes</span>
+      <h3>Aporta al manual</h3>
+      <p>Manda señales de alerta, parámetros de alertamiento y casos reales anonimizados desde tu propio dispositivo.
+      Es la vía para cumplir el compromiso de un caso por tipología antes de cada sesión.</p>
+      <span class="cta">Enviar un aporte →</span>
+    </a>
+
+    <a class="h" href="https://tipologias-ia-360educa.netlify.app" target="_blank" rel="noopener">
+      <div class="ic">📚</div>
+      <span class="tag">Consulta</span>
+      <h3>Tipologías publicadas por la UIF</h3>
+      <p>El catálogo de tipologías publicadas, agrupable por corrupción, abuso de estructuras, fraude y explotación,
+      por grupo temático o por año. Incluye analizador de casos.</p>
+      <span class="cta">Consultar el catálogo →</span>
+    </a>
+
+    <a class="h" href="https://paises-riesgo-360risk.netlify.app" target="_blank" rel="noopener">
+      <div class="ic">🌎</div>
+      <span class="tag">Jurisdicciones</span>
+      <h3>Panel de riesgo de países</h3>
+      <p>187 jurisdicciones con GAFI, listas de la Unión Europea (antilavado y fiscal), sanciones OFAC, ONU y UE, y los
+      índices de corrupción, terrorismo y crimen organizado, con la fecha de corte de cada fuente.</p>
+      <span class="cta">Abrir el panel →</span>
+    </a>
+  </div>
+
+  <div class="card">
+    <h3>Cómo se usan en el ciclo del manual</h3>
+    <ul>
+      <li><b>Antes de la sesión.</b> Cada institución manda su caso real anonimizado por tipología desde <i>Aporta al manual</i>.</li>
+      <li><b>Durante la sesión.</b> El micrositio del taller proyecta, captura los aportes en vivo y recibe los que mandan los participantes desde su dispositivo.</li>
+      <li><b>Al cierre.</b> El taller exporta el insumo de la sesión en PDF y en Markdown: ese archivo es el borrador de las fichas.</li>
+      <li><b>Entre sesiones.</b> El catálogo de la UIF y el panel de jurisdicciones se consultan para el trabajo del día a día.</li>
+    </ul>
+  </div>
+</div>
+
+<footer>
+  Material de la <b>Comisión de PLD de AMSOFIPO</b>, elaborado con fines exclusivamente didácticos y de capacitación.
+  No constituye asesoría ni consultoría jurídica, regulatoria o de cumplimiento, ni sustituye el criterio del oficial de
+  cumplimiento de cada institución. Desarrollado por 360educa y Lexquo.
+</footer>
+</body>
+</html>

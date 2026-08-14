@@ -1,91 +1,142 @@
-# Guion del facilitador — Sesión 1 (60 min)
+# Guion del facilitador — Sesión 2 (60 min)
 
-> Documento de uso interno. **No se proyecta.** El micrositio ya no muestra ninguna
-> nota del facilitador en pantalla; si en algún momento las necesitas visibles,
-> presiona la tecla `N` o el botón *Notas* del encabezado.
+> Documento de uso interno. **No se proyecta.** El micrositio no muestra ninguna nota del
+> facilitador en pantalla; si en algún momento las necesitas visibles, presiona la tecla `N`.
 
-Navegación rápida: teclas `0` a `7`. El cronómetro se inicia con el botón del encabezado
-y va marcando el consumo de cada bloque en la barra segmentada.
+Navegación rápida: teclas `0` a `9`. El cronómetro se inicia con el botón del encabezado y
+va marcando el consumo de cada bloque en la barra segmentada.
 
 ---
 
-## 1 · Apertura y encuadre — 5 min
+## Antes de empezar (5 minutos antes)
 
-Abre con **"Qué está en juego"**. El dato de las multas y el de la prisión bajo el
-136 Bis 8 cambian el tono de la sala: esto no es un ejercicio académico.
+1. Abre **`/api/salud`**. Si dice *"Todo listo para la sesión"*, sigue. Si dice que no hay IA,
+   no pasa nada: el motor de reglas local responde igual y en la sesión no se nota.
+2. Abre **⚙ Sala** en el encabezado. Código sugerido: `AMSOFIPO-S2`. Modo **Facilitador**.
+3. Comprueba que Amanda entró en modo **Copiloto** con el mismo código.
+4. Elige **Sesión 2** en el selector del encabezado. El cronómetro y la barra lateral se
+   reconfiguran solos.
 
-Cierra el bloque con la línea del tiempo: hoy → manual → UIF. Deja claro que la
-ventana para proponer códigos se cierra cuando la UIF publique el layout.
+## Lo primero que dices (antes del bloque 1)
 
-**No te extiendas.** Si te pasas de 5 minutos, se lo quitas a las tipologías.
+Dicta el código de la sala y la liga de participantes —están en grande en la portada—.
+Pídeles que la abran **ahora**, no cuando llegue el espacio de aporte. Ese medio minuto es
+lo que decide si esta sesión captura 13 aportes o 30.
 
-## 2 · Metodología — 10 min
+Frase que funciona: *"Todo lo que escriban ahí entra tal cual a la ficha del manual, con su
+nombre y su institución. Lo que no se capture, se pierde."*
 
-Este es el bloque más comprimible. Si vas retrasada, resume la plantilla en 2 minutos
-y salta directo al termómetro.
+---
 
-El termómetro de prioridad es el primer momento participativo: pide que cada
-institución diga en voz alta sus 3 principales y tú vas dando clic. El ranking se
-ordena solo. Sirve para dos cosas: rompe el hielo y te deja el dato duro de qué
-tipologías van primero en el manual.
+## 1 · Apertura y encuadre — 3 min
 
-## 3 · Cuentas mula — 18 min
+Recuento breve de la sesión 1: se votaron las prioridades, se trabajaron cuentas mula y
+empresas fachada, y salieron 13 aportes con parámetros concretos.
 
-**No enciendas las señales tú.** Pregunta: *"¿qué tendría que ver su sistema para
-alertar esto?"* y ve encendiendo lo que ellos digan. El nivel de certeza sube y el
-grafo se va armando: el efecto es que la red aparece por aportación de ellos.
+Cierra recordando la ventana ante la UIF. **No te extiendas**: la sesión 1 se comió el tiempo
+de las tipologías en la parte expositiva.
 
-Si nadie menciona la convergencia en un beneficiario, guárdatela para el final —
-es la que lleva el marcador a 100% y cierra el punto: *con la apertura masiva sola
-no hay caso; la tipología la construye el cruce*.
+## 2 · Metodología — 4 min
 
-Reserva los últimos 5 minutos para el espacio de aporte. Ahí es donde salen los
-casos reales que alimentan el manual. Captura con el botón flotante.
+Solo si hay caras nuevas. Si el grupo es el mismo, salta directo al termómetro y pide que
+voten pensando en **la sesión 3**, no en esta.
 
-## 4 · Empresas fachada — 18 min
+## 3 · Crédito con pago anticipado atípico — 20 min
 
-El expediente funciona mejor como competencia. Divide en dos equipos y que cacen
-banderas por turnos. Son 7 verdaderas de 10 campos.
+**El punto de entrada es la trampa.** Empieza preguntando: *"¿alguien alerta hoy los prepagos?"*
+Casi seguro dirán que no, o que sí pero sin parámetro. Ahí es donde entra la línea de vida.
 
-Las tres que casi nadie encuentra: **capital social**, **origen de los recursos**
-y la relación entre **antigüedad y monto pretendido**. Si se atoran, ahí empuja.
+**No marques los hitos tú.** Ve preguntando por cada momento: *"¿esto les levanta bandera?"*
+Los tres primeros son inofensivos a propósito —el otorgamiento es limpio y los pagos son
+puntuales—: eso es parte del patrón y conviene que lo digan ellos.
 
-Deja tiempo para tentativas: es la duda más repetida de los oficiales y conviene
-que el manual le dedique un apartado propio. Pregunta directamente qué hacen hoy
-cuando el cliente se retira al pedirle el origen de recursos.
+La bandera que casi nadie ve primero es **el ordenante del pago**. Si nadie la menciona,
+guárdatela: es la que convierte "prepagó" en "otra persona liquidó su crédito".
 
-## 5 · Cierre — 9 min
+Reserva los últimos 6 minutos para el espacio de aporte. La pregunta útil es la del parámetro:
+*"¿a partir de qué porcentaje del plazo lo alertarían?"* Insiste en que digan un número.
+Ese número es la ficha.
 
-Ve a la sección 5 y muestra el tablero: aportes capturados, señales trabajadas,
-banderas identificadas, votos. Es la prueba visible de que la sesión produjo algo.
+## 4 · Beneficiario controlador oculto — 14 min
 
-Descarga el insumo con el botón. Ese archivo es el borrador de las fichas.
+El expediente de la estructura en capas se destapa nivel por nivel. Pregunta antes de cada
+capa: *"¿hasta aquí llega hoy su debida diligencia?"* Es incómodo y por eso funciona.
+
+La capa 4 —la sociedad extranjera sin accionistas públicos— es el punto de quiebre real.
+Ahí es donde la mayoría de los expedientes se cierran. Deja claro el criterio: **la
+imposibilidad de llegar al beneficiario controlador es en sí misma un hallazgo**, se documenta
+y se valora el reporte; no se archiva.
+
+La capa 5 es el remate: una persona con 0% del capital que decide todo. Si el comité solo revisa
+el 25%, esa persona no existe para la institución.
+
+## ★ Listas y jurisdicciones — 8 min
+
+Miriam lo pidió expresamente: hay consultas del sector sobre cómo documentar y reportar.
+
+Usa el asistente en vivo con los supuestos que ellos propongan. Los dos que más sirven:
+
+- **Coincidencia parcial (homonimia)** — el punto es que el descarte se documenta. Pregunta
+  directamente: *"¿qué queda en el expediente cuando descartan una homonimia?"*
+- **Coincidencia por vínculo** — la que más se pasa por alto. Se revisa al titular y no a sus
+  accionistas ni a su beneficiario controlador.
+
+Deja dicho que la ruta del asistente es criterio de trabajo del taller y cada institución la
+confirma contra las disposiciones que le aplican.
+
+## ✦ Reto con IA — 8 min
+
+**Este es el que quedó pendiente en la sesión 1. No lo sacrifiques.**
+
+Formato duelo: una institución dicta un comportamiento real anonimizado, el equipo B lo clasifica
+en voz alta, y hasta entonces le das *Analizar*. Lo que la IA no logre clasificar se guarda con
+el botón *Guardar como propuesta a la UIF*.
+
+Si el analizador responde *"Motor de reglas local"* en lugar de *"✦ Analizado con IA"*, no pasa
+nada y no lo menciones: el resultado se ve igual.
+
+## 5 · Cierre — 3 min
+
+Muestra el tablero: aportes capturados —incluidos los que mandaron desde su teléfono, que salen
+marcados como *enviado por el participante*—, señales, banderas y votos.
+
+Entra a **▲ Propuestas a la UIF** y muestra la lista acumulada. Es la prueba de que el ejercicio
+avanza hacia algo, no solo de que la sesión estuvo bonita.
+
+Descarga el insumo con **Generar PDF** y con **Descargar .md**. El `.md` es el que se sube al Drive.
 
 Compromisos que deben quedar dichos en voz alta:
-- Un caso real anonimizado por institución, por tipología, antes de la próxima sesión.
-- Fecha de la sesión de septiembre.
+
+- Un caso real anonimizado por institución, por tipología, **usando la liga de participantes**,
+  antes de la próxima sesión.
+- Andrea comparte su resumen de detecciones: domicilios y beneficiarios en común, contrapartes
+  repetidas y códigos de comercio.
+- Fecha de la sesión 3 y las dos tipologías que le tocan.
 
 ---
 
 ## Herramientas de reserva
 
-**Generador de casos (tecla 6).** Úsalo si sobra tiempo o si la sala está callada.
-Genera un caso, que voten, y evalúa. Cuando el grupo no coincida con el motor,
-ese desacuerdo es material del manual — captúralo.
-
-**Reto con IA (tecla 7).** El remate. Que una institución dicte un comportamiento
-real y la IA lo analice en vivo. Formato duelo: equipo A redacta, equipo B clasifica
-antes de ver el veredicto.
-
-Si el analizador responde *"Motor de reglas local"* en lugar de *"✦ Analizado con IA"*,
-no pasa nada y no lo menciones: el resultado se ve igual.
-
----
+**Generador de casos (tecla 6).** Úsalo si sobra tiempo o si la sala está callada. Genera un caso,
+que voten, y evalúa. Cuando el grupo no coincida con el motor, ese desacuerdo es material del
+manual — captúralo.
 
 ## Plan B de tiempos
 
 | Si vas… | Recorta |
 |---|---|
-| 5 min tarde | Metodología a la mitad, sin termómetro |
-| 10 min tarde | Además, empresas fachada a 12 min con "Revelar todo" |
-| Adelantada | Generador de casos entre bloques 3 y 4 |
+| 5 min tarde | Metodología completa; empieza en el crédito |
+| 10 min tarde | Además, listas a 4 min con un solo supuesto |
+| 15 min tarde | Beneficiario controlador con "Revelar todo" y comentario de 5 min |
+| Adelantada | Generador de casos entre los bloques 3 y 4 |
+
+**Lo que nunca se recorta:** los espacios de aporte y el reto con IA. Lo demás es exposición y la
+exposición se puede mandar por escrito.
+
+---
+
+## Lección de la sesión 1
+
+El bloque de cuentas mula se llevó 26 minutos de los 18 planeados, y ahí salió todo lo que sirve.
+El desbordamiento no fue un error de manejo del tiempo: fue la señal de dónde está el valor.
+Por eso la sesión 2 le da 20 y 14 minutos a las tipologías y comprime la parte expositiva.
