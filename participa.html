@@ -39,6 +39,8 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:var(--acc)}
 .btn.primary:disabled{opacity:.5;cursor:default}
 .anon{background:#FBEFD6;border:1px solid #E8CE93;border-radius:10px;padding:12px 15px;font-size:14.5px;color:#6b4500;margin:14px 0}
 .note{font-size:13.5px;color:var(--tx3);margin:8px 0 0}
+details.opc{margin-top:16px;border:1px solid var(--line,#ddd);border-radius:10px;padding:10px 14px}
+details.opc summary{cursor:pointer;font-weight:600;color:var(--tx2,#555)}
 .hint{font-size:13.5px;color:var(--tx3);margin:-2px 0 10px}
 .ok{background:#DDF3EA;border:1px solid #A9DCC8;color:#0b5f45;border-radius:11px;padding:15px 18px;margin-bottom:14px}
 .err{background:#FBE3E0;border:1px solid #EEB6AE;color:#8f2418;border-radius:11px;padding:15px 18px;margin-bottom:14px}
@@ -58,24 +60,34 @@ footer{font-size:12.5px;color:var(--tx3);line-height:1.5;padding:0 18px 40px;max
 
 <div class="wrap">
   <h1>Aporta al manual</h1>
-  <p class="lead">Lo que mandes aquí entra directo al insumo de la ficha. Sirve durante la sesión y también entre sesiones:
-  aquí es donde se sube <b>el caso real anonimizado por tipología</b> que quedó de compromiso.</p>
+  <p class="lead">Escribe lo que ves en tu operación. La liga sigue abierta entre sesiones: aquí también va <b>el caso anonimizado</b> que quedó de compromiso.</p>
 
   <div id="aviso"></div>
 
   <div class="card">
     <div class="sesbadge">Tus aportes se guardan en <b id="sesionVis">Sesión 1</b></div>
+    <label style="font-size:17px;color:var(--tx)">Tu idea o tu caso, como te salga</label>
+    <p class="hint">Una frase basta. Nosotros lo ordenamos para la ficha.</p>
+    <textarea id="texto" style="min-height:130px" placeholder="Ej.: teníamos una alerta configurada por número de claves distintas que recibe o envía una cuenta en el mes. Cuando pasa de cinco, la revisamos a mano. Ahí es donde hemos encontrado más inusualidades."></textarea>
+
+    <div class="anon">
+      <b>Sin datos identificables.</b> Nada de nombres, RFC, números de cuenta ni montos exactos de un cliente real.
+      Describe <i>comportamiento</i>, no personas. Si el caso solo se entiende con cifras, redondéalas.
+    </div>
+
     <label>Tu nombre</label>
     <input id="quien" placeholder="Nombre y apellido" autocomplete="name">
     <label>Institución</label>
     <input id="institucion" placeholder="Nombre de la SOFIPO" autocomplete="organization">
 
-    <div class="seccion">Tu aporte</div>
+    <details class="opc">
+      <summary>Agregar detalle (opcional)</summary>
 
     <div class="row">
       <div>
         <label>Tipología / bloque</label>
         <select id="tip">
+          <option>Sin clasificar</option>
           <option>Cuentas mula</option>
           <option>Empresas fachada</option>
           <option>Crédito con pago anticipado atípico</option>
@@ -90,6 +102,7 @@ footer{font-size:12.5px;color:var(--tx3);line-height:1.5;padding:0 18px 40px;max
       <div>
         <label>Tipo de aporte</label>
         <select id="campo">
+          <option>Idea libre</option>
           <option>Caso real</option>
           <option>Señal de alerta</option>
           <option>Parámetro de alertamiento</option>
@@ -102,14 +115,6 @@ footer{font-size:12.5px;color:var(--tx3);line-height:1.5;padding:0 18px 40px;max
       </div>
     </div>
 
-    <label>Descríbelo</label>
-    <textarea id="texto" placeholder="Ej.: teníamos una alerta configurada por número de claves distintas que recibe o envía una cuenta en el mes. Cuando pasa de cinco, la revisamos a mano. Ahí es donde hemos encontrado más inusualidades."></textarea>
-
-    <div class="anon">
-      <b>Sin datos identificables.</b> Nada de nombres, RFC, números de cuenta ni montos exactos de un cliente real.
-      Describe <i>comportamiento</i>, no personas. Si el caso solo se entiende con cifras, redondéalas.
-    </div>
-
     <div class="seccion">Parámetro — si tu aporte es una regla de alertamiento</div>
     <p class="hint">Esto es lo que más sirve para la ficha. Si no aplica, déjalo vacío.</p>
     <div class="row3">
@@ -120,12 +125,14 @@ footer{font-size:12.5px;color:var(--tx3);line-height:1.5;padding:0 18px 40px;max
 
     <label>¿Quién lo detecta?</label>
     <select id="deteccion">
+      <option>Sin especificar</option>
       <option>Sistema automatizado</option>
       <option>Análisis del oficial</option>
       <option>Ambos</option>
       <option>No aplica</option>
     </select>
 
+    </details>
     <div style="height:20px"></div>
     <button class="btn primary" id="btn" onclick="enviar()">Enviar aporte</button>
     <p class="note">Puedes mandar todos los que quieras. Cada envío es independiente.</p>
@@ -208,7 +215,7 @@ function aviso(tipo,txt){
 
 async function enviar(){
   const texto=$('texto').value.trim();
-  if(texto.length<15){aviso('err','Describe el aporte con un poco más de detalle.');return}
+  if(texto.length<12){aviso('err','Escribe al menos una frase.');return}
   if(!$('quien').value.trim()){aviso('err','Pon tu nombre para que el aporte quede atribuido en el manual.');return}
 
   const a={
