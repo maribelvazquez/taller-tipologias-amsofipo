@@ -164,6 +164,13 @@ label{font-size:14px;color:var(--tx3);text-transform:uppercase;letter-spacing:.0
 .ap{border:1px solid var(--line);border-radius:11px;padding:16px 18px;margin-bottom:11px;background:var(--panel);font-size:18px}
 .ap .meta{font-size:14px;color:var(--tx3);margin-bottom:4px;display:flex;gap:8px;align-items:center}
 .empty{color:var(--tx3);font-style:italic;padding:22px;text-align:center;border:1px dashed var(--line2);border-radius:12px;font-size:16px}
+.ptab{width:100%;border-collapse:collapse;font-size:14.5px;margin-top:8px}
+.ptab th{text-align:left;font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--tx3);border-bottom:2px solid var(--line);padding:8px 10px}
+.ptab td{vertical-align:top;border-bottom:1px solid var(--line);padding:10px;color:var(--tx2)}
+.ptab td b{color:var(--tx)}.ptab td small{display:block;color:var(--tx3);font-size:12.5px;margin-top:2px}
+@media(max-width:760px){.ptab{font-size:13px}.ptab th:nth-child(4),.ptab td:nth-child(4){display:none}}
+.rad{display:grid;grid-template-columns:1fr 1fr;gap:14px}@media(max-width:760px){.rad{grid-template-columns:1fr}}
+.rrow2{display:grid;grid-template-columns:1fr 34px;gap:10px;align-items:center;margin:7px 0}
 .kpi{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:16px 0}
 .kpi div{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:20px 22px}
 .kpi b{display:block;font-size:40px;font-variant-numeric:tabular-nums;line-height:1.2}
@@ -665,7 +672,7 @@ header{overflow:hidden}
         <li>Cada SOFIPO envía <b>1 caso real anonimizado</b> por tipología antes de la siguiente sesión.</li>
         <li>El equipo facilitador arma la ficha borrador de cuentas mula y empresas fachada.</li>
         <li>Se integra la lista de <b>códigos faltantes</b> para llevar a la UIF.</li>
-        <li>Confirmación de la dinámica y fecha de la sesión de septiembre.</li>
+        <li>Confirmación de la fecha de la siguiente sesión y de las dos tipologías que le tocan.</li>
       </ul>
     </div>
     <div class="card">
@@ -699,6 +706,26 @@ header{overflow:hidden}
       <button class="btn sm ghost" onclick="resetCredito()">Reiniciar</button>
       <button class="btn sm" onclick="revelarCredito()">Revelar todo</button>
     </div>
+  </div>
+
+  <div class="card">
+    <h3>Lo que ya aportó el comité · cuatro maneras de parametrizar el prepago</h3>
+    <p style="color:var(--tx2);margin-top:0">Aportes de la sesión 2 (10 de septiembre), más la referencia del compendio. No hay una correcta: cada una ve un riesgo distinto. La pregunta es <b>cuál recomienda el manual como criterio mínimo del sector</b>.</p>
+    <table class="ptab">
+      <thead><tr><th>Regla</th><th>Variable</th><th>Umbral</th><th>Qué ve bien</th><th>Qué se le escapa</th></tr></thead>
+      <tbody>
+        <tr><td><b>Días desde el otorgamiento</b><small>Aporte de Irving</small></td><td>Días entre la disposición y la liquidación</td><td>≤ 30 días</td><td>Simple; cualquier sistema lo configura</td><td>Créditos largos: liquidar en el mes 2 de 36 (5 % del plazo) no alerta</td></tr>
+        <tr><td><b>Porcentaje del plazo</b><small>Aporte de David</small></td><td>% del plazo transcurrido</td><td>&lt; 20 %</td><td>Se ajusta a créditos de cualquier plazo</td><td>No distingue quién paga ni con qué</td></tr>
+        <tr><td><b>Plazo según nivel de riesgo</b><small>Aporte de Eduardo Cedillo</small></td><td>% del plazo × nivel de riesgo del cliente</td><td>90 / 75 / 50 % <i>(sentido por confirmar)</i></td><td>Liga la alerta con la matriz de riesgo</td><td>Requiere que el sistema cruce las dos variables</td></tr>
+        <tr><td><b>Saldo, ingreso y ordenante</b><small>Referencia del compendio</small></td><td>Saldo liquidado, ingreso declarado y quién paga</td><td>≥ 50 % del saldo antes del 25 % del plazo · &gt; 3 veces el ingreso mensual · tercero no obligado</td><td>Mira el origen, no sólo el calendario</td><td>Más campos que capturar y mantener</td></tr>
+      </tbody>
+    </table>
+    <p class="note">Para confirmar con Eduardo en la sesión: si el cliente es de riesgo <b>alto</b>, ¿la alerta salta en más casos (umbral más amplio) o en menos? En la sesión 2 quedó al revés en la explicación.</p>
+  </div>
+
+  <div class="card" style="border-left:4px solid var(--acc,#A94DB0)">
+    <h3>Lo que dijo el sector en la Convención</h3>
+    <p style="color:var(--tx2);margin:0">Las dos respuestas reales a <i>«¿qué comportamiento no describe hoy el catálogo de la UIF?»</i> hablan de lo mismo: <b>liquidaciones de crédito sin explicación congruente</b>. Y quienes ven prepagos atípicos dicen que <b>los detecta el sistema</b>, no el analista. Candidata directa a propuesta a la UIF.</p>
   </div>
 
   <div id="crHallazgos"></div>
@@ -783,6 +810,112 @@ header{overflow:hidden}
   <div class="aporte">
     <b>💬 Espacio de aporte</b> — ¿Hasta qué capa llegan hoy y qué hacen cuando el cliente no puede o no quiere documentar la estructura?
     <button class="btn sm" style="margin-top:8px" onclick="abrirAporte('Beneficiario controlador oculto')">Capturar aporte</button>
+  </div>
+</section>
+
+<!-- ========== 12 RADAR DE LA CONVENCIÓN ========== -->
+<section id="s12">
+  <div class="kicker">Radar de Tipologías</div>
+  <h1>Lo que nos dijeron en la Convención</h1>
+  <p class="lead"><b>Objetivo.</b> Contrastar lo que trabaja el comité con lo que respondieron los asistentes de la <b>11ª Convención AMSOFIPO</b> (30 de septiembre y 1 de octubre) en el Radar de Tipologías.</p>
+
+  <div class="kpi">
+    <div><b>8</b><small>respuestas válidas</small></div>
+    <div><b>5</b><small>de SOFIPOS (digitales y con sucursales)</small></div>
+    <div><b>3</b><small>de otras entidades y consultoras</small></div>
+    <div><b>2</b><small>señalan un hueco del catálogo de la UIF</small></div>
+  </div>
+  <p class="note">Muestra pequeña: es un <b>indicio</b> para orientar el manual, no una estadística del sector. Se presentan sólo datos agregados; se excluyeron las respuestas de prueba del equipo facilitador.</p>
+
+  <div class="rad">
+    <div class="card">
+      <h3>¿Qué comportamientos han visto en el último año?</h3>
+      <div class="rrow2"><div class="rbar2"><i style="width:38%"></i><span>Tentativas</span></div><b style="text-align:right">3</b></div>
+      <div class="rrow2"><div class="rbar2"><i style="width:38%"></i><span>Pago anticipado atípico de crédito</span></div><b style="text-align:right">3</b></div>
+      <div class="rrow2"><div class="rbar2"><i style="width:25%"></i><span>Empresas fachada</span></div><b style="text-align:right">2</b></div>
+      <div class="rrow2"><div class="rbar2"><i style="width:25%"></i><span>Clientes vinculados no declarados</span></div><b style="text-align:right">2</b></div>
+      <div class="rrow2"><div class="rbar2"><i style="width:12%"></i><span>Cuentas mula</span></div><b style="text-align:right">1</b></div>
+      <div class="rrow2"><div class="rbar2"><i style="width:12%"></i><span>Tercero que opera la cuenta</span></div><b style="text-align:right">1</b></div>
+      <div class="rrow2"><div class="rbar2"><i style="width:12%"></i><span>Cuentas dormidas que se reactivan</span></div><b style="text-align:right">1</b></div>
+      <p class="note">Las dos más vistas son justo las de hoy.</p>
+    </div>
+    <div class="card">
+      <h3>¿Cuál es el paso más complicado?</h3>
+      <div class="rrow2"><div class="rbar2"><i style="width:38%"></i><span>Decidir si se reporta</span></div><b style="text-align:right">3</b></div>
+      <div class="rrow2"><div class="rbar2"><i style="width:25%"></i><span>Juntar la evidencia</span></div><b style="text-align:right">2</b></div>
+      <div class="rrow2"><div class="rbar2"><i style="width:12%"></i><span>Sostenerlo ante la CNBV</span></div><b style="text-align:right">1</b></div>
+      <div class="rrow2"><div class="rbar2"><i style="width:12%"></i><span>Qué hacer con una tentativa</span></div><b style="text-align:right">1</b></div>
+      <div class="rrow2"><div class="rbar2"><i style="width:12%"></i><span>Detectarlo</span></div><b style="text-align:right">1</b></div>
+      <p class="note">El problema no es detectar: es <b>decidir y documentar</b>. Es lo que el manual tiene que resolver.</p>
+    </div>
+    <div class="card">
+      <h3>¿Qué alerta da más trabajo y menos resultado?</h3>
+      <div class="rrow2"><div class="rbar2"><i style="width:38%"></i><span>Operaciones en efectivo</span></div><b style="text-align:right">3</b></div>
+      <div class="rrow2"><div class="rbar2"><i style="width:38%"></i><span>Monto o frecuencia inusual</span></div><b style="text-align:right">3</b></div>
+      <div class="rrow2"><div class="rbar2"><i style="width:25%"></i><span>Depósitos de terceros</span></div><b style="text-align:right">2</b></div>
+      <p class="note">Las alertas por monto generan volumen, pero no generan casos.</p>
+    </div>
+    <div class="card">
+      <h3>Lo que el catálogo de la UIF no describe</h3>
+      <ul>
+        <li>«Liquidaciones sin explicaciones o razones congruentes».</li>
+        <li>«Lo referente con los clientes de créditos».</li>
+      </ul>
+      <p class="note">Las dos apuntan al crédito. Lo retomamos en el siguiente bloque.</p>
+    </div>
+  </div>
+
+  <div class="aporte">
+    <b>💬 Espacio de aporte</b> — ¿Se reconocen en estos resultados? ¿Qué les falta?
+    <button class="btn sm" style="margin-top:8px" onclick="abrirAporte('Metodología')">Capturar aporte</button>
+  </div>
+</section>
+
+<!-- ========== 13 TENTATIVAS ========== -->
+<section id="s13">
+  <div class="kicker">Bloque 5 · 10 minutos</div>
+  <h1>Tentativas</h1>
+  <p class="lead"><b>Objetivo.</b> Abrir el apartado que pidió el comité: qué se documenta y cómo se narra cuando <b>la relación no se concreta</b>, porque la institución la rechaza o porque el cliente se retira al pedirle el origen de los recursos.</p>
+
+  <div class="grid g2">
+    <div class="card">
+      <h3>El caso de la sesión 2</h3>
+      <p style="color:var(--tx2);margin-top:0">Una SOFIPO 100 % digital. Un prospecto quiere abrir una cuenta para recibir un monto muy por encima de su perfil, por la supuesta venta de un inmueble.</p>
+      <ul>
+        <li><b>Actividad económica sin sustento:</b> se declara independiente, sin giro ni ingresos.</li>
+        <li><b>Expediente incompleto:</b> sin constancia fiscal, sin datos de contacto completos.</li>
+        <li><b>Origen no acreditado:</b> dice venta de inmueble; no hay ningún documento.</li>
+        <li><b>La historia cambia:</b> después, el dinero llegaría primero a la cuenta de un familiar.</li>
+        <li>Listas: sin coincidencia. Fuentes abiertas: coincidencias de apellidos y zona de riesgo, <b>no concluyentes por sí solas</b>.</li>
+      </ul>
+      <p class="note">Ningún elemento decidía solo. Decidió la <b>convergencia</b>: se rechazó la relación, se documentó, el Comité de Comunicación y Control resolvió y se presentó reporte de operación inusual.</p>
+    </div>
+    <div class="card">
+      <h3>Dos supuestos que no hay que confundir</h3>
+      <table class="ptab">
+        <thead><tr><th></th><th>Reporte de 24 horas</th><th>Reporte de operación inusual</th></tr></thead>
+        <tbody>
+          <tr><td><b>Qué lo dispara</b></td><td>Coincidencia con la Lista de Personas Bloqueadas</td><td>Sospecha razonada: el comportamiento no cuadra con el perfil</td></tr>
+          <tr><td><b>Requiere lista</b></td><td>Sí</td><td>No. Basta el análisis de la institución</td></tr>
+          <tr><td><b>En el caso</b></td><td>No aplicaba: no hubo coincidencia</td><td>Sí, por dictamen del comité</td></tr>
+        </tbody>
+      </table>
+      <p class="note">Criterio de trabajo del taller. Cada institución lo confirma contra las disposiciones que le aplican.</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Lo que el manual tiene que fijar</h3>
+    <ul>
+      <li><b>Qué se conserva</b> de una tentativa: entrevista, documentos pedidos y no entregados, búsquedas hechas y su resultado.</li>
+      <li><b>Cuándo se reporta</b> una relación que nunca existió, y cómo se narra sin operación de por medio.</li>
+      <li><b>Listas internas:</b> en la sesión 2, dos instituciones dijeron que alimentan una lista propia con estos hallazgos y con los requerimientos de la autoridad. ¿Se recomienda como práctica del sector?</li>
+    </ul>
+  </div>
+
+  <div class="aporte">
+    <b>💬 Espacio de aporte</b> — Cuando un prospecto se retira al pedirle el origen de los recursos, ¿qué queda hoy en su expediente? ¿Lo valoran para reporte?
+    <button class="btn sm" style="margin-top:8px" onclick="abrirAporte('Tentativas')">Capturar aporte</button>
   </div>
 </section>
 
@@ -1013,7 +1146,9 @@ const BLOQUES=[
  {id:4, n:'4', t:'Empresas fachada',         s:''},
  {id:8, n:'3', t:'Crédito con prepago atípico', s:''},
  {id:9, n:'4', t:'Beneficiario controlador oculto', s:''},
- {id:10,n:'★', t:'Listas y jurisdicciones',  s:''},
+ {id:12,n:'◎', t:'Lo que nos dijeron en la Convención', s:'Radar de Tipologías'},
+ {id:13,n:'◆', t:'Tentativas', s:''},
+ {id:10,n:'★', t:'Listas y jurisdicciones',  s:'Reserva'},
  {id:5, n:'5', t:'Cierre y siguientes pasos',s:''},
  {id:6, n:'⚡',t:'Generador de casos',        s:'Herramienta transversal'},
  {id:7, n:'✦', t:'Reto con IA',              s:'Formulen y analicen su caso'},
@@ -1039,15 +1174,25 @@ const SESIONES={
       ['🧅 Estructura en capas','Una cadena de propiedad que se destapa nivel por nivel hasta llegar a quien realmente decide.'],
       ['✦ Reto con IA','Modo duelo: un equipo redacta el caso y el otro lo clasifica antes de ver el veredicto.']],
     tiempos:{1:3,2:4,8:20,9:14,10:8,7:8,5:3},
-    bloques:[0,1,2,8,9,10,7,6,5,11]}
+    bloques:[0,1,2,8,9,10,7,6,5,11]},
+
+ 3:{titulo:'Cierre de crédito anticipado, beneficiario controlador oculto y tentativas',
+    lead:'Cerrar el criterio del comité sobre <b>crédito con pago anticipado atípico</b> con las parametrizaciones que ya se aportaron, aterrizar <b>beneficiario controlador oculto</b> —que quedó pendiente en la sesión 2— y abrir el apartado de <b>tentativas</b> con el caso que se presentó en la sesión anterior. Arrancamos con lo que dijo el sector en la Convención.',
+    resumen:'Convención + crédito + beneficiario + tentativas',
+    herramientas:[
+      ['◎ Radar de la Convención','Lo que respondieron los asistentes de la 11ª Convención: qué ven, qué les cuesta más trabajo y qué no describe el catálogo.'],
+      ['📊 Cuatro maneras de parametrizar','Las reglas de prepago que aportó el comité, lado a lado, para fijar un criterio del sector.'],
+      ['🧅 Estructura en capas','Una cadena de propiedad que se destapa nivel por nivel hasta llegar a quien realmente decide.']],
+    tiempos:{1:3,12:4,8:15,9:18,13:10,5:7},
+    bloques:[0,1,12,8,9,13,10,7,6,5,11]}
 };
 
-const PADRON=['Miriam Chávez','Ana Lidia','Andrea','Carla','Carlos Cedillo','David','Ivonne',
- 'Jonathan','Luis Baena','Reina','Amanda · 360educa','Maribel Vázquez · 360educa'];
+const PADRON=['Miriam Chávez','Sandro','Ana Lidia','Andrea','Anel López','Carla','Carlos Cedillo','David','Eduardo Cedillo','Irina','Irving','Ivonne',
+ 'Jonathan','Luis Baena','María Teresa','Reina','Amanda · 360educa','Maribel Vázquez · 360educa'];
 
 /* ============ ESTADO ============ */
 const CLAVE='amsofipo_taller_v4';
-let ST={sesion:2, sala:{codigo:'',modo:'local'}, perfil:{quien:'',institucion:''}, roster:PADRON.slice(), ses:{}, propuestas:[]};
+let ST={sesion:3, sala:{codigo:'',modo:'local'}, perfil:{quien:'',institucion:''}, roster:PADRON.slice(), ses:{}, propuestas:[]};
 
 function sesionVacia(){return {aportes:[],votos:{},activas:[],hall:[],credito:[],capas:0,listas:{}}}
 let aportes=[],votos={},activas=new Set(),hall=[],credito=new Set(),capasAbiertas=0,listaSel={};
@@ -1069,7 +1214,8 @@ function guardarEstado(){
 function cargarEstado(){
   try{
     const d=JSON.parse(localStorage.getItem(CLAVE)||'null');
-    if(d&&d.ses){ST={...ST,...d};ST.sala=d.sala||{codigo:'',modo:'local'};ST.roster=d.roster&&d.roster.length?d.roster:PADRON.slice();}
+    if(d&&d.ses){ST={...ST,...d};ST.sala=d.sala||{codigo:'',modo:'local'};ST.roster=d.roster&&d.roster.length?[...new Set([...d.roster,...PADRON])]:PADRON.slice();}
+    ST.sesion=Math.max(...Object.keys(SESIONES).map(Number));
   }catch(e){}
   if(!ST.perfil)ST.perfil={quien:'',institucion:''};
   leerLiga();
@@ -1659,6 +1805,8 @@ function bloqueActivo(){
   const tip=TIPOLOGIAS.find(t=>t.sec===id);
   if(tip)return tip.nombre;
   if(id===10)return 'Listas y jurisdicciones';
+  if(id===13)return 'Tentativas';
+  if(id===12)return 'Metodología';
   if(id===2)return 'Metodología';
   if(id===6)return 'Generador de casos';
   if(id===11)return 'Propuesta a la UIF';
