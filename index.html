@@ -171,6 +171,10 @@ label{font-size:14px;color:var(--tx3);text-transform:uppercase;letter-spacing:.0
 @media(max-width:760px){.ptab{font-size:13px}.ptab th:nth-child(4),.ptab td:nth-child(4){display:none}}
 .rad{display:grid;grid-template-columns:1fr 1fr;gap:14px}@media(max-width:760px){.rad{grid-template-columns:1fr}}
 .rrow2{display:grid;grid-template-columns:1fr 34px;gap:10px;align-items:center;margin:7px 0}
+.vgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:14px 0}@media(max-width:760px){.vgrid{grid-template-columns:1fr}}
+.vcard{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:14px 16px;font-size:14.5px}
+.vcard b{display:block;font-size:16px;margin-bottom:6px}.vcard div{color:var(--tx2);padding:3px 6px;border-radius:6px;margin:2px -6px;transition:background .3s}
+.vcard div.hit{background:#F3D9F7;color:#1C1026;font-weight:600}
 .kpi{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:16px 0}
 .kpi div{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:20px 22px}
 .kpi b{display:block;font-size:40px;font-variant-numeric:tabular-nums;line-height:1.2}
@@ -817,7 +821,7 @@ header{overflow:hidden}
 <section id="s12">
   <div class="kicker">Radar de Tipologías</div>
   <h1>Radar en vivo</h1>
-  <p class="lead"><b>Objetivo.</b> Que el comité conteste el mismo Radar que se levantó en la <b>11ª Convención AMSOFIPO</b> (30 de septiembre y 1 de octubre), y comparar. Las dos tipologías más comunes son las que trabajamos hoy.</p>
+  <p class="lead"><b>Objetivo.</b> Que el comité conteste el mismo Radar que se levantó en la <b>11ª Convención AMSOFIPO</b> (30 de septiembre y 1 de octubre), y comparar. Las dos más comunes que todavía no hemos visto son las que trabajamos hoy.</p>
 
   <div class="card" style="display:flex;gap:18px;align-items:center;flex-wrap:wrap">
     <div style="flex:1;min-width:260px">
@@ -828,7 +832,7 @@ header{overflow:hidden}
     </div>
     <div style="flex:1;min-width:260px">
       <h3 style="margin-top:0">2 · Comparamos en vivo</h3>
-      <p style="color:var(--tx2);margin:0">Las barras moradas son del comité y se llenan conforme contestan. El número gris es lo que respondió la Convención. Las dos más vistas son las que trabajamos hoy.</p>
+      <p style="color:var(--tx2);margin:0">Las barras moradas son del comité y se llenan conforme contestan. El número gris es lo que respondió la Convención. Trabajamos las dos más vistas que todavía no hemos visto en el taller (mula, fachada y crédito ya se vieron).</p>
     </div>
   </div>
 
@@ -936,6 +940,59 @@ header{overflow:hidden}
   </div>
 </section>
 
+<!-- ========== 14 CLIENTES VINCULADOS NO DECLARADOS ========== -->
+<section id="s14">
+  <div class="kicker">Clientes vinculados no declarados</div>
+  <h1>Clientes vinculados no declarados</h1>
+  <p class="lead"><b>Objetivo.</b> Varias personas que aparentan ser independientes y operan como grupo. <b>Por separado, cada una se ve normal</b>; juntas fraccionan una operación, forman una red de paso o esconden a un mismo beneficiario.</p>
+
+  <div class="card tight" style="display:flex;gap:14px;align-items:center;flex-wrap:wrap">
+    <span class="tag b">¿Quién está conectado?</span>
+    <span style="color:var(--tx2);font-size:14px">Seis altas de la misma semana. Primero, ¿ven algo raro mirando cliente por cliente? Luego crucen los datos.</span>
+    <span style="margin-left:auto;display:flex;gap:8px;flex-wrap:wrap">
+      <button class="btn sm" onclick="vincCruzar('tel')">Cruzar teléfono</button>
+      <button class="btn sm" onclick="vincCruzar('dom')">Cruzar domicilio</button>
+      <button class="btn sm" onclick="vincCruzar('ref')">Cruzar referidor</button>
+      <button class="btn sm" onclick="vincCruzar('dest')">Cruzar cuenta destino</button>
+      <button class="btn sm ghost" onclick="vincCruzar(null)">Reiniciar</button>
+    </span>
+  </div>
+  <div class="vgrid" id="vincGrid"></div>
+  <div class="verdict" id="vincVerdict">Cliente por cliente, ninguno rebasa un umbral. Ése es el punto: el monitoreo por cliente no ve al grupo.</div>
+
+  <div class="hr"></div>
+  <div class="grid g2">
+    <div class="card">
+      <h3>Señales observables</h3>
+      <ul>
+        <li>Mismo domicilio, teléfono o correo en personas <b>sin parentesco declarado</b>.</li>
+        <li>Mismo <b>promotor o referidor</b> para un grupo de altas en pocos días.</li>
+        <li>Mismos <b>beneficiarios</b> en cuentas de personas distintas.</li>
+        <li>Fondos de varias cuentas que <b>convergen en una sola cuenta destino</b>.</li>
+        <li>La <b>suma del grupo</b> rebasa un umbral que ninguna cuenta rebasa por sí sola.</li>
+        <li>Pagos de créditos de unos con recursos de otros.</li>
+      </ul>
+      <p class="note">Ya lo había aportado el comité en la sesión 1: «domicilio coincidente + beneficiario en común».</p>
+    </div>
+    <div class="card">
+      <h3>Parámetros de referencia</h3>
+      <ul>
+        <li>2 o más clientes sin parentesco declarado que comparten teléfono, correo o dispositivo.</li>
+        <li>5 o más cuentas que transfieren a un mismo destino en 30 días.</li>
+        <li>Operaciones del grupo que, sumadas, rebasan el umbral de reporte de la institución.</li>
+      </ul>
+      <p class="note">Ejemplos ilustrativos; cada institución calibra con su matriz de riesgo.</p>
+      <h3 style="margin-top:16px">Cómo narrarlo</h3>
+      <p style="color:var(--tx2);margin:0">Un solo reporte con la descripción del <b>grupo completo</b>: cuántos clientes, qué dato comparten, cuánto suman y a dónde va el dinero. Es la misma lógica que el anillo de cuentas mula de la sesión 1.</p>
+    </div>
+  </div>
+
+  <div class="aporte">
+    <b>💬 Espacio de aporte</b> — ¿Su sistema cruza datos de contacto, domicilio o dispositivo <b>entre expedientes</b>, o sólo dentro de cada cliente? ¿Qué cruce les ha dado resultados?
+    <button class="btn sm" style="margin-top:8px" onclick="abrirAporte('Otro')">Capturar aporte</button>
+  </div>
+</section>
+
 <!-- ========== 10 LISTAS INTERNACIONALES ========== -->
 <section id="s10">
   <div class="kicker">Apartado transversal · 10 minutos</div>
@@ -1022,8 +1079,19 @@ header{overflow:hidden}
 
 <dialog id="dlg"><div class="dlg">
   <h3 style="margin-bottom:4px">Capturar aporte del comité</h3>
-  <p class="hint">Lo que se llene aquí sale tal cual en la ficha del manual. Entre más específico el parámetro, menos trabajo después.</p>
+  <p class="hint">Escríbelo como salga. El detalle es opcional; nosotros lo ordenamos para la ficha.</p>
 
+  <label>Aporte</label>
+  <textarea id="apTexto" placeholder="Ej.: nos disparó la alerta que 14 altas compartían el mismo modelo de dispositivo y operaron entre sí en menos de 6 horas..."></textarea>
+
+  <div class="anon">
+    <b>Sin datos identificables.</b> Nada de nombres, RFC, números de cuenta ni montos exactos de un cliente real.
+    Describimos <i>comportamiento</i>, no personas.
+  </div>
+
+  <details class="opc" style="margin:12px 0 4px;border:1px solid var(--line);border-radius:10px;padding:10px 14px">
+    <summary style="cursor:pointer;font-weight:600;color:var(--tx2)">Agregar detalle (opcional): tipología, tipo de aporte y parámetro</summary>
+    <div style="height:10px"></div>
   <div class="frow">
     <div>
       <label>Tipología / bloque</label>
@@ -1044,15 +1112,7 @@ header{overflow:hidden}
     </div>
   </div>
 
-  <div style="height:10px"></div>
-  <label>Aporte</label>
-  <textarea id="apTexto" placeholder="Ej.: nos disparó la alerta que 14 altas compartían el mismo modelo de dispositivo y operaron entre sí en menos de 6 horas..."></textarea>
-
-  <div class="anon">
-    <b>Sin datos identificables.</b> Nada de nombres, RFC, números de cuenta ni montos exactos de un cliente real.
-    Describimos <i>comportamiento</i>, no personas.
-  </div>
-
+    <div style="height:10px"></div>
   <div style="font-size:14px;color:var(--tx3);letter-spacing:.06em;text-transform:uppercase;margin:6px 0 8px">
     Parámetro — si el aporte es una regla de alertamiento
   </div>
@@ -1071,6 +1131,7 @@ header{overflow:hidden}
     </div>
   </div>
 
+  </details>
   <div style="height:10px"></div>
   <div class="frow3">
     <div>
@@ -1161,10 +1222,11 @@ const BLOQUES=[
  {id:2, n:'2', t:'Metodología del manual',   s:''},
  {id:3, n:'3', t:'Cuentas mula',             s:''},
  {id:4, n:'4', t:'Empresas fachada',         s:''},
- {id:8, n:'3', t:'Crédito con prepago atípico', s:''},
+ {id:8, n:'3', t:'Crédito con prepago atípico', s:'Visto en la sesión 2'},
  {id:9, n:'4', t:'Beneficiario controlador oculto', s:'Pasa a la sesión 4'},
  {id:12,n:'◎', t:'Radar en vivo', s:'Radar de Tipologías'},
  {id:13,n:'◆', t:'Tentativas', s:''},
+ {id:14,n:'◇', t:'Clientes vinculados no declarados', s:''},
  {id:10,n:'★', t:'Listas y jurisdicciones',  s:'Reserva'},
  {id:5, n:'5', t:'Cierre y siguientes pasos',s:''},
  {id:6, n:'⚡',t:'Generador de casos',        s:'Herramienta transversal'},
@@ -1194,14 +1256,14 @@ const SESIONES={
     bloques:[0,1,2,8,9,10,7,6,5,11]},
 
  3:{titulo:'Radar en vivo y las dos tipologías más comunes',
-    lead:'El comité contesta en vivo el <b>Radar de Tipologías</b> que se levantó en la 11ª Convención, comparamos sus respuestas con las del sector y trabajamos <b>las dos tipologías más comunes</b> que salgan: si se confirma lo de la Convención, <b>pago anticipado atípico de crédito</b> y <b>tentativas</b>.',
-    resumen:'Radar en vivo + 2 tipologías más comunes',
+    lead:'El comité contesta en vivo el <b>Radar de Tipologías</b> que se levantó en la 11ª Convención, comparamos sus respuestas con las del sector y trabajamos <b>las dos más comunes que todavía no hemos visto</b>: si se confirma lo de la Convención, <b>tentativas</b> y <b>clientes vinculados no declarados</b>.',
+    resumen:'Radar en vivo + tentativas + clientes vinculados',
     herramientas:[
       ['◎ Radar en vivo','El comité contesta desde su celular y se compara con lo que respondió la Convención.'],
-      ['📊 Cuatro maneras de parametrizar','Las reglas de prepago que aportó el comité, lado a lado, para fijar un criterio del sector.'],
+      ['🔗 ¿Quién está conectado?','Seis clientes que parecen independientes. Al cruzar sus datos aparece el grupo.'],
       ['◆ Tentativas','El caso de la sesión 2 y la diferencia entre el reporte de 24 horas y el de operación inusual.']],
-    tiempos:{1:3,12:12,8:17,13:17,5:8},
-    bloques:[0,1,12,8,13,9,10,7,6,5,11]}
+    tiempos:{1:3,12:12,13:17,14:17,5:8},
+    bloques:[0,1,12,13,14,8,9,10,7,6,5,11]}
 };
 
 const PADRON=['Miriam Chávez','Sandro','Ana Lidia','Andrea','Anel López','Carla','Carlos Cedillo','David','Eduardo Cedillo','Irina','Irving','Ivonne',
@@ -1304,7 +1366,7 @@ function aplicarSesion(){
   });
 
   pintarReloj(); pintarChips(); pintarSelectorPadron(); actualizarCierre(); pintarPropuestas();
-  pintarAcumulado(); pintarSala(); pintarLigaParticipante(); pintarRadarVivo();
+  pintarAcumulado(); pintarSala(); pintarLigaParticipante(); pintarRadarVivo(); pintarVinc();
   go(0);
 }
 
@@ -1823,6 +1885,7 @@ function bloqueActivo(){
   if(tip)return tip.nombre;
   if(id===10)return 'Listas y jurisdicciones';
   if(id===13)return 'Tentativas';
+  if(id===14)return 'Otro';
   if(id===12)return 'Metodología';
   if(id===2)return 'Metodología';
   if(id===6)return 'Generador de casos';
@@ -1878,6 +1941,30 @@ function actualizarCierre(){
     '<div class="empty">Se llena con lo votado en el bloque 2.</div>';
 }
 
+
+
+/* ============ CLIENTES VINCULADOS (sesión 3) ============ */
+const VINC=[
+ {n:'Cliente A · 24 años, estudiante',tel:'55 •••• 4821',dom:'Col. Centro, calle 5 #12',ref:'Promotor 07',dest:'Cuenta ••• 3390',mov:'Depósitos por $48,000 en el mes'},
+ {n:'Cliente B · 31 años, comerciante',tel:'55 •••• 7710',dom:'Col. Centro, calle 5 #12',ref:'Promotor 07',dest:'Cuenta ••• 3390',mov:'Depósitos por $46,500 en el mes'},
+ {n:'Cliente C · 27 años, empleada',tel:'55 •••• 4821',dom:'Col. Jardines #208',ref:'Promotor 07',dest:'Cuenta ••• 3390',mov:'Depósitos por $49,200 en el mes'},
+ {n:'Cliente D · 45 años, independiente',tel:'55 •••• 1934',dom:'Col. Jardines #208',ref:'Sucursal (sin referidor)',dest:'Cuenta ••• 8812',mov:'Depósitos por $12,000 en el mes'},
+ {n:'Cliente E · 22 años, estudiante',tel:'55 •••• 4821',dom:'Col. Centro, calle 5 #12',ref:'Promotor 07',dest:'Cuenta ••• 3390',mov:'Depósitos por $47,800 en el mes'},
+ {n:'Cliente F · 38 años, empleado',tel:'55 •••• 6055',dom:'Col. Lomas #31',ref:'Promotor 12',dest:'Cuenta ••• 5521',mov:'Depósitos por $9,500 en el mes'}];
+let vincSel=new Set();
+function pintarVinc(){
+  const g=document.getElementById('vincGrid'); if(!g)return;
+  const rep=k=>{const c={};VINC.forEach(v=>c[v[k]]=(c[v[k]]||0)+1);return c};
+  const C={tel:rep('tel'),dom:rep('dom'),ref:rep('ref'),dest:rep('dest')};
+  const L={tel:'Teléfono',dom:'Domicilio',ref:'Referidor',dest:'Envía a'};
+  g.innerHTML=VINC.map(v=>`<div class="vcard"><b>${esc(v.n)}</b>`+['tel','dom','ref','dest'].map(k=>
+    `<div class="${vincSel.has(k)&&C[k][v[k]]>1&&!/sin referidor/.test(v[k])?'hit':''}">${L[k]}: ${esc(v[k])}</div>`).join('')+`<div>${esc(v.mov)}</div></div>`).join('');
+  const vd=document.getElementById('vincVerdict');
+  if(!vincSel.size)vd.textContent='Cliente por cliente, ninguno rebasa un umbral. Ése es el punto: el monitoreo por cliente no ve al grupo.';
+  else if(vincSel.size<3)vd.textContent='Ya aparece un patrón. Sigan cruzando: ¿cuántos datos comparten y a dónde va el dinero?';
+  else vd.innerHTML='<b>A, B, C y E son un grupo:</b> mismo promotor en la misma semana, teléfono y domicilio repetidos, y los cuatro envían a la misma cuenta. Juntos suman cerca de <b>$191,500</b> en el mes; ninguno rebasa $50,000 solo. Se narra en <b>un solo reporte</b> con el grupo completo. D comparte un domicilio, pero nada más: hay que analizarlo, no meterlo al grupo por inercia.';
+}
+function vincCruzar(k){if(k===null)vincSel.clear();else vincSel.add(k);pintarVinc()}
 
 /* ============ RADAR EN VIVO (sesión 3) ============ */
 const RADAR_CONV={
