@@ -172,7 +172,7 @@ async function enviar(){
     'Paso: '+[...SEL.paso].join('; '),
     'UIF: '+$('uif').value.trim().replace(/\n/g,' ').slice(0,600)];
   const a={cid:Date.now().toString(36)+'-'+Math.random().toString(36).slice(2,8),sesion:SESION,
-    tip:'Radar en vivo',campo:'Encuesta',texto:L.join('\n'),variable:'',umbral:'',ventana:'',deteccion:'',
+    tip:'Otro',campo:'Caso real',texto:L.join(' | '),variable:'',umbral:'',ventana:'',deteccion:'No aplica',
     quien:$('quien').value.trim()||'Sin nombre',institucion:$('institucion').value.trim(),origen:'participante',
     hora:new Date().toLocaleTimeString('es-MX',{hour:'2-digit',minute:'2-digit'}),ts:Date.now()};
   $('btn').disabled=true;$('btn').textContent='Enviando…';

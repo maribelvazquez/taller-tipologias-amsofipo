@@ -1890,9 +1890,9 @@ function copiarRadar(){const u=radarLiga();try{navigator.clipboard.writeText(u)}
 function pintarRadarVivo(){
   const el=document.getElementById('radarVivo'); if(!el)return;
   const l=document.getElementById('radarLiga'); if(l){l.href='radar?sesion='+ST.sesion;l.textContent=radarLiga().replace(/^https?:\/\//,'')}
-  const rs=((ST.ses[ST.sesion]||{}).aportes||[]).filter(a=>a.tip==='Radar en vivo');
+  const rs=((ST.ses[ST.sesion]||{}).aportes||[]).filter(a=>/^Radar en vivo/.test(String(a.texto||'')));
   const cuenta={vistos:{},paso:{},alerta:{}}, uif=[];
-  rs.forEach(a=>String(a.texto||'').split('\n').forEach(ln=>{
+  rs.forEach(a=>String(a.texto||'').split(/\n| \| /).forEach(ln=>{
     const m=ln.match(/^(Vistos|Paso|Alerta|UIF): ?(.*)$/); if(!m)return;
     const k=m[1].toLowerCase();
     if(k==='uif'){if(m[2].trim())uif.push(m[2].trim());return}
