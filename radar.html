@@ -183,7 +183,7 @@ async function enviar(){
     $('forma').innerHTML='<h2 style="margin:6px 0">¡Gracias!</h2><p style="color:var(--tx2)">Tus respuestas ya cuentan en la pantalla del taller.</p><p><a href="participa?sesion='+encodeURIComponent(SESION)+'">Mandar además una idea o un caso →</a></p>';
     aviso('ok','Respuestas enviadas.');
   }catch(e){
-    aviso('err',String(e&&e.code)==='permission-denied'?'El servidor rechazó el envío. Avisa al equipo facilitador.':'No se pudo enviar. Revisa tu conexión e inténtalo otra vez.');
+    aviso('err',(String(e&&e.code)==='permission-denied'?'El servidor rechazó el envío. Avisa al equipo facilitador.':'No se pudo enviar. Revisa tu conexión e inténtalo otra vez.')+' [detalle: '+String(e&&e.code||'')+' · '+String(e&&e.message||'').slice(0,160)+']');
     $('btn').disabled=false;$('btn').textContent='Enviar mis respuestas';
   }
 }
