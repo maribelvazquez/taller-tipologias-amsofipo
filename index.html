@@ -816,8 +816,22 @@ header{overflow:hidden}
 <!-- ========== 12 RADAR DE LA CONVENCIÓN ========== -->
 <section id="s12">
   <div class="kicker">Radar de Tipologías</div>
-  <h1>Lo que nos dijeron en la Convención</h1>
-  <p class="lead"><b>Objetivo.</b> Contrastar lo que trabaja el comité con lo que respondieron los asistentes de la <b>11ª Convención AMSOFIPO</b> (30 de septiembre y 1 de octubre) en el Radar de Tipologías.</p>
+  <h1>Radar en vivo</h1>
+  <p class="lead"><b>Objetivo.</b> Que el comité conteste el mismo Radar que se levantó en la <b>11ª Convención AMSOFIPO</b> (30 de septiembre y 1 de octubre), y comparar. Las dos tipologías más comunes son las que trabajamos hoy.</p>
+
+  <div class="card" style="display:flex;gap:18px;align-items:center;flex-wrap:wrap">
+    <div style="flex:1;min-width:260px">
+      <h3 style="margin-top:0">1 · Contesten desde su celular (5 minutos)</h3>
+      <p style="font-size:26px;font-weight:700;margin:6px 0"><a href="https://radar-sofipos.netlify.app/" target="_blank" rel="noopener">radar-sofipos.netlify.app</a></p>
+      <p class="note" style="margin:0">Contesten sólo las preguntas de su operación. No pongan datos de clientes.</p>
+    </div>
+    <div style="flex:1;min-width:260px">
+      <h3 style="margin-top:0">2 · Comparamos</h3>
+      <p style="color:var(--tx2);margin:0">Abajo está lo que respondió la Convención. Al cerrar la encuesta vemos si el comité coincide, sobre todo en <b>qué comportamientos ven más</b> y <b>cuál es el paso más complicado</b>.</p>
+    </div>
+  </div>
+
+  <div class="seccion" style="margin:22px 0 4px;font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--tx3);font-weight:600">Lo que respondió la Convención</div>
 
   <div class="kpi">
     <div><b>8</b><small>respuestas válidas</small></div>
@@ -1145,8 +1159,8 @@ const BLOQUES=[
  {id:3, n:'3', t:'Cuentas mula',             s:''},
  {id:4, n:'4', t:'Empresas fachada',         s:''},
  {id:8, n:'3', t:'Crédito con prepago atípico', s:''},
- {id:9, n:'4', t:'Beneficiario controlador oculto', s:''},
- {id:12,n:'◎', t:'Lo que nos dijeron en la Convención', s:'Radar de Tipologías'},
+ {id:9, n:'4', t:'Beneficiario controlador oculto', s:'Pasa a la sesión 4'},
+ {id:12,n:'◎', t:'Radar en vivo', s:'Radar de Tipologías'},
  {id:13,n:'◆', t:'Tentativas', s:''},
  {id:10,n:'★', t:'Listas y jurisdicciones',  s:'Reserva'},
  {id:5, n:'5', t:'Cierre y siguientes pasos',s:''},
@@ -1176,15 +1190,15 @@ const SESIONES={
     tiempos:{1:3,2:4,8:20,9:14,10:8,7:8,5:3},
     bloques:[0,1,2,8,9,10,7,6,5,11]},
 
- 3:{titulo:'Cierre de crédito anticipado, beneficiario controlador oculto y tentativas',
-    lead:'Cerrar el criterio del comité sobre <b>crédito con pago anticipado atípico</b> con las parametrizaciones que ya se aportaron, aterrizar <b>beneficiario controlador oculto</b> —que quedó pendiente en la sesión 2— y abrir el apartado de <b>tentativas</b> con el caso que se presentó en la sesión anterior. Arrancamos con lo que dijo el sector en la Convención.',
-    resumen:'Convención + crédito + beneficiario + tentativas',
+ 3:{titulo:'Radar en vivo y las dos tipologías más comunes',
+    lead:'El comité contesta en vivo el <b>Radar de Tipologías</b> que se levantó en la 11ª Convención, comparamos sus respuestas con las del sector y trabajamos <b>las dos tipologías más comunes</b> que salgan: si se confirma lo de la Convención, <b>pago anticipado atípico de crédito</b> y <b>tentativas</b>.',
+    resumen:'Radar en vivo + 2 tipologías más comunes',
     herramientas:[
-      ['◎ Radar de la Convención','Lo que respondieron los asistentes de la 11ª Convención: qué ven, qué les cuesta más trabajo y qué no describe el catálogo.'],
+      ['◎ Radar en vivo','El comité contesta desde su celular y se compara con lo que respondió la Convención.'],
       ['📊 Cuatro maneras de parametrizar','Las reglas de prepago que aportó el comité, lado a lado, para fijar un criterio del sector.'],
-      ['🧅 Estructura en capas','Una cadena de propiedad que se destapa nivel por nivel hasta llegar a quien realmente decide.']],
-    tiempos:{1:3,12:4,8:15,9:18,13:10,5:7},
-    bloques:[0,1,12,8,9,13,10,7,6,5,11]}
+      ['◆ Tentativas','El caso de la sesión 2 y la diferencia entre el reporte de 24 horas y el de operación inusual.']],
+    tiempos:{1:3,12:12,8:17,13:17,5:8},
+    bloques:[0,1,12,8,13,9,10,7,6,5,11]}
 };
 
 const PADRON=['Miriam Chávez','Sandro','Ana Lidia','Andrea','Anel López','Carla','Carlos Cedillo','David','Eduardo Cedillo','Irina','Irving','Ivonne',
