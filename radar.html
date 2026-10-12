@@ -1,0 +1,192 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Radar · Aporta al manual · Taller de Tipologías AMSOFIPO</title>
+<style>
+:root{
+  --bg:#FAF8FC; --panel:#FFFFFF; --panel2:#F6F2FA; --line:#E2D8EC; --line2:#CDBBDE;
+  --tx:#1C1026; --tx2:#4E3E60; --tx3:#7A6A8A; --acc:#8B2A93; --acc2:#6F2693;
+  --ok:#0E7C5A; --warn:#A66A00; --bad:#C0392B; --hdr1:#301457; --hdr2:#210E3A;
+  --f:"Segoe UI",system-ui,-apple-system,Roboto,Helvetica,Arial,sans-serif;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--tx);font-family:var(--f);font-size:17px;line-height:1.6}
+header{background:linear-gradient(90deg,var(--hdr1),var(--hdr2) 60%,#150725);color:#fff;padding:18px 20px}
+header b{display:block;font-size:18px}
+header span{font-size:12.5px;color:rgba(255,255,255,.72);letter-spacing:.07em;text-transform:uppercase}
+.wrap{max-width:720px;margin:0 auto;padding:22px 18px 60px}
+h1{font-size:26px;margin:0 0 6px;letter-spacing:-.01em}
+.lead{color:var(--tx2);margin:0 0 20px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:20px 22px;margin-bottom:16px;
+  box-shadow:0 1px 3px rgba(45,20,70,.05)}
+label{display:block;font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--tx3);margin:14px 0 5px;font-weight:600}
+label:first-child{margin-top:0}
+input,select,textarea{width:100%;padding:12px 14px;border:1px solid var(--line2);border-radius:10px;background:var(--panel);
+  color:var(--tx);font-family:inherit;font-size:16.5px}
+textarea{min-height:130px;resize:vertical}
+input:focus,select:focus,textarea:focus{outline:none;border-color:var(--acc)}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.row3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px}
+@media(max-width:620px){.row,.row3{grid-template-columns:1fr}}
+.btn{padding:14px 22px;border-radius:11px;border:1px solid var(--line2);background:var(--panel);color:var(--tx);
+  font-family:inherit;font-size:16.5px;cursor:pointer;transition:.15s}
+.btn:hover{background:#F3EAF8;border-color:var(--acc2)}
+.btn.primary{background:var(--acc2);border-color:var(--acc2);color:#fff;font-weight:600;width:100%}
+.btn.primary:hover{background:var(--acc)}
+.btn.primary:disabled{opacity:.5;cursor:default}
+.anon{background:#FBEFD6;border:1px solid #E8CE93;border-radius:10px;padding:12px 15px;font-size:14.5px;color:#6b4500;margin:14px 0}
+.note{font-size:13.5px;color:var(--tx3);margin:8px 0 0}
+details.opc{margin-top:16px;border:1px solid var(--line,#ddd);border-radius:10px;padding:10px 14px}
+details.opc summary{cursor:pointer;font-weight:600;color:var(--tx2,#555)}
+.hint{font-size:13.5px;color:var(--tx3);margin:-2px 0 10px}
+.ok{background:#DDF3EA;border:1px solid #A9DCC8;color:#0b5f45;border-radius:11px;padding:15px 18px;margin-bottom:14px}
+.err{background:#FBE3E0;border:1px solid #EEB6AE;color:#8f2418;border-radius:11px;padding:15px 18px;margin-bottom:14px}
+.mios{border-left:3px solid var(--line2);padding:10px 0 2px 14px;margin-top:10px}
+.mios div{font-size:14.5px;color:var(--tx2);margin-bottom:8px}
+.mios b{color:var(--acc2)}
+.sesbadge{background:#F0E2F7;border:1px solid #D9BEE8;color:#6F2693;border-radius:10px;
+  padding:11px 15px;font-size:15px;margin-bottom:16px}
+.sesbadge b{font-weight:700}
+.seccion{font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--tx3);font-weight:600;
+  border-top:1px solid var(--line);padding-top:16px;margin-top:20px}
+footer{font-size:12.5px;color:var(--tx3);line-height:1.5;padding:0 18px 40px;max-width:720px;margin:0 auto}
+.q{margin:22px 0 6px;font-weight:700;font-size:17px;color:var(--tx)}
+.ops{display:flex;flex-wrap:wrap;gap:8px}
+.op{border:1.5px solid var(--line,#ccc);background:var(--panel,#fff);border-radius:999px;padding:10px 14px;font-size:15px;cursor:pointer;color:inherit;font:inherit}
+.op.on{background:#6F2693;border-color:#6F2693;color:#fff}
+.qn{display:inline-block;width:24px;height:24px;border-radius:50%;background:#6F2693;color:#fff;text-align:center;line-height:24px;font-size:13px;margin-right:6px}
+</style>
+</head>
+<body>
+<header><b>Taller de Tipologías</b><span>AMSOFIPO · Comisión de PLD</span></header>
+
+<div class="wrap">
+  <h1>Radar de Tipologías</h1>
+  <p class="lead">Cinco preguntas, casi todo con un toque. Las respuestas se ven en vivo en la pantalla del taller, <b>sólo agregadas</b>.</p>
+  <div id="aviso"></div>
+  <div class="card" id="forma">
+    <div class="sesbadge">Comité de PLD · <b id="sesionVis">Sesión 3</b></div>
+
+    <div class="q"><span class="qn">1</span>Tu institución es…</div>
+    <div class="ops" data-q="tipo" data-uno="1"></div>
+
+    <div class="q"><span class="qn">2</span>¿Qué comportamientos han visto en el último año? <small style="font-weight:400;color:var(--tx3)">(todos los que apliquen)</small></div>
+    <div class="ops" data-q="vistos"></div>
+
+    <div class="q"><span class="qn">3</span>¿Qué alerta les da más trabajo y menos resultado?</div>
+    <div class="ops" data-q="alerta" data-uno="1"></div>
+
+    <div class="q"><span class="qn">4</span>¿Cuál es el paso más complicado?</div>
+    <div class="ops" data-q="paso" data-uno="1"></div>
+
+    <div class="q"><span class="qn">5</span>¿Qué comportamiento no describe hoy el catálogo de la UIF? <small style="font-weight:400;color:var(--tx3)">(opcional)</small></div>
+    <textarea id="uif" style="min-height:80px" placeholder="Una frase basta"></textarea>
+
+    <label>Tu nombre <small style="color:var(--tx3)">(opcional)</small></label>
+    <input id="quien" placeholder="Nombre" autocomplete="name">
+    <label>Institución <small style="color:var(--tx3)">(opcional)</small></label>
+    <input id="institucion" placeholder="Nombre de la SOFIPO" autocomplete="organization">
+
+    <div style="height:20px"></div>
+    <button class="btn primary" id="btn" onclick="enviar()">Enviar mis respuestas</button>
+    <p class="note">Sin datos de clientes. Lo que se proyecta son totales, no respuestas individuales.</p>
+  </div>
+</div>
+
+<footer>
+  Material del <b>Taller de Tipologías de AMSOFIPO</b>, elaborado con fines exclusivamente didácticos y de capacitación.
+  No constituye asesoría ni consultoría jurídica, regulatoria o de cumplimiento, ni sustituye el criterio del oficial de
+  cumplimiento de cada institución. Desarrollado por 360educa y Lexquo.
+</footer>
+
+<script src="config-firebase.js"></script>
+<script>
+const K='amsofipo_participa';
+const $=id=>document.getElementById(id);
+function esc(s){return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')}
+
+/* La configuración vive en config-firebase.js, que es el único archivo que hay que
+   editar para conectar el taller a su base. Si no está configurado, el taller trabaja
+   en modo local y lo dice con todas sus letras. */
+const FB_CONFIG=(window.FB_CONFIG||{});
+const FB_COLS=(window.FB_COLECCIONES||{aportes:'taller_aportes',estado:'taller_estado'});
+const FB_VER='10.14.1';
+const COL_APORTES=FB_COLS.aportes;
+const COL_ESTADO=FB_COLS.estado;
+function fbConfigurado(){
+  return !!(FB_CONFIG.projectId&&!String(FB_CONFIG.projectId).startsWith('PEGA-AQUI'));
+}
+let FS=null;
+
+async function conectar(){
+  if(FS)return FS;
+  const [{initializeApp},fs,auth]=await Promise.all([
+    import(`https://www.gstatic.com/firebasejs/${FB_VER}/firebase-app.js`),
+    import(`https://www.gstatic.com/firebasejs/${FB_VER}/firebase-firestore.js`),
+    import(`https://www.gstatic.com/firebasejs/${FB_VER}/firebase-auth.js`)
+  ]);
+  const app=initializeApp(FB_CONFIG,'taller-amsofipo');
+  const a=auth.getAuth(app);
+  if(!a.currentUser)await auth.signInAnonymously(a);
+  FS={db:fs.getFirestore(app),fns:fs};
+  return FS;
+}
+
+let SESION='3';
+const OPS={
+ tipo:['SOFIPO principalmente digital','SOFIPO con sucursales','Otra'],
+ vistos:['Cuentas mula','Empresas fachada','Tentativas','Pago anticipado atípico de crédito','Tercero que opera la cuenta','Suplantación e identidad sintética','Clientes vinculados no declarados','Cuentas dormidas que se reactivan','Ninguno'],
+ alerta:['Operaciones en efectivo','Depósitos de terceros','Monto o frecuencia inusual','Geolocalización o dispositivo','Coincidencias en listas'],
+ paso:['Detectarlo','Juntar la evidencia','Decidir si se reporta','Redactar la narrativa para la UIF','Sostenerlo ante la CNBV','Qué hacer con una tentativa']
+};
+const SEL={tipo:new Set(),vistos:new Set(),alerta:new Set(),paso:new Set()};
+document.querySelectorAll('.ops').forEach(box=>{
+  const q=box.dataset.q, uno=!!box.dataset.uno;
+  box.innerHTML=OPS[q].map((o,i)=>`<button type="button" class="op" data-i="${i}">${esc(o)}</button>`).join('');
+  box.onclick=e=>{const b=e.target.closest('.op');if(!b)return;const v=OPS[q][+b.dataset.i];
+    if(uno){SEL[q].clear();box.querySelectorAll('.op').forEach(x=>x.classList.remove('on'))}
+    if(SEL[q].has(v)){SEL[q].delete(v);b.classList.remove('on')}else{SEL[q].add(v);b.classList.add('on')}
+    if(q==='vistos'&&v==='Ninguno'&&SEL[q].has(v)){SEL[q].clear();SEL[q].add(v);box.querySelectorAll('.op').forEach(x=>x.classList.toggle('on',x===b))}
+    else if(q==='vistos'&&v!=='Ninguno'&&SEL[q].has('Ninguno')){SEL[q].delete('Ninguno');box.querySelectorAll('.op').forEach(x=>{if(OPS.vistos[+x.dataset.i]==='Ninguno')x.classList.remove('on')})}
+  };
+});
+function aviso(tipo,txt){$('aviso').innerHTML=`<div class="${tipo}">${esc(txt)}</div>`;window.scrollTo({top:0,behavior:'smooth'})}
+(function init(){
+  const p=new URLSearchParams(location.search);
+  let g={};try{g=JSON.parse(localStorage.getItem(K)||'{}')}catch(e){}
+  SESION=String(p.get('sesion')||'3');
+  $('sesionVis').textContent='Sesión '+SESION;
+  $('quien').value=g.quien||'';$('institucion').value=g.institucion||'';
+  if(!fbConfigurado()){aviso('err','Esta página no está conectada. Avisa al equipo facilitador.');$('btn').disabled=true}
+  else conectar().catch(()=>{});
+})();
+async function enviar(){
+  if(!SEL.vistos.size||!SEL.paso.size){aviso('err','Contesta al menos la pregunta 2 y la 4.');return}
+  const L=['Radar en vivo',
+    'Tipo: '+[...SEL.tipo].join('; '),
+    'Vistos: '+[...SEL.vistos].join('; '),
+    'Alerta: '+[...SEL.alerta].join('; '),
+    'Paso: '+[...SEL.paso].join('; '),
+    'UIF: '+$('uif').value.trim().replace(/\n/g,' ').slice(0,600)];
+  const a={cid:Date.now().toString(36)+'-'+Math.random().toString(36).slice(2,8),sesion:SESION,
+    tip:'Radar en vivo',campo:'Encuesta',texto:L.join('\n'),variable:'',umbral:'',ventana:'',deteccion:'',
+    quien:$('quien').value.trim()||'Sin nombre',institucion:$('institucion').value.trim(),origen:'participante',
+    hora:new Date().toLocaleTimeString('es-MX',{hour:'2-digit',minute:'2-digit'}),ts:Date.now()};
+  $('btn').disabled=true;$('btn').textContent='Enviando…';
+  try{
+    const {db,fns}=await conectar();
+    await fns.addDoc(fns.collection(db,COL_APORTES),a);
+    try{const g=JSON.parse(localStorage.getItem(K)||'{}');g.quien=$('quien').value.trim();g.institucion=$('institucion').value.trim();localStorage.setItem(K,JSON.stringify(g))}catch(e){}
+    $('forma').innerHTML='<h2 style="margin:6px 0">¡Gracias!</h2><p style="color:var(--tx2)">Tus respuestas ya cuentan en la pantalla del taller.</p><p><a href="participa?sesion='+encodeURIComponent(SESION)+'">Mandar además una idea o un caso →</a></p>';
+    aviso('ok','Respuestas enviadas.');
+  }catch(e){
+    aviso('err',String(e&&e.code)==='permission-denied'?'El servidor rechazó el envío. Avisa al equipo facilitador.':'No se pudo enviar. Revisa tu conexión e inténtalo otra vez.');
+    $('btn').disabled=false;$('btn').textContent='Enviar mis respuestas';
+  }
+}
+</script>
+</body>
+</html>

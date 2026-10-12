@@ -21,6 +21,11 @@
   status = 200
 
 [[redirects]]
+  from = "/radar"
+  to = "/radar.html"
+  status = 200
+
+[[redirects]]
   from = "/herramientas"
   to = "/herramientas.html"
   status = 200

@@ -822,14 +822,17 @@ header{overflow:hidden}
   <div class="card" style="display:flex;gap:18px;align-items:center;flex-wrap:wrap">
     <div style="flex:1;min-width:260px">
       <h3 style="margin-top:0">1 · Contesten desde su celular (5 minutos)</h3>
-      <p style="font-size:26px;font-weight:700;margin:6px 0"><a href="https://radar-sofipos.netlify.app/" target="_blank" rel="noopener">radar-sofipos.netlify.app</a></p>
-      <p class="note" style="margin:0">Contesten sólo las preguntas de su operación. No pongan datos de clientes.</p>
+      <p style="font-size:24px;font-weight:700;margin:6px 0;word-break:break-all"><a id="radarLiga" href="radar?sesion=3" target="_blank" rel="noopener">…/radar?sesion=3</a></p>
+      <button class="btn sm" onclick="copiarRadar()">Copiar liga para el chat</button>
+      <p class="note" style="margin:8px 0 0">Cinco preguntas, casi todo con un toque. Se ven aquí en vivo, sólo agregadas.</p>
     </div>
     <div style="flex:1;min-width:260px">
-      <h3 style="margin-top:0">2 · Comparamos</h3>
-      <p style="color:var(--tx2);margin:0">Abajo está lo que respondió la Convención. Al cerrar la encuesta vemos si el comité coincide, sobre todo en <b>qué comportamientos ven más</b> y <b>cuál es el paso más complicado</b>.</p>
+      <h3 style="margin-top:0">2 · Comparamos en vivo</h3>
+      <p style="color:var(--tx2);margin:0">Las barras moradas son del comité y se llenan conforme contestan. El número gris es lo que respondió la Convención. Las dos más vistas son las que trabajamos hoy.</p>
     </div>
   </div>
+
+  <div id="radarVivo"></div>
 
   <div class="seccion" style="margin:22px 0 4px;font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--tx3);font-weight:600">Lo que respondió la Convención</div>
 
@@ -1301,7 +1304,7 @@ function aplicarSesion(){
   });
 
   pintarReloj(); pintarChips(); pintarSelectorPadron(); actualizarCierre(); pintarPropuestas();
-  pintarAcumulado(); pintarSala(); pintarLigaParticipante();
+  pintarAcumulado(); pintarSala(); pintarLigaParticipante(); pintarRadarVivo();
   go(0);
 }
 
@@ -1875,6 +1878,39 @@ function actualizarCierre(){
     '<div class="empty">Se llena con lo votado en el bloque 2.</div>';
 }
 
+
+/* ============ RADAR EN VIVO (sesión 3) ============ */
+const RADAR_CONV={
+ vistos:{'Tentativas':3,'Pago anticipado atípico de crédito':3,'Empresas fachada':2,'Clientes vinculados no declarados':2,'Cuentas mula':1,'Tercero que opera la cuenta':1,'Cuentas dormidas que se reactivan':1,'Suplantación e identidad sintética':0,'Ninguno':2},
+ paso:{'Decidir si se reporta':3,'Juntar la evidencia':2,'Sostenerlo ante la CNBV':1,'Qué hacer con una tentativa':1,'Detectarlo':1,'Redactar la narrativa para la UIF':0},
+ alerta:{'Operaciones en efectivo':3,'Monto o frecuencia inusual':3,'Depósitos de terceros':2,'Geolocalización o dispositivo':0,'Coincidencias en listas':0}
+};
+function radarLiga(){return location.origin+'/radar?sesion='+ST.sesion}
+function copiarRadar(){const u=radarLiga();try{navigator.clipboard.writeText(u)}catch(e){}avisar&&avisar('Liga copiada: '+u)}
+function pintarRadarVivo(){
+  const el=document.getElementById('radarVivo'); if(!el)return;
+  const l=document.getElementById('radarLiga'); if(l){l.href='radar?sesion='+ST.sesion;l.textContent=radarLiga().replace(/^https?:\/\//,'')}
+  const rs=((ST.ses[ST.sesion]||{}).aportes||[]).filter(a=>a.tip==='Radar en vivo');
+  const cuenta={vistos:{},paso:{},alerta:{}}, uif=[];
+  rs.forEach(a=>String(a.texto||'').split('\n').forEach(ln=>{
+    const m=ln.match(/^(Vistos|Paso|Alerta|UIF): ?(.*)$/); if(!m)return;
+    const k=m[1].toLowerCase();
+    if(k==='uif'){if(m[2].trim())uif.push(m[2].trim());return}
+    m[2].split(';').map(x=>x.trim()).filter(Boolean).forEach(v=>cuenta[k][v]=(cuenta[k][v]||0)+1);
+  }));
+  const n=rs.length;
+  const tarjeta=(tit,k)=>{
+    const keys=[...new Set([...Object.keys(RADAR_CONV[k]),...Object.keys(cuenta[k])])]
+      .sort((a,b)=>(cuenta[k][b]||0)-(cuenta[k][a]||0)||(RADAR_CONV[k][b]||0)-(RADAR_CONV[k][a]||0));
+    return `<div class="card"><h3>${tit}</h3>`+keys.map(v=>{const c=cuenta[k][v]||0;
+      return `<div class="rrow2" style="grid-template-columns:1fr 34px 34px"><div class="rbar2"><i style="width:${n?c/n*100:0}%"></i><span>${esc(v)}</span></div><b style="text-align:right">${c}</b><small style="text-align:right;color:var(--tx3)">${RADAR_CONV[k][v]??''}</small></div>`}).join('')+`</div>`;
+  };
+  el.innerHTML=`<div class="kpi" style="grid-template-columns:repeat(2,1fr)"><div><b>${n}</b><small>respuestas del comité</small></div><div><b>8</b><small>respuestas válidas en la Convención</small></div></div>
+   <div class="rad">${tarjeta('¿Qué comportamientos han visto?','vistos')}${tarjeta('¿Cuál es el paso más complicado?','paso')}${tarjeta('¿Qué alerta da más trabajo y menos resultado?','alerta')}
+   <div class="card"><h3>Lo que el catálogo de la UIF no describe · comité</h3>${uif.length?'<ul>'+uif.map(x=>`<li>${esc(x)}</li>`).join('')+'</ul>':'<p class="note">Todavía no hay respuestas.</p>'}</div></div>
+   <p class="note">Columna morada: comité (en vivo). Columna gris: Convención. ${n?'':'Si nadie aparece aquí, revisa que ⚙ Sala esté activa.'}</p>`;
+}
+
 /* ============ PROPUESTAS A LA UIF (acumulado de todas las sesiones) ============ */
 const PROP_BASE=[
  {tip:'Cuentas mula',texto:'Permitir reportar el anillo completo en un solo reporte con narrativa de la estructura, en lugar de un reporte por cuenta. Si la UIF recibe un reporte por cada cuenta, no puede ligar lo que la institución ya ligó.',
@@ -1958,6 +1994,7 @@ function mergeRemotos(docs){
     nuevos++;
     if(s===String(ST.sesion)&&d.origen!=='facilitador')nuevosOtros++;
   });
+  try{pintarRadarVivo()}catch(e){}
   if(nuevos){
     cargarSesionEnVivo();
     actualizarCierre(); pintarPropuestas(); pintarAcumulado();
