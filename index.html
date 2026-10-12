@@ -1104,7 +1104,7 @@ header{overflow:hidden}
   </div>
 
   <details class="opc" style="margin:12px 0 4px;border:1px solid var(--line);border-radius:10px;padding:10px 14px">
-    <summary style="cursor:pointer;font-weight:600;color:var(--tx2)">Agregar detalle (opcional): tipología, tipo de aporte y parámetro</summary>
+    <summary style="cursor:pointer;font-weight:600;color:var(--tx2)">Agregar detalle (opcional)</summary>
     <div style="height:10px"></div>
   <div class="frow">
     <div>
@@ -1145,6 +1145,16 @@ header{overflow:hidden}
     </div>
   </div>
 
+    <div style="height:10px"></div>
+    <div style="max-width:260px">
+      <label>¿Quién lo detecta?</label>
+      <select id="apDet">
+        <option selected>No aplica</option>
+        <option>Sistema automatizado</option>
+        <option>Análisis del oficial</option>
+        <option>Ambos</option>
+      </select>
+    </div>
   </details>
   <div style="height:10px"></div>
   <div class="frow3">
@@ -1156,15 +1166,6 @@ header{overflow:hidden}
     <div>
       <label>Institución</label>
       <input id="apInst" placeholder="opcional">
-    </div>
-    <div>
-      <label>¿Quién lo detecta?</label>
-      <select id="apDet">
-        <option>Sistema automatizado</option>
-        <option>Análisis del oficial</option>
-        <option>Ambos</option>
-        <option>No aplica</option>
-      </select>
     </div>
   </div>
 
