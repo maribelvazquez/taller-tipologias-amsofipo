@@ -1008,6 +1008,248 @@ header{overflow:hidden}
 </section>
 
 <!-- ========== 10 LISTAS INTERNACIONALES ========== -->
+
+<!-- ========== SESIÓN 4 · SESIÓN DE TRABAJO CON LA UIF ========== -->
+<!-- 15 QUIÉNES SOMOS Y QUÉ HEMOS HECHO -->
+<section id="s15">
+  <div class="kicker">Bloque 1 · 5 minutos</div>
+  <h1>La Comisión de PLD y lo que llevamos</h1>
+  <p class="lead"><b>Objetivo.</b> Presentar quiénes estamos en la mesa y lo que la Comisión ha construido desde el arranque del taller: <b>casos reales del sector, convertidos en tipologías</b> que cualquier SOFIPO puede aplicar.</p>
+
+  <div class="kpi">
+    <div><b>3</b><small>sesiones de taller con oficiales de cumplimiento</small></div>
+    <div><b>7</b><small>temas trabajados con casos del sector</small></div>
+    <div><b>8</b><small>fichas en el compendio de la Convención</small></div>
+    <div><b>2 → 18</b><small>aportes capturados, de la sesión 1 a la 3</small></div>
+  </div>
+
+  <div class="card">
+    <h3>El recorrido</h3>
+    <div class="flow">
+      <div class="step"><div class="n">SESIÓN 1</div><b>Metodología</b><small>Cuentas mula y empresas fachada</small></div>
+      <div class="arrow">→</div>
+      <div class="step"><div class="n">10 SEP</div><b>Sesión 2</b><small>Crédito con prepago atípico, beneficiario controlador oculto, listas</small></div>
+      <div class="arrow">→</div>
+      <div class="step"><div class="n">30 SEP – 1 OCT</div><b>11ª Convención</b><small>Radar de Tipologías y compendio de 8 fichas</small></div>
+      <div class="arrow">→</div>
+      <div class="step"><div class="n">12 OCT</div><b>Sesión 3</b><small>Radar del comité, tentativas y clientes vinculados</small></div>
+      <div class="arrow">→</div>
+      <div class="step" style="border-color:var(--acc2)"><div class="n">HOY</div><b>Con la UIF</b><small>Lo que llevamos y lo que el catálogo no alcanza a describir</small></div>
+    </div>
+  </div>
+
+  <div class="grid g2">
+    <div class="card tight">
+      <h3>Quiénes estamos</h3>
+      <ul>
+        <li>Oficiales de cumplimiento de SOFIPOS <b>100 % digitales</b> y <b>con red de sucursales</b>: los dos modelos del sector.</li>
+        <li>La Dirección de AMSOFIPO y la conducción de la Comisión de PLD.</li>
+        <li>Facilitación metodológica: 360educa · Lexquo.</li>
+      </ul>
+    </div>
+    <div class="card tight">
+      <h3>Cómo trabajamos</h3>
+      <ul>
+        <li>Partimos de <b>conductas observadas</b>, no del catálogo: qué hace el cliente y cómo se mueve la cuenta.</li>
+        <li>Cada tipología lleva definición, señales observables, detección y recomendación de reporte.</li>
+        <li>Espacio seguro: lo que se comparte aquí es para aprender, sin datos identificables de clientes.</li>
+      </ul>
+    </div>
+  </div>
+  <p class="note">Miriam abre y presenta a Sandro; Sandro presenta a Regina y cede la palabra a Maribel. Tres a cinco minutos en total.</p>
+</section>
+
+<!-- 16 LA PLATAFORMA -->
+<section id="s16">
+  <div class="kicker">Bloque 2 · 10 minutos</div>
+  <h1>La plataforma del taller</h1>
+  <p class="lead"><b>Objetivo.</b> Mostrar cómo se construye el manual: cada oficial aporta desde su institución, el sistema lo acumula atribuido y ordenado, y lo que no cabe en el catálogo se va directo a la lista de propuestas para la UIF.</p>
+
+  <div class="grid g3">
+    <div class="card tight"><h3>◎ Radar de Tipologías</h3><p style="color:var(--tx2);margin:0 0 12px">Lo que el sector ve, lo que más trabajo le cuesta y lo que el catálogo no describe. Comité contra Convención.</p><button class="btn sm" onclick="go(12)">Abrir el Radar</button></div>
+    <div class="card tight"><h3>🕸 Simuladores por tipología</h3><p style="color:var(--tx2);margin:0 0 12px">Red de cuentas mula, expediente de empresa fachada, línea de vida del crédito, estructura en capas.</p><button class="btn sm" onclick="go(3)">Cuentas mula</button> <button class="btn sm" onclick="go(8)">Prepago atípico</button></div>
+    <div class="card tight"><h3>🔗 ¿Quién está conectado?</h3><p style="color:var(--tx2);margin:0 0 12px">Seis clientes que se ven normales uno por uno. Al cruzar teléfono, domicilio, referidor y destino aparece el grupo.</p><button class="btn sm" onclick="go(14)">Abrir el ejercicio</button></div>
+    <div class="card tight"><h3>✦ Analizador con IA</h3><p style="color:var(--tx2);margin:0 0 12px">El oficial describe un comportamiento con sus palabras. Si no encuentra código aplicable, es candidato a propuesta.</p><button class="btn sm" onclick="go(7)">Abrir el reto</button></div>
+    <div class="card tight"><h3>📝 Captura de aportes</h3><p style="color:var(--tx2);margin:0 0 12px">Señales, parámetros, casos y dudas, atribuidos a la institución que los aporta. Se acumulan entre sesiones.</p><button class="btn sm" onclick="abrirAporte()">Ver la ventana</button></div>
+    <div class="card tight"><h3>▲ Propuestas a la UIF</h3><p style="color:var(--tx2);margin:0 0 12px">La lista viva de comportamientos que el sector propone describir mejor en el catálogo.</p><button class="btn sm" onclick="go(11)">Ver la lista</button></div>
+  </div>
+
+  <div class="card">
+    <h3>Lo que ya produjo: tres maneras reales de parametrizar el prepago</h3>
+    <table class="ptab">
+      <thead><tr><th>Regla</th><th>Variable</th><th>Umbral</th></tr></thead>
+      <tbody>
+        <tr><td><b>Días desde el otorgamiento</b></td><td>Días entre disposición y liquidación</td><td>≤ 30 días</td></tr>
+        <tr><td><b>Porcentaje del plazo</b></td><td>% del plazo transcurrido</td><td>&lt; 20 %</td></tr>
+        <tr><td><b>Plazo según nivel de riesgo</b></td><td>% del plazo × riesgo del cliente</td><td>Escalonado por nivel de riesgo</td></tr>
+      </tbody>
+    </table>
+    <p style="color:var(--tx2);margin:12px 0 0">Tres SOFIPOS, tres criterios para el mismo comportamiento. Eso es lo que el manual tiene que homologar, y lo que conviene que la autoridad conozca.</p>
+  </div>
+  <p class="note">Recorrido sugerido: Radar (suplantación salió entre lo más visto: da pie a Irina) → Propuestas a la UIF como destino de todo. El ejercicio ¿Quién está conectado? se guarda para el caso 2. No abrir más de tres herramientas: el tiempo es de los casos.</p>
+</section>
+
+<!-- 17 CASO DIGITAL · SUPLANTACIÓN -->
+<section id="s17">
+  <div class="kicker">Bloque 3 · 12 minutos</div>
+  <h1>Caso 1 · Suplantación de identidad</h1>
+  <p class="lead"><b>Modelo digital.</b> Una coincidencia en la lista de personas políticamente expuestas llevó a revisar la identidad y destapó que <b>quien pretendía operar no era la persona del nombre</b>.</p>
+
+  <div class="card">
+    <div class="flow">
+      <div class="step"><div class="n">01 · DETECCIÓN</div><b>Coincidencia PEP</b><small>El screening encontró el nombre de una persona políticamente expuesta, nada común.</small></div>
+      <div class="arrow">→</div>
+      <div class="step"><div class="n">02 · CONTRASTE</div><b>No cuadra</b><small>Registro, credencial y fotografía no corresponden entre sí.</small></div>
+      <div class="arrow">→</div>
+      <div class="step"><div class="n">03 · DECISIÓN</div><b>Se detuvo la relación</b><small>Los indicios de suplantación bastaron para no continuar.</small></div>
+    </div>
+  </div>
+
+  <div class="grid g2">
+    <div class="card">
+      <h3>Las inconsistencias</h3>
+      <table class="ptab">
+        <thead><tr><th>Elemento revisado</th><th>Señal</th></tr></thead>
+        <tbody>
+          <tr><td><b>Edad</b></td><td>La persona PEP rondaba los 60 años; la credencial era de una persona joven.</td></tr>
+          <tr><td><b>Fotografía</b></td><td>No correspondía a la identidad asociada al nombre.</td></tr>
+          <tr><td><b>Elementos de seguridad</b></td><td>Inconsistencias en relieves y características de seguridad.</td></tr>
+          <tr><td><b>Tipo de credencial</b></td><td>Características no congruentes con su emisión.</td></tr>
+        </tbody>
+      </table>
+      <p style="color:var(--tx3);font-size:14px;margin:10px 0 0">Señales documentales descritas por la institución, sin validación pericial.</p>
+    </div>
+    <div class="card">
+      <h3>Dos identidades que hay que distinguir</h3>
+      <div class="grid g2" style="gap:10px">
+        <div class="step"><div class="n">IDENTIDAD REFERENCIADA</div><b>La persona del nombre</b><small>Coincidió en la lista PEP. Es la víctima.</small></div>
+        <div class="step"><div class="n">PERSONA SOLICITANTE</div><b>Quien se presentó</b><small>Documento e información con inconsistencias.</small></div>
+      </div>
+      <p style="color:var(--tx2);margin:14px 0 0"><b>La coincidencia en listas no cierra el análisis:</b> obliga a corroborar la identidad de quien pretende operar.</p>
+      <p style="margin:12px 0 0"><a href="assets/Compendio_Tipologias_SOFIPOs.pdf#page=14" target="_blank" rel="noopener">Ficha 06 del compendio · Suplantación e identidad sintética →</a></p>
+    </div>
+  </div>
+
+  <div class="card" style="border-color:var(--acc2);background:var(--panel2)">
+    <h3>La pregunta que deja el caso</h3>
+    <p style="color:var(--tx2);margin-top:0">El Comité de Comunicación y Control revisó el caso y <b>no dictaminó reporte de operación inusual</b>: el reporte habría quedado asociado a la persona cuya identidad fue suplantada, no a quien intentó usarla.</p>
+    <p style="font-size:21px;margin:0"><b>¿Cómo debe reportarse una suplantación para que el reporte describa al presunto suplantador y no recaiga en la víctima?</b></p>
+    <p style="color:var(--tx3);font-size:14px;margin:10px 0 0">En la sesión 3 el comité señaló dos comportamientos que el catálogo no describe: cuentas abiertas con identidades verídicas por alguien que no es la persona, y suplantación presencial en sucursal con documentos falsificados y validaciones simuladas.</p>
+  </div>
+  <p class="note">Presenta Irina (Finsus). Encuadrarlo como pregunta abierta y hueco del layout, no como criterio del sector: el apartado de tentativas sostiene que, aunque la relación no se concrete, hay obligación de análisis y, en su caso, de reporte.</p>
+  <div class="aporte">
+    <b>💬 Espacio de aporte</b> — ¿Qué evidencia mínima debe respaldar el análisis de una posible suplantación?
+    <button class="btn sm" style="margin-top:8px" onclick="abrirAporte('Propuesta a la UIF')">Capturar aporte</button>
+  </div>
+</section>
+
+<!-- 18 CASO SUCURSALES · CLIENTES VINCULADOS -->
+<section id="s18">
+  <div class="kicker">Bloque 4 · 12 minutos</div>
+  <h1>Caso 2 · Clientes vinculados no declarados</h1>
+  <p class="lead"><b>Modelo con sucursales.</b> Personas que aparentan ser independientes y operan como grupo. <b>Por separado cada una se ve normal; juntas fraccionan, forman una red de paso o esconden a un mismo beneficiario.</b></p>
+
+  <div class="grid g2">
+    <div class="card">
+      <h3>Cómo se ve en ventanilla</h3>
+      <ul>
+        <li>Integrantes de una misma familia que llegan en <b>días seguidos</b>: hoy uno, mañana otro, pasado el tercero.</li>
+        <li>Operaciones parecidas en fechas y montos, <b>sin parentesco declarado</b> en los expedientes.</li>
+        <li>Ningún cliente rebasa un umbral por sí solo; el monitoreo por cliente no los ve.</li>
+      </ul>
+      <p style="color:var(--tx2);margin-bottom:0">Lo vio el comité desde la sesión 1: <b>«domicilio coincidente + beneficiario en común»</b>. En el Radar de la Convención apareció en dos de las ocho respuestas.</p>
+    </div>
+    <div class="card">
+      <h3>Señales observables</h3>
+      <ul>
+        <li>Mismo domicilio, teléfono o correo en personas sin parentesco declarado.</li>
+        <li>Mismo promotor o referidor para un grupo de altas en pocos días.</li>
+        <li>Fondos de varias cuentas que convergen en una sola cuenta destino.</li>
+        <li>La <b>suma del grupo</b> rebasa un umbral que ninguna cuenta rebasa sola.</li>
+        <li>Pagos de créditos de unos con recursos de otros.</li>
+      </ul>
+      <p style="color:var(--tx2)"><b>Cómo se narra:</b> un solo reporte con el grupo completo: cuántos clientes, qué comparten, cuánto suman y a dónde va el dinero.</p>
+      <button class="btn sm primary" onclick="go(14)">Hacer el ejercicio ¿Quién está conectado?</button>
+      <a class="btn sm ghost" style="text-decoration:none" href="assets/Compendio_Tipologias_SOFIPOs.pdf#page=16" target="_blank" rel="noopener">Ficha 07 del compendio →</a>
+    </div>
+  </div>
+  <p class="note">Lo presenta Maribel. Abrir el ejercicio y cruzar en vivo teléfono → domicilio → referidor → destino. Dato para la UIF: en sus auditorías recientes la CNBV ya pide la base de clientes y hace estos mismos cruces.</p>
+  <div class="aporte">
+    <b>💬 Espacio de aporte</b> — ¿Su sistema cruza datos entre expedientes o sólo dentro de cada cliente?
+    <button class="btn sm" style="margin-top:8px" onclick="abrirAporte()">Capturar aporte</button>
+  </div>
+</section>
+
+<!-- 19 LO QUE EL SECTOR PROPONE -->
+<section id="s19">
+  <div class="kicker">Bloque 5 · 13 minutos</div>
+  <h1>Lo que el sector pone sobre la mesa</h1>
+  <p class="lead"><b>Objetivo.</b> Dejar a la UIF los huecos que el sector encontró en el catálogo y en el reporte, y pedir su retroalimentación sobre el trabajo.</p>
+
+  <div class="grid g3">
+    <div class="card tight">
+      <h3>Conductas que el catálogo no describe</h3>
+      <ul>
+        <li>Liquidaciones de crédito sin explicación congruente.</li>
+        <li>Cuentas abiertas con identidades verídicas por alguien que no es la persona.</li>
+        <li>Suplantación presencial con documentos falsificados y validaciones simuladas.</li>
+        <li>Pagos prendarios.</li>
+      </ul>
+      <p style="color:var(--tx3);font-size:14px;margin:0">Fuente: Radar de la Convención y del comité.</p>
+    </div>
+    <div class="card tight">
+      <h3>Cómo se reporta</h3>
+      <ul>
+        <li><b>Suplantación:</b> describir al presunto suplantador sin que el reporte recaiga en la víctima.</li>
+        <li><b>Tentativas:</b> narrar una relación que nunca existió, sin operación de por medio.</li>
+        <li><b>Grupos:</b> un solo reporte que describa a varios clientes vinculados.</li>
+        <li><b>Campos del reporte:</b> los que hoy obligan a forzar un código.</li>
+      </ul>
+    </div>
+    <div class="card tight">
+      <h3>Lo que le pedimos a la UIF</h3>
+      <ul>
+        <li>¿Las tipologías trabajadas coinciden con lo que ve en el sector y en el sistema?</li>
+        <li>¿Qué tipología nos recomienda desarrollar que no estemos viendo?</li>
+        <li>¿Qué espera de la dictaminación de una operación?</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="aporte">
+    <b>💬 Retroalimentación de la UIF</b> — Lo que se diga aquí se captura y entra al manual.
+    <button class="btn sm" style="margin-top:8px" onclick="abrirAporte('Propuesta a la UIF')">Capturar</button>
+    <button class="btn sm ghost" style="margin-top:8px" onclick="go(11)">Ver la lista viva de propuestas</button>
+  </div>
+</section>
+
+<!-- 20 SIGUIENTES PASOS -->
+<section id="s20">
+  <div class="kicker">Bloque 6 · 8 minutos</div>
+  <h1>Siguientes pasos</h1>
+  <p class="lead"><b>Objetivo.</b> Que esta sesión sea el inicio de un trabajo continuo entre la Comisión y la UIF, no una presentación aislada.</p>
+
+  <div class="flow">
+    <div class="step"><div class="n">DICIEMBRE</div><b>Sesión de la Comisión</b><small>Integrar la retroalimentación de hoy a las fichas</small></div>
+    <div class="arrow">→</div>
+    <div class="step"><div class="n">PROPUESTA</div><b>Taller de dictaminación</b><small>Lo que la autoridad espera de un dictamen bien hecho</small></div>
+    <div class="arrow">→</div>
+    <div class="step"><div class="n">PROPUESTA</div><b>Estudio AMSOFIPO</b><small>Manual y casos anonimizados en un documento formal del sector</small></div>
+    <div class="arrow">→</div>
+    <div class="step"><div class="n">ABRIL 2027</div><b>Presentación del manual</b><small>Previo a la asamblea, con las autoridades invitadas</small></div>
+  </div>
+
+  <div class="card">
+    <h3>Para cerrar hoy</h3>
+    <ul>
+      <li>Los dos o tres puntos que la UIF considera que las SOFIPOS deben fortalecer.</li>
+      <li>Quién del equipo de la UIF da seguimiento a la Comisión.</li>
+      <li>La fecha de la siguiente sesión.</li>
+    </ul>
+  </div>
+  <p class="note">Las fechas de abril y el formato del estudio siguen por confirmar dentro de AMSOFIPO: presentarlos como intención, no como compromiso.</p>
+</section>
+
 <section id="s10">
   <div class="kicker">Apartado transversal · 10 minutos</div>
   <h1>Listas y jurisdicciones</h1>
@@ -1242,6 +1484,12 @@ const BLOQUES=[
  {id:12,n:'◎', t:'Radar en vivo', s:'Radar de Tipologías'},
  {id:13,n:'◆', t:'Tentativas', s:''},
  {id:14,n:'◇', t:'Clientes vinculados no declarados', s:''},
+ {id:15,n:'1', t:'La Comisión y lo que llevamos', s:'Miriam · Sandro'},
+ {id:16,n:'2', t:'La plataforma del taller', s:'Maribel'},
+ {id:17,n:'3', t:'Caso 1 · Suplantación', s:'Irina · digital'},
+ {id:18,n:'4', t:'Caso 2 · Clientes vinculados', s:'Maribel · sucursales'},
+ {id:19,n:'5', t:'Lo que el sector propone', s:'Comisión · UIF'},
+ {id:20,n:'6', t:'Siguientes pasos', s:'Miriam · Sandro'},
  {id:10,n:'★', t:'Listas y jurisdicciones',  s:'Reserva'},
  {id:5, n:'5', t:'Cierre y siguientes pasos',s:''},
  {id:6, n:'⚡',t:'Generador de casos',        s:'Herramienta transversal'},
@@ -1278,7 +1526,17 @@ const SESIONES={
       ['🔗 ¿Quién está conectado?','Seis clientes que parecen independientes. Al cruzar sus datos aparece el grupo.'],
       ['◆ Tentativas','El caso de la sesión 2 y la diferencia entre el reporte de 24 horas y el de operación inusual.']],
     tiempos:{1:3,12:12,13:17,14:17,5:8},
-    bloques:[0,1,12,13,14,10,7,6,5,11]}
+    bloques:[0,1,12,13,14,10,7,6,5,11]},
+ 4:{titulo:'Sesión de trabajo con la UIF',
+    lead:'La Comisión de PLD presenta a la <b>Unidad de Inteligencia Financiera</b> lo que el sector ha construido: casos reales convertidos en tipologías, la plataforma con la que se arma el manual y los <b>comportamientos que el catálogo todavía no alcanza a describir</b>.',
+    resumen:'Avance del manual ante la UIF',
+    kpi:[['3','sesiones de taller'],['7','temas trabajados'],['2','casos del sector: digital y sucursales'],['1','objetivo: retroalimentación de la UIF']],
+    herramientas:[
+      ['◆ Caso digital','Suplantación de identidad detectada a partir de una coincidencia en la lista PEP.'],
+      ['◇ Caso con sucursales','Clientes que parecen independientes y operan como grupo.'],
+      ['▲ Propuestas a la UIF','Lo que el sector encontró que el catálogo y el reporte no alcanzan a describir.']],
+    tiempos:{15:5,16:10,17:12,18:12,19:13,20:8},
+    bloques:[0,15,16,17,18,19,20,11]}
 };
 
 const PADRON=['Miriam Chávez','Sandro','Ana Lidia','Andrea','Anel López','Carla','Carlos Cedillo','David','Eduardo Cedillo','Irina','Irving','Ivonne',
@@ -1353,8 +1611,9 @@ function aplicarSesion(){
   document.getElementById('p0hoy').textContent=`Taller sesión ${ST.sesion}`;
   document.getElementById('p0hoys').textContent=c.resumen;
   const nTip=c.bloques.filter(b=>TIPOLOGIAS.some(t=>t.sec===b)).length;
-  document.getElementById('p0kpi').innerHTML=
-    `<div><b>${c.bloques.filter(b=>minutosDe(b)>0).length}</b><small>bloques de trabajo</small></div>
+  document.getElementById('p0kpi').innerHTML=c.kpi
+    ? c.kpi.map(([n,t])=>`<div><b>${esc(n)}</b><small>${esc(t)}</small></div>`).join('')
+    : `<div><b>${c.bloques.filter(b=>minutosDe(b)>0).length}</b><small>bloques de trabajo</small></div>
      <div><b>${nTip}</b><small>tipologías a aterrizar hoy</small></div>
      <div><b>50+</b><small>tipologías en el listado inicial</small></div>
      <div><b>1</b><small>entregable: insumo del manual</small></div>`;
