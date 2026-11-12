@@ -80,6 +80,18 @@ td{vertical-align:top;border-bottom:1px solid var(--line);padding:9px 10px;color
 .indice a small{color:var(--tx3);font-size:13.5px}
 .pie{font-size:12.5px;color:var(--tx3);border-top:1px solid var(--line);margin-top:40px;padding-top:12px}
 .printhead{display:none}
+.mapa td{vertical-align:middle}
+.mapa .num{font-size:22px;font-weight:800;color:var(--acc2)}
+.chip2{display:inline-block;padding:3px 10px;border-radius:14px;font-size:13px;font-weight:600}
+.chip2.dig{background:#EDE3F5;color:#6F2693}.chip2.amb{background:#F3EFF8;color:#4E3E60;border:1px solid var(--line2)}
+.chip2.sis{background:#DDF3EA;color:#0E7C5A}.chip2.ana{background:#FBEFD6;color:#8A5800}
+.mini{display:grid;grid-template-columns:90px 1fr 34px;gap:8px;align-items:center;font-size:13px;color:var(--tx3);margin:2px 0}
+.mini i{display:block;height:10px;border-radius:5px;background:linear-gradient(90deg,#8B2A93,#6F2693)}
+.mini i.g{background:#CDBBDE}
+.franja{display:grid;grid-template-columns:1fr 1fr 1.3fr;gap:12px;margin:8px 0 6px}
+.franja>div{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:12px 16px}
+.franja .lbl{margin-top:0}
+.advert{border-left:5px solid var(--warn);background:#FFF8EA;border-radius:0 12px 12px 0;padding:12px 18px;margin:14px 0}
 @media screen and (max-width:900px){#wrap{grid-template-columns:1fr} nav{position:static;height:auto} main{padding:22px 16px} .g2,.g3,.indice,.kpi{grid-template-columns:1fr} h1{font-size:30px}}
 @media print{
   @page{size:Letter;margin:14mm 13mm}
@@ -101,7 +113,7 @@ td{vertical-align:top;border-bottom:1px solid var(--line);padding:9px 10px;color
   .printhead span{font-size:9pt;color:var(--tx3);letter-spacing:.08em;text-transform:uppercase}
   .noprint{display:none!important}
   th{-webkit-print-color-adjust:exact;print-color-adjust:exact}
-  .card.com,.card.uif,.narr,.bar i,.aporte .tipo,.kpi div,.tag{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .chip2,.mini i,.advert,.card.com,.card.uif,.narr,.bar i,.aporte .tipo,.kpi div,.tag{-webkit-print-color-adjust:exact;print-color-adjust:exact}
 }
 </style>
 </head>
@@ -324,6 +336,13 @@ function barras(lista){
   return lista.map(([t,c,v])=>`<div class="bar"><span>${esc(t)}</span><span><i style="width:${(c||0)/max*100}%"></i></span><span>${c==null?'—':c}</span></div>`).join('');
 }
 
+const chipC=c=>`<span class="chip2 ${c==='Digital'?'dig':'amb'}">${c==='Digital'?'📱 Digital':'🏦 Digital y sucursales'}</span>`;
+const chipD=d=>`<span class="chip2 ${d==='Sistema'?'sis':'ana'}">${d==='Sistema'?'⚙ Sistema':'🔎 Analista'}</span>`;
+function mini(t){
+  const c=t.radar&&t.radar[0], v=t.radar&&t.radar[1];
+  const f=(lab,n,tot,g)=>`<div class="mini"><span>${lab}</span><span><i class="${g?'g':''}" style="width:${n==null?0:n/tot*100}%"></i></span><span>${n==null?'—':n+'/'+tot}</span></div>`;
+  return f('Comité',c,14)+f('Convención',v,8,1);
+}
 function portada(){
   const nAp=T.reduce((a,t)=>a+t.comite.length,0);
   return `<section class="tip on" id="t-portada">${head()}
@@ -336,6 +355,14 @@ function portada(){
     <div><b>14</b><small>instituciones en el Radar del comité</small></div>
     <div><b>4</b><small>sesiones de taller</small></div>
   </div>
+  <div class="card"><h3>Del catálogo a la conducta</h3>
+    <p>Un oficial de cumplimiento no detecta tipologías: detecta personas que se comportan de cierta manera y cuentas que se mueven de cierta forma. Esta consulta parte de ahí, y de lo que los oficiales del sector han visto en su operación.</p>
+    <div class="advert"><b>Una advertencia.</b> Una señal aislada no es una operación inusual. Lo que convierte una alerta en un reporte es la combinación de señales frente al perfil del cliente y la falta de una explicación razonable, documentada en el expediente.</div></div>
+  <div class="card"><h3>Mapa de la consulta</h3>
+    <table class="mapa"><thead><tr><th></th><th>Tipología</th><th>Canal más expuesto</th><th>Suele detectarla</th><th>Visto en el último año</th></tr></thead><tbody>
+    ${T.map(t=>`<tr style="cursor:pointer" onclick="ver('${t.id}')"><td class="num">${t.n}</td><td><b>${esc(t.nombre)}</b><br><small style="color:var(--tx3)">${esc(t.lema)}</small></td><td>${chipC(t.canal)}</td><td>${chipD(t.detecta)}</td><td style="min-width:210px">${mini(t)}</td></tr>`).join('')}
+    </tbody></table>
+    <p style="font-size:13px;color:var(--tx3);margin-top:8px">Si en su institución una tipología marcada como «Sistema» sólo la detectan analistas, ahí hay una oportunidad de parametrización. Si una marcada como «Analista» nunca aparece, conviene preguntarse si el personal sabe reconocerla.</p></div>
   <div class="card">
     <h3>Cómo leer cada ficha</h3>
     <div class="g3">
@@ -362,7 +389,10 @@ function ficha(t){
   <div class="kicker">${t.n==='+'?'Tipología del taller':'Tipología '+t.n} · ${esc(t.sesiones)}</div>
   <h1>${esc(t.nombre)}</h1>
   <p class="sub">${esc(t.lema)}</p>
-  <div class="meta"><span class="tag">Canal más expuesto <b>${t.canal}</b></span><span class="tag">Suele detectarla <b>${t.detecta}</b></span><span class="tag">Delito precedente <b>${esc(t.delito)}</b></span>${rad}</div>
+  <div class="franja">
+    <div><div class="lbl">Canal más expuesto</div>${chipC(t.canal)}<div class="lbl">Suele detectarla</div>${chipD(t.detecta)}</div>
+    <div><div class="lbl">Delito precedente frecuente</div><p style="margin:0">${esc(t.delito)}</p></div>
+    <div><div class="lbl">Radar · visto en el último año</div>${mini(t)}</div></div>
   <div class="g2">
     <div class="card"><h3>Cómo opera</h3><p>${esc(t.opera)}</p></div>
     <div class="card"><h3>Por qué la SOFIPO es vulnerable</h3><p>${esc(t.vulnerable)}</p></div>
