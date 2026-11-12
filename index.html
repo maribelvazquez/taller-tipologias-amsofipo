@@ -721,9 +721,9 @@ header{overflow:hidden}
     <table class="ptab">
       <thead><tr><th>Regla</th><th>Variable</th><th>Umbral</th><th>Qué ve bien</th><th>Qué se le escapa</th></tr></thead>
       <tbody>
-        <tr><td><b>Días desde el otorgamiento</b><small>Aporte de Irving</small></td><td>Días entre la disposición y la liquidación</td><td>≤ 30 días</td><td>Simple; cualquier sistema lo configura</td><td>Créditos largos: liquidar en el mes 2 de 36 (5 % del plazo) no alerta</td></tr>
-        <tr><td><b>Porcentaje del plazo</b><small>Aporte de David</small></td><td>% del plazo transcurrido</td><td>&lt; 20 %</td><td>Se ajusta a créditos de cualquier plazo</td><td>No distingue quién paga ni con qué</td></tr>
-        <tr><td><b>Plazo según nivel de riesgo</b><small>Aporte de Eduardo Cedillo</small></td><td>% del plazo × nivel de riesgo del cliente</td><td>90 / 75 / 50 % <i>(sentido por confirmar)</i></td><td>Liga la alerta con la matriz de riesgo</td><td>Requiere que el sistema cruce las dos variables</td></tr>
+        <tr><td><b>Días desde el otorgamiento</b><small>Aporte del comité</small></td><td>Días entre la disposición y la liquidación</td><td>≤ 30 días</td><td>Simple; cualquier sistema lo configura</td><td>Créditos largos: liquidar en el mes 2 de 36 (5 % del plazo) no alerta</td></tr>
+        <tr><td><b>Porcentaje del plazo</b><small>Aporte del comité</small></td><td>% del plazo transcurrido</td><td>&lt; 20 %</td><td>Se ajusta a créditos de cualquier plazo</td><td>No distingue quién paga ni con qué</td></tr>
+        <tr><td><b>Plazo según nivel de riesgo</b><small>Aporte del comité</small></td><td>% del plazo × nivel de riesgo del cliente</td><td>90 / 75 / 50 % <i>(sentido por confirmar)</i></td><td>Liga la alerta con la matriz de riesgo</td><td>Requiere que el sistema cruce las dos variables</td></tr>
         <tr><td><b>Saldo, ingreso y ordenante</b><small>Referencia del compendio</small></td><td>Saldo liquidado, ingreso declarado y quién paga</td><td>≥ 50 % del saldo antes del 25 % del plazo · &gt; 3 veces el ingreso mensual · tercero no obligado</td><td>Mira el origen, no sólo el calendario</td><td>Más campos que capturar y mantener</td></tr>
       </tbody>
     </table>
@@ -2319,11 +2319,13 @@ function todasLasPropuestas(){
 }
 function pintarPropuestas(){
   const el=document.getElementById('listaProp'); if(!el)return;
-  const p=todasLasPropuestas();
+  // Fuera las pruebas del equipo facilitador; se muestra sin nombres (anónimo).
+  const prueba=x=>/^\s*pba|prueba|^asd/i.test((x.quien||'')+' '+(x.texto||''))||/^(360educa|gmc360|lex-quo)/i.test(x.institucion||'');
+  const p=todasLasPropuestas().filter(x=>!prueba(x));
   el.innerHTML=p.length?p.map(x=>
     `<div class="prop"><div class="m">
       <span class="tag b">${esc(x.tip||'Sin tipología')}</span>
-      <span>Sesión ${esc(x.sesion||'—')}${x.quien?' · '+esc(x.quien):''}</span>
+      <span>Sesión ${esc(x.sesion||'—')}</span>
       ${x.fija?'<span class="tag">de la sesión 1</span>':''}
      </div>${esc(x.texto)}</div>`).join(''):
     '<div class="empty">Todavía no hay propuestas. Se agregan desde cualquier bloque o desde el reto con IA.</div>';
