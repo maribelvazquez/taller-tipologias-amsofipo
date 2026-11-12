@@ -349,7 +349,7 @@ header{overflow:hidden}
 
   <div class="card">
     <h3>Cómo vamos a trabajar</h3>
-    <div class="flow">
+    <div class="flow" id="p0flow">
       <div class="step"><div class="n">HOY</div><b id="p0hoy">Taller sesión 1</b><small id="p0hoys">Metodología + 2 tipologías</small></div>
       <div class="arrow">→</div>
       <div class="step"><div class="n">SIGUIENTE</div><b>Fichas por tipología</b><small>Casos reales de cada SOFIPO</small></div>
@@ -390,7 +390,7 @@ header{overflow:hidden}
     <a class="btn sm ghost" href="/herramientas" target="_blank" style="text-decoration:none">Todas las herramientas ↗</a></p>
   </div>
 
-  <button class="btn primary" style="margin-top:10px" onclick="go(1)">Comenzar el taller →</button>
+  <button class="btn primary" style="margin-top:10px" onclick="go(cfg().bloques[1])">Comenzar el taller →</button>
 </section>
 
 <!-- ========== 1 APERTURA ========== -->
@@ -1531,10 +1531,8 @@ const SESIONES={
     lead:'La Comisión de PLD presenta a la <b>Unidad de Inteligencia Financiera</b> lo que el sector ha construido: casos reales convertidos en tipologías, la plataforma con la que se arma el manual y los <b>comportamientos que el catálogo todavía no alcanza a describir</b>.',
     resumen:'Avance del manual ante la UIF',
     kpi:[['3','sesiones de taller'],['7','temas trabajados'],['2','casos del sector: digital y sucursales'],['1','objetivo: retroalimentación de la UIF']],
-    herramientas:[
-      ['◆ Caso digital','Suplantación de identidad detectada a partir de una coincidencia en la lista PEP.'],
-      ['◇ Caso con sucursales','Clientes que parecen independientes y operan como grupo.'],
-      ['▲ Propuestas a la UIF','Lo que el sector encontró que el catálogo y el reporte no alcanzan a describir.']],
+    herramientas:[],
+    agenda:true,
     tiempos:{15:5,16:10,17:12,18:12,19:13,20:8},
     bloques:[0,15,16,17,18,19,20,11]}
 };
@@ -1608,8 +1606,6 @@ function aplicarSesion(){
   const c=cfg();
   document.getElementById('p0kick').textContent=`Sesión ${ST.sesion} · Modalidad remota · 60 minutos`;
   document.getElementById('p0lead').innerHTML=c.lead;
-  document.getElementById('p0hoy').textContent=`Taller sesión ${ST.sesion}`;
-  document.getElementById('p0hoys').textContent=c.resumen;
   const nTip=c.bloques.filter(b=>TIPOLOGIAS.some(t=>t.sec===b)).length;
   document.getElementById('p0kpi').innerHTML=c.kpi
     ? c.kpi.map(([n,t])=>`<div><b>${esc(n)}</b><small>${esc(t)}</small></div>`).join('')
@@ -1617,6 +1613,17 @@ function aplicarSesion(){
      <div><b>${nTip}</b><small>tipologías a aterrizar hoy</small></div>
      <div><b>50+</b><small>tipologías en el listado inicial</small></div>
      <div><b>1</b><small>entregable: insumo del manual</small></div>`;
+  const fl=document.getElementById('p0flow');
+  if(!fl.dataset.orig)fl.dataset.orig=fl.innerHTML;
+  fl.style.cssText=c.agenda?'display:grid;grid-template-columns:repeat(3,1fr);gap:12px':'';
+  if(c.agenda){
+    fl.innerHTML=c.bloques.filter(id=>minutosDe(id)>0).map((id,i)=>{
+      const b=BLOQUES.find(x=>x.id===id);
+      return         `<div class="step" style="cursor:pointer" onclick="go(${id})"><div class="n">${esc(b.n)} · ${minutosDe(id)} MIN</div><b>${esc(b.t)}</b><small>${esc(b.s)}</small></div>`}).join('');
+  }else{fl.innerHTML=fl.dataset.orig;
+    document.getElementById('p0hoy').textContent=`Taller sesión ${ST.sesion}`;
+    document.getElementById('p0hoys').textContent=c.resumen;}
+  document.getElementById('p0herr').style.display=c.herramientas.length?'':'none';
   document.getElementById('p0herr').innerHTML=c.herramientas.map(([t,d])=>
     `<div class="card tight"><h3>${esc(t)}</h3><p style="font-size:13.5px;color:var(--tx2);margin:0">${esc(d)}</p></div>`).join('');
 
