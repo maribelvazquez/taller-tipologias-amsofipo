@@ -1676,7 +1676,18 @@ function aplicarSesion(){
 }
 
 /* ============ NAVEGACIÓN ============ */
+/* Si se abre un bloque que no es de la sesión activa (p. ej. desde un botón
+   de la sesión 4), aparece un botón para regresar al bloque donde se estaba. */
+let ULTIMO_EN_SESION=0;
 function go(i){
+  const enSesion=cfg().bloques.includes(i);
+  let v=document.getElementById('volverSesion');
+  if(!v){v=document.createElement('button');v.id='volverSesion';v.className='btn primary';
+    v.style.cssText='position:fixed;left:310px;bottom:22px;z-index:50;box-shadow:0 6px 20px rgba(48,20,87,.35);display:none';
+    v.onclick=()=>go(ULTIMO_EN_SESION);document.body.appendChild(v);}
+  if(enSesion){ULTIMO_EN_SESION=i;v.style.display='none';}
+  else{const b=BLOQUES.find(x=>x.id===ULTIMO_EN_SESION);
+    v.textContent=`← Regresar a la Sesión ${ST.sesion}: ${b?b.t:'Portada'}`;v.style.display='';}
   document.querySelectorAll('section').forEach(s=>s.classList.remove('on'));
   const el=document.getElementById('s'+i); if(el)el.classList.add('on');
   document.querySelectorAll('.nitem').forEach(n=>n.classList.toggle('on',+n.dataset.b===i));
