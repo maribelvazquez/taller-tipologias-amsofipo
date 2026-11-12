@@ -1250,6 +1250,29 @@ header{overflow:hidden}
   <p class="note">Las fechas de abril y el formato del estudio siguen por confirmar dentro de AMSOFIPO: presentarlos como intención, no como compromiso.</p>
 </section>
 
+
+<!-- 21 CONSULTA POR TIPOLOGÍA -->
+<section id="s21">
+  <div class="kicker">Consulta · acumulado de todas las sesiones</div>
+  <h1>Consulta por tipología</h1>
+  <p class="lead">Todo lo que ha aportado el comité, ordenado por conducta y completado con el compendio de la Convención: señales, parámetros, qué revisar, cómo narrarlo, casos del comité, lo que falta resolver y lo que va a la UIF.</p>
+  <div class="grid g3">
+    <a class="card tight" style="text-decoration:none;color:inherit" href="/consulta#mula" target="_blank"><h3>01 · Cuentas mula</h3><p style="font-size:14px;color:var(--tx2);margin:0">Redes de cuentas de paso</p></a>
+    <a class="card tight" style="text-decoration:none;color:inherit" href="/consulta#fachada" target="_blank"><h3>02 · Empresas fachada</h3><p style="font-size:14px;color:var(--tx2);margin:0">Expediente impecable, sin operación real</p></a>
+    <a class="card tight" style="text-decoration:none;color:inherit" href="/consulta#tentativas" target="_blank"><h3>03 · Tentativas</h3><p style="font-size:14px;color:var(--tx2);margin:0">Se retira al pedirle el origen</p></a>
+    <a class="card tight" style="text-decoration:none;color:inherit" href="/consulta#credito" target="_blank"><h3>04 · Pago anticipado atípico</h3><p style="font-size:14px;color:var(--tx2);margin:0">El crédito como vehículo de integración</p></a>
+    <a class="card tight" style="text-decoration:none;color:inherit" href="/consulta#tercero" target="_blank"><h3>05 · Tercero que opera la cuenta</h3><p style="font-size:14px;color:var(--tx2);margin:0">El titular es formal</p></a>
+    <a class="card tight" style="text-decoration:none;color:inherit" href="/consulta#suplantacion" target="_blank"><h3>06 · Suplantación</h3><p style="font-size:14px;color:var(--tx2);margin:0">Una identidad que no es la del cliente</p></a>
+    <a class="card tight" style="text-decoration:none;color:inherit" href="/consulta#vinculados" target="_blank"><h3>07 · Clientes vinculados</h3><p style="font-size:14px;color:var(--tx2);margin:0">Independientes en papel, grupo en la operación</p></a>
+    <a class="card tight" style="text-decoration:none;color:inherit" href="/consulta#dormidas" target="_blank"><h3>08 · Cuentas dormidas</h3><p style="font-size:14px;color:var(--tx2);margin:0">Reactivación con montos altos</p></a>
+    <a class="card tight" style="text-decoration:none;color:inherit" href="/consulta#bc" target="_blank"><h3>+ · Beneficiario controlador oculto</h3><p style="font-size:14px;color:var(--tx2);margin:0">El dueño del dinero no aparece</p></a>
+  </div>
+  <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:8px">
+    <a class="btn primary" style="text-decoration:none" href="/consulta" target="_blank">Abrir la consulta ↗</a>
+    <a class="btn" style="text-decoration:none" href="assets/Consulta_Tipologias_AMSOFIPO.pdf" target="_blank">Descargar el entregable (PDF)</a>
+  </div>
+</section>
+
 <section id="s10">
   <div class="kicker">Apartado transversal · 10 minutos</div>
   <h1>Listas y jurisdicciones</h1>
@@ -1490,6 +1513,7 @@ const BLOQUES=[
  {id:18,n:'4', t:'Caso 2 · Clientes vinculados', s:'Maribel · sucursales'},
  {id:19,n:'5', t:'Lo que el sector propone', s:'Comisión · UIF'},
  {id:20,n:'6', t:'Siguientes pasos', s:'Miriam · Sandro'},
+ {id:21,n:'☰', t:'Consulta por tipología', s:'Acumulado + compendio'},
  {id:10,n:'★', t:'Listas y jurisdicciones',  s:'Reserva'},
  {id:5, n:'5', t:'Cierre y siguientes pasos',s:''},
  {id:6, n:'⚡',t:'Generador de casos',        s:'Herramienta transversal'},
@@ -1534,7 +1558,7 @@ const SESIONES={
     herramientas:[],
     agenda:true,
     tiempos:{15:5,16:10,17:12,18:12,19:13,20:8},
-    bloques:[0,15,16,17,18,19,20,11]}
+    bloques:[0,15,16,17,18,19,20,21,11]}
 };
 
 const PADRON=['Miriam Chávez','Sandro','Ana Lidia','Andrea','Anel López','Carla','Carlos Cedillo','David','Eduardo Cedillo','Irina','Irving','Ivonne',

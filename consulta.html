@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="es-MX">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Consulta por tipologías · AMSOFIPO — Comisión de PLD</title>
+<style>
+:root{
+  --bg:#FAF8FC; --bg2:#F3EFF8; --panel:#FFFFFF; --panel2:#F6F2FA;
+  --line:#E2D8EC; --line2:#CDBBDE;
+  --tx:#1C1026; --tx2:#4E3E60; --tx3:#7A6A8A;
+  --acc:#8B2A93; --acc2:#6F2693; --ok:#0E7C5A; --warn:#A66A00;
+  --hdr1:#301457; --hdr2:#210E3A; --r:14px;
+  --f:"Segoe UI",system-ui,-apple-system,Roboto,Helvetica,Arial,sans-serif;
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--bg);color:var(--tx);font-family:var(--f);font-size:17px;line-height:1.6}
+h1,h2,h3,h4{margin:0;font-weight:650;letter-spacing:-.01em}
+a{color:var(--acc2)}
+header{position:sticky;top:0;z-index:5;display:flex;align-items:center;gap:16px;padding:12px 22px;
+  background:linear-gradient(90deg,var(--hdr1),var(--hdr2) 55%,#150725);color:#fff}
+header img{height:38px}
+header .div{width:1px;height:32px;background:rgba(255,255,255,.3)}
+header b{display:block;font-size:17px;line-height:1.2}
+header span{font-size:12.5px;color:rgba(255,255,255,.72);letter-spacing:.06em;text-transform:uppercase}
+header .acc{margin-left:auto;display:flex;gap:8px;flex-wrap:wrap}
+.btn{padding:8px 14px;border-radius:9px;background:#fff;border:1px solid var(--line2);color:var(--acc2);font:inherit;font-size:14px;font-weight:600;cursor:pointer;text-decoration:none}
+.btn.ghost{background:transparent;color:#fff;border-color:rgba(255,255,255,.4)}
+#wrap{display:grid;grid-template-columns:280px 1fr;min-height:calc(100vh - 62px)}
+nav{background:var(--panel2);border-right:1px solid var(--line);padding:18px 12px;position:sticky;top:62px;height:calc(100vh - 62px);overflow:auto}
+nav .lab{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--tx3);font-weight:600;margin:12px 10px 6px}
+nav button{display:flex;gap:10px;align-items:flex-start;width:100%;text-align:left;border:none;background:none;font:inherit;
+  padding:9px 10px;border-radius:10px;cursor:pointer;color:var(--tx)}
+nav button .n{flex:none;width:26px;height:26px;border-radius:7px;background:#EDE3F5;color:var(--acc2);font-size:12.5px;font-weight:700;display:grid;place-items:center}
+nav button b{display:block;font-size:15px;line-height:1.3;font-weight:600}
+nav button small{display:block;font-size:12.5px;color:var(--tx3)}
+nav button.on{background:linear-gradient(135deg,#8B2A93,#6F2693);color:#fff}
+nav button.on .n{background:rgba(255,255,255,.22);color:#fff}
+nav button.on small{color:rgba(255,255,255,.8)}
+main{padding:34px 44px 70px;max-width:1180px}
+.kicker{font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--acc2);font-weight:700;margin-bottom:6px}
+h1{font-size:40px;line-height:1.15;margin-bottom:8px}
+.sub{font-size:21px;color:var(--tx2);margin:0 0 18px;max-width:900px}
+.meta{display:flex;gap:10px;flex-wrap:wrap;margin:6px 0 18px}
+.tag{display:inline-block;padding:4px 12px;border-radius:20px;font-size:13.5px;background:#F0E8F6;color:var(--tx2);border:1px solid var(--line2)}
+.tag b{color:var(--acc2)}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:var(--r);padding:22px 26px;margin:16px 0;box-shadow:0 1px 3px rgba(45,20,70,.05)}
+.card h3{font-size:19px;margin-bottom:8px;color:var(--acc2)}
+.card.com{border-left:5px solid var(--acc);background:linear-gradient(90deg,#FBF4FD,#fff 40%)}
+.card.uif{border-color:var(--acc2);background:var(--panel2)}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.g3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+ul{margin:6px 0;padding-left:20px} li{margin:3px 0}
+p{margin:6px 0}
+.lbl{font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--tx3);font-weight:700;margin:10px 0 2px}
+.narr{background:var(--bg2);border-radius:10px;padding:12px 16px;font-size:15.5px;color:var(--tx2);font-style:italic}
+.aporte{border-bottom:1px solid var(--line);padding:10px 0}
+.aporte:last-child{border-bottom:none}
+.aporte .who{font-size:13px;color:var(--tx3);font-weight:600}
+.aporte .tipo{display:inline-block;font-size:11.5px;letter-spacing:.06em;text-transform:uppercase;font-weight:700;color:#fff;background:var(--acc2);border-radius:5px;padding:1px 7px;margin-right:6px}
+.aporte .tipo.duda{background:var(--warn)} .aporte .tipo.caso{background:var(--ok)} .aporte .tipo.param{background:#4E3E60}
+.vacio{color:var(--tx3);font-style:italic}
+.kpi{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:14px 0}
+.kpi div{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:16px 18px}
+.kpi b{display:block;font-size:34px;line-height:1.15}
+.kpi small{color:var(--tx3);font-size:14px}
+.bar{display:grid;grid-template-columns:230px 1fr 30px;gap:10px;align-items:center;font-size:15px;margin:5px 0}
+.bar i{display:block;height:14px;border-radius:7px;background:linear-gradient(90deg,#8B2A93,#6F2693)}
+.bar span:last-child{font-weight:700;text-align:right}
+table{width:100%;border-collapse:collapse;font-size:15px}
+th{text-align:left;font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:#fff;background:var(--acc2);padding:8px 10px}
+td{vertical-align:top;border-bottom:1px solid var(--line);padding:9px 10px;color:var(--tx2)}
+.tip{display:none}
+.tip.on{display:block}
+.indice{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.indice a{display:block;text-decoration:none;color:inherit;background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:14px 16px}
+.indice a:hover{border-color:var(--acc2)}
+.indice a b{display:block;font-size:16px}
+.indice a small{color:var(--tx3);font-size:13.5px}
+.pie{font-size:12.5px;color:var(--tx3);border-top:1px solid var(--line);margin-top:40px;padding-top:12px}
+.printhead{display:none}
+@media screen and (max-width:900px){#wrap{grid-template-columns:1fr} nav{position:static;height:auto} main{padding:22px 16px} .g2,.g3,.indice,.kpi{grid-template-columns:1fr} h1{font-size:30px}}
+@media print{
+  @page{size:Letter;margin:14mm 13mm}
+  body{background:#fff;font-size:11.5pt}
+  header,nav{display:none}
+  #wrap{display:block}
+  main{padding:0;max-width:none}
+  .tip{display:block!important;break-before:page}
+  .tip#t-portada{break-before:auto}
+  .card{box-shadow:none;break-inside:avoid;padding:10px 14px;margin:7px 0}
+  .g2{gap:10px} .kpi{grid-template-columns:repeat(4,1fr)} .indice{grid-template-columns:repeat(3,1fr)}
+  .card h3{font-size:12.5pt} ul{margin:3px 0} li{margin:1px 0} p{margin:3px 0} .lbl{margin:5px 0 1px}
+  .narr{font-size:10pt;padding:8px 12px}
+  .card.big{break-inside:auto}
+  h1{font-size:26pt}
+  .sub{font-size:13pt}
+  .printhead{display:flex;align-items:center;justify-content:space-between;border-bottom:2px solid var(--acc2);padding-bottom:8px;margin-bottom:14px}
+  .printhead img{height:30px}
+  .printhead span{font-size:9pt;color:var(--tx3);letter-spacing:.08em;text-transform:uppercase}
+  .noprint{display:none!important}
+  th{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .card.com,.card.uif,.narr,.bar i,.aporte .tipo,.kpi div,.tag{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+}
+</style>
+</head>
+<body>
+<header>
+  <img src="assets/logo-amsofipo.png" alt="AMSOFIPO">
+  <div class="div"></div>
+  <div><b>Consulta por tipologías</b><span>AMSOFIPO · Comisión de PLD</span></div>
+  <div class="acc">
+    <a class="btn ghost" href="/">← Volver al taller</a>
+    <button class="btn" onclick="window.print()">Descargar PDF</button>
+  </div>
+</header>
+<div id="wrap">
+  <nav id="nav"></nav>
+  <main id="main"></main>
+</div>
+
+<script>
+/* =====================================================================
+   CONSULTA POR TIPOLOGÍAS
+   Base: Compendio de Tipologías para SOFIPOs (11ª Convención, GMC360 · LEX-QUO).
+   Complemento: aportes capturados en la plataforma y lo dicho en las
+   sesiones 1 a 3 del Taller de Tipologías de la Comisión de PLD.
+   Los casos del comité se describen sin nombre de institución.
+   ===================================================================== */
+const CORTE='12 de noviembre de 2026';
+
+const T=[
+{id:'mula',n:'01',nombre:'Cuentas mula',lema:'Redes de cuentas de paso que reciben y dispersan recursos ajenos',
+ canal:'Digital',detecta:'Sistema',delito:'Fraude, extorsión, venta ilícita',ficha:4,
+ sesiones:'Sesión 1 · simulador de red',
+ opera:'Personas reclutadas, pagadas o engañadas prestan o venden su cuenta para recibir recursos de terceros y moverlos de inmediato. La cuenta recibe abonos de ordenantes sin relación entre sí y en pocas horas los transfiere o retira hasta dejar el saldo cerca de cero. Las redes abren cuentas en ráfaga, con perfiles parecidos, y las abandonan cuando una institución las bloquea.',
+ vulnerable:'La apertura remota ágil, las cuentas de nivel básico con límites que se usan en serie y las transferencias 24 horas hacen de la SOFIPO digital un punto de paso atractivo. En la SOFIPO con sucursales, el riesgo aparece cuando la red recluta clientes locales y los acompaña a abrir la cuenta.',
+ scli:['La cuenta se abre desde el mismo dispositivo, red o número que otras cuentas.','La ocupación y el ingreso declarados no explican el volumen que recibe.','El titular no sabe explicar quién le deposita ni para qué.','Cambia teléfono o correo poco después de abrir la cuenta.','Sesiones simultáneas o accesos desde ubicaciones lejanas a su domicilio.'],
+ sop:['Muchos ordenantes distintos, sin relación con el titular ni entre sí.','Lo que entra sale en menos de 24 a 48 horas y el saldo queda mínimo.','Montos redondos o apenas por debajo de los límites de la cuenta.','Retiros en cajero justo después de cada abono.','Volumen alto en las primeras semanas de una cuenta nueva.'],
+ param:['10 o más ordenantes distintos en 7 días, en cuentas con menos de 90 días de antigüedad.','90 % o más de lo recibido transferido o retirado en 48 horas.','Un mismo identificador de dispositivo asociado a 3 o más cuentas.'],
+ revisar:['Vínculos por dispositivo, teléfono, correo y cuenta destino con otros clientes.','Reclamaciones de fraude o solicitudes de otras instituciones sobre los abonos.','A dónde va el dinero: si varias cuentas convergen en un destino, hay red.','Si el titular es víctima o participante; cambia la acción a tomar.'],
+ narr:'Cuenta de nivel básico abierta por canal digital el 3 de marzo, cliente de 21 años, estudiante, ingreso declarado de $6,000. Entre el 10 y el 24 de marzo recibió 38 transferencias de 31 ordenantes distintos por $412,300 y transfirió el 97 % a tres cuentas de otra institución en menos de 24 horas por abono. El dispositivo de alta es el mismo que el de otras cuatro cuentas abiertas en la misma semana. Dos ordenantes reclamaron fraude.',
+ ref:'GAFI, Illicit Financial Flows from Cyber-Enabled Fraud (2023).',
+ comite:[
+  ['param','Elementos que conviene cruzar: las cuentas que fondean y las contrapartes detrás de ellas, fechas de las transacciones, geolocalización, IP y noticias negativas.','JP Sofiexpress · sesión 3'],
+  ['senal','En cuentas de nivel limitado, el patrón de mula es mensual y repetido: entra el máximo permitido y sale casi de inmediato, mes tras mes.','SOFIPO digital · sesión 3'],
+  ['reco','Respuesta escalonada: cuando el perfil se sale del producto, pedir que complete el expediente del siguiente nivel; si no lo hace y el riesgo crece, bloqueo operativo, reporte de operación inusual y paso a riesgo alto con debida diligencia reforzada.','SOFIPO digital · sesión 3'],
+  ['reco','Alertar sobre grupos de cuentas, no sobre cuentas aisladas; ventana corta de 24 a 72 horas para captar el efecto de cuenta puente; narrar el anillo completo en un solo reporte.','Criterio de trabajo del taller · sesión 1']],
+ dudas:['Cuándo el titular es víctima (le vendieron o engañaron) y cuándo participante, y cómo cambia el reporte.'],
+ uif:'',radar:[4,1]},
+
+{id:'fachada',n:'02',nombre:'Empresas fachada',lema:'Personas morales con expediente impecable y sin operación real',
+ canal:'Ambos',detecta:'Analista',delito:'Defraudación fiscal, corrupción, lavado de terceros',ficha:6,
+ sesiones:'Sesión 1 · expediente vivo',
+ opera:'La empresa existe en papel: acta, RFC, domicilio y apoderado en orden. Pero no produce ni vende: sirve para simular ingresos, emitir comprobantes, recibir recursos y repartirlos entre personas físicas u otras empresas. Suele operar en grupos que comparten domicilio, apoderados o contadores.',
+ vulnerable:'La SOFIPO que atiende a pequeñas empresas otorga crédito comercial, abre cuentas de dispersión y confía en un expediente documental. Si la revisión termina en la integración del expediente, la fachada pasa: los documentos son auténticos, lo falso es la actividad. En SOFIPOS de nivel II a IV, con crédito comercial, arrendamiento y factoraje, se vuelve un problema de integración.',
+ scli:['Domicilio virtual o compartido con muchas otras empresas.','Objeto social amplísimo, sin actividad preponderante clara.','Constitución reciente, capital mínimo y operación alta desde el primer mes.','El apoderado también lo es de otros clientes sin relación aparente.','El representante no conoce el negocio: no sabe quiénes son sus clientes ni proveedores.'],
+ sop:['Recibe de muchas empresas y paga el mismo día a personas físicas.','No hay pagos de una operación real: nómina, seguridad social, renta, insumos.','Flujos circulares entre empresas del mismo grupo.','Montos incompatibles con su capital social y su antigüedad.','Retiros en efectivo en una empresa que dice prestar servicios digitales.'],
+ param:['Flujo mensual superior a 20 veces el capital social durante los primeros 6 meses.','80 % o más de las salidas a personas físicas sin relación laboral acreditada.','3 o más clientes con el mismo domicilio fiscal o el mismo apoderado.'],
+ revisar:['Si la empresa o sus contrapartes aparecen en la lista del artículo 69-B del CFF.','Quién es el propietario real y si coincide con quien toma las decisiones.','Coincidencias de domicilio, apoderados, teléfonos y correos con otros clientes.','Evidencia de operación: visita, página, empleados, facturas de insumos.'],
+ narr:'Persona moral constituida en enero con capital de $50,000, objeto social de consultoría. De febrero a mayo recibió $8.7 millones de 14 personas morales y el mismo día de cada abono transfirió el 92 % a 23 personas físicas sin relación laboral acreditada. No registra pagos de nómina, renta ni proveedores. Comparte domicilio y apoderado con otros dos clientes con el mismo patrón.',
+ ref:'GAFI y Grupo Egmont, Concealment of Beneficial Ownership (2018).',
+ comite:[
+  ['reco','Cruce con fuentes públicas: constancia fiscal contra actividad declarada, representante en otras altas, antigüedad contra monto pretendido, domicilio (existe, es residencial, se repite), presencia digital de la actividad y artículo 69-B del CFF.','Criterio de trabajo del taller · sesión 1'],
+  ['senal','En el Radar del comité, sólo una de 14 instituciones la marcó como vista en el último año. Su detección depende del analista, no del sistema.','Radar del comité · sesión 3']],
+ dudas:['Qué se documenta cuando el alta de una persona moral no se concreta (ver Tentativas).'],
+ uif:'',radar:[1,2]},
+
+{id:'tentativas',n:'03',nombre:'Tentativas',lema:'El cliente se retira cuando se le pide el origen de los recursos',
+ canal:'Ambos',detecta:'Analista',delito:'Cualquiera',ficha:8,
+ sesiones:'Sesiones 2 y 3 · caso de una SOFIPO digital',
+ opera:'Un cliente o prospecto intenta abrir una cuenta, depositar, invertir o liquidar un crédito y desiste cuando se le pide documentación, se le explica que la operación se reporta o se le aplica un control. A veces regresa con un monto menor, por otro canal o con otra persona como titular.',
+ vulnerable:'Lo que no se concreta casi nunca queda registrado. Si el sistema sólo ve operaciones realizadas, la tentativa no existe para el monitoreo, y la única fuente es el personal de sucursal o el registro del flujo de alta digital.',
+ scli:['Abandona el trámite en el momento en que se pide soporte del origen de los recursos.','Pregunta a partir de qué monto se reporta o se pide identificación.','Propone que otra persona sea el titular.','Intenta la misma operación en varias sucursales o canales el mismo día.','Insiste en pagar en efectivo cuando se le ofrecen otros medios.'],
+ sop:['Intentos rechazados seguidos de un reintento con monto menor.','La misma operación dividida entre varias cuentas del mismo grupo.','Alta digital abandonada en el paso de origen de recursos, con monto declarado alto.','Liquidación anticipada de crédito cancelada al pedirle el origen del pago.','Reintentos desde otro dispositivo o con otros datos después de un rechazo.'],
+ param:['3 o más intentos rechazados del mismo cliente o dispositivo en 24 horas.','Abandono del alta en el paso de origen de recursos con monto declarado alto para el segmento.','Reintento de la operación con monto menor dentro de las 72 horas siguientes.'],
+ revisar:['Si existe una bitácora de operaciones intentadas; sin ella, no hay forma de reportarlas.','Qué datos dejó el cliente: con frecuencia bastan para vincularlo con otras cuentas.','Si el personal de sucursal sabe que una tentativa se escala al oficial.','Si se reintentó por otro canal o con otra persona.'],
+ narr:'Prospecto que el 12 de agosto pretendió abrir una inversión a plazo por $950,000 en efectivo en la sucursal Centro. Al pedírsele el soporte del origen de los recursos, dijo que eran ahorros familiares y se retiró sin firmar. El 14 de agosto una persona con el mismo domicilio intentó la misma apertura por $480,000 en otra sucursal y también desistió. Se registran ambos intentos y se reportan como operación inusual.',
+ ref:'GAFI, Recomendación 20: el reporte comprende las operaciones intentadas, sin importar el monto.',
+ comite:[
+  ['caso','SOFIPO 100 % digital. Un prospecto quiso abrir una cuenta para recibir un monto muy por encima de su perfil por la supuesta venta de un terreno. Actividad sin sustento, expediente incompleto, origen no acreditado y la historia cambió: el dinero llegaría primero a la cuenta de un familiar. Sin coincidencia en listas; fuentes abiertas con coincidencias de apellidos y zona de riesgo, no concluyentes solas. Decidió la convergencia: se rechazó la relación, resolvió el Comité de Comunicación y Control y se presentó reporte de operación inusual.','SOFIPO digital · sesión 2'],
+  ['reco','Hay dos tentativas distintas: en el alta (si el expediente no está completo, el cliente no se da de alta) y en la operación (el cliente con cuenta limitada intenta operar por encima, se le pide información y desiste). La segunda es la que suele llegar a reporte.','SOFIPO digital · sesión 3'],
+  ['senal','Abandonar el alta por fricción del servicio no es inusual. La inusualidad aparece cuando el abandono coincide con un cuestionamiento específico: origen, propósito, monto.','SOFIPO digital · sesión 3'],
+  ['reco','Se reporta como operación inusual sin prioridad, con dictamen del Comité de Comunicación y Control; no como reporte de 24 horas si no hay coincidencia con la Lista de Personas Bloqueadas.','SOFIPO digital · sesión 3'],
+  ['senal','Con cuentas simplificadas de 3,000 UDIS, varias SOFIPOS digitales ven una tasa alta de abandono justo cuando se pide complementar el expediente para operar más.','Dirección AMSOFIPO · sesión 3'],
+  ['reco','Listas internas: al menos tres instituciones alimentan una lista propia con los hallazgos de tentativas, investigaciones de fraude y requerimientos de la autoridad (excluyendo a las víctimas), incluida el área de crédito.','Sesiones 2 y 3'],
+  ['duda','En crédito con sucursales, al prospecto que no cumple requisitos se le descarta antes de abrir folio y no se reporta. ¿Eso es una tentativa?','SOFIPO con sucursales · sesión 3']],
+ dudas:['Qué se conserva de una tentativa: entrevista, documentos pedidos y no entregados, búsquedas y su resultado.','Cuándo se reporta una relación que nunca existió y cómo se narra sin operación de por medio.','El deber ser con cuentas simplificadas: el cliente quiere subir de nivel, se le pide información y deja de responder.','Si las listas internas se recomiendan como práctica del sector.'],
+ uif:'Un campo o código que permita reportar la tentativa como tal, y criterio sobre cómo narrar una relación que no se concretó.',radar:[4,3]},
+
+{id:'credito',n:'04',nombre:'Pago anticipado atípico de crédito',lema:'El crédito como vehículo para dar apariencia lícita a los recursos',
+ canal:'Ambos',detecta:'Sistema',delito:'Narcotráfico, corrupción, delitos fiscales',ficha:10,
+ sesiones:'Sesión 2 · línea de vida del crédito',
+ opera:'El cliente obtiene un crédito y lo liquida en semanas con recursos cuyo origen no justifica. El dinero ilícito entra como pago y el crédito queda como explicación lícita de los bienes o del dinero que el cliente recibió. En su variante cíclica, liquida y pide un crédito nuevo de inmediato.',
+ vulnerable:'La cartera y la captación suelen monitorearse por separado, y un pago anticipado se ve como buena noticia para el área de crédito. Sin un cruce contra el perfil del cliente, la alerta no se genera. Con arrendamiento y factoraje el patrón es el mismo.',
+ scli:['Cliente con ingreso declarado bajo que liquida en semanas un crédito a plazo largo.','Pregunta por penalizaciones de pago anticipado antes de disponer del crédito.','Pide un crédito nuevo en cuanto liquida el anterior.','El pago lo hace un tercero sin relación clara con el acreditado.','Insiste en liquidar en efectivo.'],
+ sop:['Pagos en efectivo fraccionados en varios días o sucursales.','Pago desde la cuenta de un tercero o de una empresa ajena al acreditado.','Liquidación total antes de cumplir la cuarta parte del plazo.','Varios créditos del mismo grupo liquidados en las mismas fechas.','Depósitos en garantía que se retiran en cuanto se libera el crédito.'],
+ param:['Liquidación de 50 % o más del saldo antes del 25 % del plazo pactado.','Pago anticipado superior a 3 veces el ingreso mensual declarado.','Pago realizado por un tercero no registrado como obligado solidario ni familiar.'],
+ revisar:['De dónde viene el dinero del pago, no sólo que el pago se aplicó.','Quién es el tercero que paga y qué relación tiene con el acreditado.','El historial: si el cliente ya repitió el ciclo de crédito y liquidación anticipada.','Si el destino del crédito original coincide con lo declarado.'],
+ narr:'Crédito personal por $300,000 a 36 meses otorgado el 5 de abril a un cliente con ingreso declarado de $18,000 mensuales como empleado. El 28 de mayo se liquidó en su totalidad con tres depósitos en efectivo de $98,000 en dos sucursales. El 2 de junio el cliente solicitó un crédito nuevo por $500,000. No presentó soporte del origen del pago.',
+ ref:'GAFILAT, informes de tipologías regionales de lavado de activos.',
+ comite:[
+  ['param','Alerta si el crédito se liquida dentro de los 30 días siguientes al otorgamiento. Simple de configurar; en créditos largos deja pasar liquidaciones tempranas (mes 2 de 36).','Una SOFIPO · sesión 2'],
+  ['param','Alerta si se liquida antes de que transcurra el 20 % del plazo pactado. Se ajusta a cualquier plazo, pero no distingue quién paga ni con qué.','Financiera Súmate · sesión 2'],
+  ['param','Umbral según el nivel de riesgo del cliente: alerta si liquida antes del 50 %, 75 % o 90 % del plazo, por nivel. Liga la alerta con la matriz de riesgo; el sentido del escalonamiento está por confirmar.','Caja Progressa · sesión 2'],
+  ['caso','Crédito a 18 meses liquidado en el tercer pago, por más del triple del ingreso declarado de un cliente de reciente ingreso. Se recabó la declaración de origen de los recursos y la visita de seguimiento confirmó que el crédito compró mercancía de temporada cuya venta pagó el crédito. Alerta legítima, descartada con evidencia.','SOFIPO con sucursales · sesión 3'],
+  ['senal','Clientes con el mismo domicilio que hacen pagos anticipados el mismo día sin justificación aparente (cruza con Clientes vinculados).','Sesión 3'],
+  ['senal','Es la tipología que más vio el comité en el último año (6 de 14) y la que la Convención señaló como hueco del catálogo: «liquidaciones sin explicaciones o razones congruentes».','Radar · Convención y sesión 3'],
+  ['duda','Crédito revolvente: una disposición parcial pagada a los 30 días, ¿es inusual? Si el cliente paga con recursos propios documentados, ¿basta la documentación? Crédito simple dispuesto a fin de mes y liquidado al mes siguiente: ¿qué medidas aplicar?','SOFIPO con sucursales · sesión 2']],
+ dudas:['Qué regla recomienda el manual como criterio mínimo del sector: días, porcentaje del plazo, riesgo × plazo, o saldo-ingreso-ordenante.','Tratamiento de disposiciones parciales en créditos revolventes.'],
+ uif:'Un código específico para liquidaciones anticipadas sin explicación congruente, hoy forzadas a códigos genéricos de monto o frecuencia.',radar:[6,3]},
+
+{id:'tercero',n:'05',nombre:'Tercero que opera la cuenta',lema:'El titular es formal; quien decide y se beneficia es otra persona',
+ canal:'Ambos',detecta:'Analista',delito:'Lavado de terceros, evasión, corrupción',ficha:12,
+ sesiones:'Votada en la sesión 1 como «uso de terceros no relacionados»',
+ opera:'La cuenta está a nombre de una persona, pero la controla otra: un familiar, un empleado, un prestanombres o un grupo. El titular firma y el tercero opera. El propósito es que el beneficiario real no aparezca en el expediente ni en los reportes.',
+ vulnerable:'En la relación cercana con el cliente, propia de las SOFIPOS con sucursales, es normal que alguien acompañe al titular. En el canal digital, las credenciales se comparten con facilidad. En ambos casos, el expediente describe a quien no es.',
+ scli:['El titular llega acompañado y es el acompañante quien habla, pregunta y decide.','El titular no conoce su saldo ni sus movimientos.','Los accesos vienen del dispositivo de otra persona que también es cliente.','Los datos de contacto se cambian a los de un tercero.','Otorga poderes amplios poco después de abrir la cuenta.'],
+ sop:['Flujos incompatibles con la ocupación y la edad del titular.','Transferencias recurrentes a una misma persona sin relación declarada.','Pagos propios de un negocio que no es del titular.','Depósitos que hace siempre la misma persona, distinta del titular.','La cuenta se mueve cuando el titular está fuera, según su propia declaración.'],
+ param:['Un mismo depositante en el 70 % o más de los abonos de una cuenta de persona física.','Dispositivo de acceso compartido con otro cliente que no es familiar declarado.','Volumen mensual superior a 5 veces el ingreso declarado durante 3 meses.'],
+ revisar:['Identificación del propietario real, con la pregunta hecha y documentada, no sólo la casilla.','Quién está presente en las visitas y quién opera en los canales digitales.','La relación entre el titular y quien deposita o recibe.','Si el mismo tercero aparece en otras cuentas.'],
+ narr:'Cuenta de ahorro de una persona de 74 años, jubilada, con pensión de $9,500 mensuales. De enero a junio recibió 41 depósitos por $1.2 millones, 36 de ellos realizados por la misma persona, que acompaña a la titular a sucursal y responde por ella. Los fondos se transfieren a una empresa de la que el acompañante es socio.',
+ ref:'GAFI, Recomendaciones 10 y 24 (debida diligencia y beneficiario final).',
+ comite:[
+  ['caso','Una inversión se fondeó con diversos depósitos que no provenían de cuentas propias del cliente.','Una SOFIPO · sesión 3'],
+  ['senal','La más votada en la sesión 1 («uso de terceros no relacionados», 3 votos) y vista por 4 de 14 instituciones en el Radar del comité, sobre todo con sucursales.','Sesión 1 y Radar · sesión 3']],
+ dudas:['Aún no tiene sesión propia en el taller: candidata para la sesión de diciembre.'],
+ uif:'',radar:[4,1]},
+
+{id:'suplantacion',n:'06',nombre:'Suplantación e identidad sintética',lema:'Cuentas y créditos abiertos con una identidad que no es la del cliente',
+ canal:'Digital',detecta:'Sistema',delito:'Fraude, robo de identidad',ficha:14,
+ sesiones:'Sesión 4 · caso de una SOFIPO digital',
+ opera:'En la suplantación se usan los datos y documentos de una persona real sin su conocimiento. En la identidad sintética se combinan datos reales (una CURP válida, por ejemplo) con otros falsos para crear a alguien que no existe. Con ellas se abren cuentas mula o se obtiene crédito que nunca se paga.',
+ vulnerable:'La identificación no presencial depende de la calidad de la verificación biométrica, de la consulta a la fuente emisora y del control del dispositivo. Las herramientas para falsificar rostros y documentos son cada vez más baratas y accesibles. El comité reportó también la variante presencial, en sucursal.',
+ scli:['Selfie o prueba de vida con indicios de pantalla, máscara o imagen generada.','Credencial con inconsistencias de formato, fuente o fotografía.','Correo creado días antes de la solicitud.','Múltiples intentos fallidos de validación biométrica.','Dispositivo emulado, con permisos alterados o con historial de otras identidades.'],
+ sop:['Solicitud de crédito por el monto máximo desde el primer día.','Dispersión inmediata del crédito o de los primeros abonos.','Sin actividad ordinaria: ningún pago de servicios ni consumo propio.','Primer incumplimiento en el primer pago.','La misma cara asociada a nombres distintos.'],
+ param:['3 o más intentos fallidos de prueba de vida en una misma solicitud.','Dispositivo asociado a 2 o más identidades distintas en 30 días.','Correo o teléfono con menos de 30 días de antigüedad en solicitudes de crédito.'],
+ revisar:['Validación contra la fuente emisora de la identificación y de la CURP.','Resultados de la prueba de vida y del cotejo biométrico, no sólo si pasó o no.','Historial del dispositivo y de la red desde la que se solicitó.','Si la persona suplantada ya presentó una reclamación.'],
+ narr:'Solicitud de crédito digital del 9 de julio por $45,000, aprobada tras dos intentos fallidos de prueba de vida. El mismo dispositivo se utilizó entre el 1 y el 10 de julio para solicitar crédito con otras tres identidades. El crédito se dispersó a una cuenta de otra institución en 20 minutos y no se pagó la primera amortización.',
+ ref:'GAFI, Guidance on Digital Identity (2020).',
+ comite:[
+  ['caso','Una coincidencia en la lista de personas políticamente expuestas llevó a revisar la identidad: la persona PEP rondaba los 60 años y la credencial era de una persona joven; fotografía, relieves y tipo de credencial no correspondían. Se detuvo la relación. El Comité de Comunicación y Control no dictaminó reporte porque habría quedado asociado a la víctima y no al suplantador.','SOFIPO digital · sesión 4'],
+  ['senal','Cuentas abiertas con bases de datos robadas: identidades verídicas, pero no es la persona real quien abrió la cuenta.','SOFIPO digital · sesión 3'],
+  ['senal','Suplantación presencial en sucursal con identificaciones falsificadas y biometría o validaciones físicas simuladas.','SOFIPO con sucursales · sesión 3'],
+  ['senal','Vista por 4 de 14 instituciones en el Radar del comité, tanto digitales como con sucursales; no se esperaba tan presente en el sector.','Radar · sesión 3']],
+ dudas:['Qué evidencia mínima debe respaldar el análisis de una posible suplantación.','Cómo compartir patrones de alerta entre instituciones sin exponer datos personales.'],
+ uif:'Cómo reportar una suplantación para que el reporte describa al presunto suplantador y no recaiga en la persona suplantada. El comité señaló dos comportamientos que el catálogo no describe: identidades verídicas usadas por otra persona y suplantación presencial con validaciones simuladas.',radar:[4,null]},
+
+{id:'vinculados',n:'07',nombre:'Clientes vinculados no declarados',lema:'Varias personas que aparentan ser independientes y operan como grupo',
+ canal:'Ambos',detecta:'Sistema',delito:'Fraccionamiento, redes de mulas, prestanombres',ficha:16,
+ sesiones:'Sesión 3 · ejercicio ¿Quién está conectado?',
+ opera:'Clientes que no declaran relación entre sí comparten teléfono, domicilio, correo, dispositivo, cuenta de retiro o beneficiarios. Por separado, cada uno se ve normal. Juntos, fraccionan una operación, forman una red de cuentas de paso o esconden a un mismo beneficiario.',
+ vulnerable:'El monitoreo por cliente no ve al grupo. Si la institución no cruza datos de contacto, domicilio y dispositivo entre expedientes, el patrón sólo lo encuentra un analista por casualidad.',
+ scli:['El mismo domicilio para personas sin parentesco declarado.','El mismo promotor o referidor para un grupo de altas en pocos días.','Los mismos beneficiarios designados en cuentas de personas distintas.','Clientes que llegan juntos y realizan operaciones idénticas.','El mismo teléfono o correo registrado en varios expedientes.'],
+ sop:['Operaciones similares en las mismas fechas y por montos parecidos.','Fondos de varias cuentas que convergen en una sola cuenta destino.','La suma del grupo rebasa un umbral que ninguna cuenta rebasa sola.','Transferencias cruzadas entre las cuentas del grupo sin motivo aparente.','Pagos de créditos de unos con recursos de otros.'],
+ param:['2 o más clientes sin parentesco declarado que comparten teléfono, correo o dispositivo.','5 o más cuentas que transfieren a un mismo destino en 30 días.','Operaciones del grupo que, sumadas, rebasan el umbral de reporte de la institución.'],
+ revisar:['Un análisis de vínculos por dato compartido, no sólo por nombre.','La exposición consolidada del grupo.','Si el promotor o referidor aparece en otros grupos.','Si procede pedir la declaración de la relación o el propietario real.'],
+ narr:'Seis clientes personas físicas dados de alta entre el 2 y el 6 de mayo por el mismo referidor, sin parentesco declarado, con dos domicilios y un mismo teléfono. Cada uno recibió menos de $50,000 durante mayo; en conjunto, $1.9 millones. El 88 % se transfirió a una misma cuenta destino. Se reportan las seis cuentas en un solo reporte con la descripción del grupo.',
+ ref:'GAFI, Recomendaciones 10 y 20; análisis de redes como buena práctica de monitoreo.',
+ comite:[
+  ['senal','«Domicilio coincidente + beneficiario en común.»','Comité · sesión 1'],
+  ['senal','En sucursal: integrantes de una familia que llegan en días seguidos (hoy uno, mañana otro) con operaciones parecidas y sin parentesco declarado.','SOFIPO con sucursales · sesión 4'],
+  ['senal','Clientes con el mismo domicilio que hacen pagos anticipados de crédito el mismo día.','Sesión 3'],
+  ['duda','Hay instituciones cuyo sistema no cruza información entre expedientes, sólo dentro de cada cliente.','Una SOFIPO · sesión 3'],
+  ['reco','La CNBV ya solicita la base de clientes en sus auditorías y hace estos cruces de domicilio y teléfono; de las coincidencias pide expedientes y análisis.','Facilitación · sesión 3']],
+ dudas:['Qué cruces mínimos debe hacer el sistema entre expedientes.','Cómo se integra a un cliente al grupo sin hacerlo por inercia (comparte un solo dato).'],
+ uif:'Que el layout permita describir a un grupo de clientes en un solo reporte.',radar:[0,2]},
+
+{id:'dormidas',n:'08',nombre:'Cuentas dormidas que se reactivan',lema:'Una cuenta sin movimiento que de pronto mueve montos altos',
+ canal:'Ambos',detecta:'Sistema',delito:'Toma de cuenta, venta de cuentas, fraude',ficha:18,
+ sesiones:'Sin sesión en el taller todavía',
+ opera:'Una cuenta sin actividad durante meses o años se reactiva con movimientos fuertes. Puede ser que la cuenta se vendió o se prestó, que un tercero tomó el control (cambió credenciales y contacto) o que el titular la usa para algo que no corresponde a su perfil.',
+ vulnerable:'Las SOFIPOS tienen carteras grandes de cuentas de ahorro con saldos bajos y poca actividad. Son cuentas con historial, lo que les da apariencia de confianza, y rara vez tienen un monitoreo específico para la reactivación.',
+ scli:['Cambio de teléfono o correo al mismo tiempo que la reactivación.','Primer acceso desde un dispositivo nuevo después de un largo periodo sin actividad.','El titular no acude a sucursal ni responde en el contacto registrado previamente.','Solicitud de aumento de límites en los días posteriores a la reactivación.','Información de perfil actualizada con datos que no corresponden al historial.'],
+ sop:['Primer movimiento, después de la inactividad, por un monto alto.','Patrón de cuenta de paso: entra y sale en horas.','Retiros inmediatos en cajero o transferencias a cuentas nuevas.','Varias cuentas dormidas que se reactivan en la misma semana.','Abonos de ordenantes con los que el titular nunca había operado.'],
+ param:['Movimiento superior a 10 veces el promedio histórico en una cuenta con 12 meses o más sin actividad.','Cambio de contacto y primer movimiento con menos de 7 días de diferencia.','3 o más cuentas dormidas reactivadas desde la misma red o dispositivo.'],
+ revisar:['Contacto con el titular por el medio registrado antes del cambio.','Reautenticación antes de liberar operaciones de monto alto.','Si hay otras cuentas reactivadas con el mismo patrón.','Si se trata de una toma de cuenta: en ese caso el titular también es víctima.'],
+ narr:'Cuenta de ahorro sin movimientos desde febrero de 2023. El 3 de septiembre se cambiaron el teléfono y el correo desde un dispositivo nuevo. Entre el 4 y el 8 de septiembre recibió 17 transferencias por $268,000 de ordenantes con los que nunca había operado y se retiraron $262,000 en cajeros de tres ciudades. El titular desconoce los movimientos.',
+ ref:'GAFI, Illicit Financial Flows from Cyber-Enabled Fraud (2023).',
+ comite:[],
+ dudas:['Pendiente de casos del comité.'],
+ uif:'',radar:[0,1]},
+
+{id:'bc',n:'+',nombre:'Beneficiario controlador oculto',lema:'El expediente está completo en lo formal y no llega al dueño del dinero',
+ canal:'Ambos',detecta:'Analista',delito:'Lavado de terceros, corrupción',ficha:null,
+ sesiones:'Sesión 2 · estructura en capas',
+ opera:'Esquemas de propiedad en capas, fideicomisos y testaferros como accionistas o representantes separan la propiedad legal de la titularidad real. El 25 % es un umbral, no la definición: también es beneficiario controlador quien ejerce el control de hecho (nombra o remueve a la mayoría del órgano de administración, impone decisiones o recibe el beneficio económico) aunque no aparezca en el capital.',
+ vulnerable:'Si el expediente se cierra en el porcentaje accionario, la tipología pasa completa. La deficiencia en identificar al propietario real ha generado multas en el sector.',
+ scli:['Accionistas o representantes que se repiten entre clientes distintos.','Quien firma y opera no es quien aparece como dueño.','Resistencia o demora al pedir el organigrama de propiedad.','Perfil económico del supuesto controlador incongruente con el tamaño de la estructura.'],
+ sop:['Cadena de propiedad de tres o más niveles sin explicación de negocio.','Un fideicomiso o vehículo extranjero en medio de la cadena.'],
+ param:[],
+ revisar:['Organigrama de propiedad y control firmado, no sólo el acta constitutiva.','Identificación de la persona física en el último eslabón, y el camino recorrido documentado.','Lo que no se pudo obtener: la imposibilidad de llegar al beneficiario es en sí un hallazgo reportable.','Control de facto: poderes amplios, firmas autorizadas, quién recibe los rendimientos.'],
+ narr:'',ref:'Se relaciona con las fichas 02 (Empresas fachada) y 05 (Tercero que opera la cuenta).',
+ comite:[['reco','Cruzar a los intermediarios contra otras altas de la propia institución: los testaferros se repiten.','Criterio de trabajo del taller · sesión 2']],
+ dudas:['Hasta qué capa llega hoy la debida diligencia de cada institución y qué se hace cuando el cliente no puede o no quiere documentar la estructura.'],
+ uif:'',radar:[null,null]}
+];
+
+const LISTAS={
+ puntos:[
+  ['24 horas no es lo mismo que inusual','El reporte de 24 horas lo dispara una coincidencia con la Lista de Personas Bloqueadas. Si la persona no está en listas pero el análisis genera sospecha, procede reporte de operación inusual: el apetito de riesgo y el análisis son de la institución.'],
+  ['Las listas no coinciden entre sí','Hay jurisdicciones fuera del GAFI que siguen en la lista de la Unión Europea y otras en lista gris del GAFI que la UE no incorpora. Una matriz que mira una sola fuente queda corta.'],
+  ['Fuentes abiertas','No aparecer en listas no acredita el origen lícito. Las coincidencias en medios no son concluyentes solas, pero se valoran con el resto. Hoy la búsqueda es manual en varias instituciones; hay proveedores que la integran.'],
+  ['Cuba, 2026','Programa de sanciones con efectos secundarios para instituciones financieras extranjeras: exposición posible sin nexo con el sistema financiero estadounidense.']],
+ dudas:['Cómo documentar el descarte de una homonimia.','Qué hacer cuando la coincidencia es de un accionista y no del cliente.']
+};
+
+const RADAR={
+ comite:14, conv:8,
+ vistos:[['Pago anticipado atípico de crédito',6,3],['Tentativas',4,3],['Suplantación e identidad sintética',4,null],['Cuentas mula',4,1],['Tercero que opera la cuenta',4,1],['Empresas fachada',1,2],['Clientes vinculados no declarados',0,2],['Cuentas dormidas que se reactivan',0,1]],
+ paso:[['Decidir si se reporta',7,3],['Juntar la evidencia',5,2],['Detectarlo',1,1],['Redactar la narrativa para la UIF',1,null],['Sostenerlo ante la CNBV',null,1],['Qué hacer con una tentativa',null,1]],
+ alerta:[['Monto o frecuencia inusual',7,3],['Operaciones en efectivo',4,3],['Depósitos de terceros',1,2],['Coincidencias en listas',1,null],['Geolocalización o dispositivo',1,null]]
+};
+
+/* ---------- render ---------- */
+const esc=s=>String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const li=a=>a&&a.length?'<ul>'+a.map(x=>`<li>${esc(x)}</li>`).join('')+'</ul>':'<p class="vacio">—</p>';
+const TIPO={param:['param','Parámetro'],senal:['','Señal'],reco:['','Práctica'],caso:['caso','Caso'],duda:['duda','Duda']};
+const head=()=>`<div class="printhead"><img src="assets/logo-amsofipo-color.png" alt="AMSOFIPO"><span>Comisión de PLD · Consulta por tipologías · ${CORTE}</span></div>`;
+
+function barras(lista){
+  const max=Math.max(...lista.map(r=>Math.max(r[1]||0,r[2]||0)),1);
+  return lista.map(([t,c,v])=>`<div class="bar"><span>${esc(t)}</span><span><i style="width:${(c||0)/max*100}%"></i></span><span>${c==null?'—':c}</span></div>`).join('');
+}
+
+function portada(){
+  const nAp=T.reduce((a,t)=>a+t.comite.length,0);
+  return `<section class="tip on" id="t-portada">${head()}
+  <div class="kicker">Documento de trabajo · corte al ${CORTE}</div>
+  <h1>Consulta por tipologías</h1>
+  <p class="sub">Lo que la Comisión de PLD de AMSOFIPO ha construido en el Taller de Tipologías, ordenado por conducta y completado con el Compendio de Tipologías para SOFIPOs que se entregó en la 11ª Convención.</p>
+  <div class="kpi">
+    <div><b>9</b><small>tipologías y un apartado transversal</small></div>
+    <div><b>${nAp}</b><small>aportes del comité integrados</small></div>
+    <div><b>14</b><small>instituciones en el Radar del comité</small></div>
+    <div><b>4</b><small>sesiones de taller</small></div>
+  </div>
+  <div class="card">
+    <h3>Cómo leer cada ficha</h3>
+    <div class="g3">
+      <div><div class="lbl">1 · La base</div><p>Qué es, cómo opera, señales, parámetros de referencia, qué revisar y una narrativa modelo. Viene del compendio; los parámetros son ilustrativos y cada institución los calibra.</p></div>
+      <div><div class="lbl">2 · Lo que aportó el comité</div><p>Parámetros reales, casos, prácticas y dudas de los oficiales. Los casos se describen sin nombre de institución.</p></div>
+      <div><div class="lbl">3 · Pendiente y UIF</div><p>Lo que el manual tiene que resolver y lo que se propone llevar a la UIF.</p></div>
+    </div>
+  </div>
+  <div class="card"><h3>Índice</h3><div class="indice">
+    ${T.map(t=>`<a href="#${t.id}" onclick="ver('${t.id}');return false"><b>${t.n} · ${esc(t.nombre)}</b><small>${esc(t.lema)}</small></a>`).join('')}
+    <a href="#listas" onclick="ver('listas');return false"><b>★ · Listas y jurisdicciones</b><small>Apartado transversal: no es tipología, es alertamiento</small></a>
+    <a href="#radar" onclick="ver('radar');return false"><b>◎ · Lo que dice el Radar</b><small>Comité contra Convención</small></a>
+    <a href="#reporte" onclick="ver('reporte');return false"><b>✎ · Un reporte que la UIF pueda usar</b><small>Cinco bloques y errores frecuentes</small></a>
+  </div></div>
+  <p class="pie">Material del Taller de Tipologías de AMSOFIPO, elaborado con fines exclusivamente didácticos y de capacitación. No constituye asesoría jurídica, regulatoria o de cumplimiento, ni sustituye el criterio del oficial de cumplimiento de cada institución ni representa la postura de autoridad alguna. Base: Compendio de Tipologías para SOFIPOs (GMC360 · LEX-QUO). Desarrollado por 360educa y Lexquo.</p>
+  </section>`;
+}
+
+function ficha(t){
+  const ap=t.comite.length?t.comite.map(([k,txt,who])=>`<div class="aporte"><span class="tipo ${TIPO[k][0]}">${TIPO[k][1]}</span>${esc(txt)}<div class="who">${esc(who)}</div></div>`).join('')
+    :'<p class="vacio">Sin aportes del comité todavía.</p>';
+  const rad=t.radar?`<span class="tag">Radar · comité <b>${t.radar[0]==null?'—':t.radar[0]+' de 14'}</b> · Convención <b>${t.radar[1]==null?'—':t.radar[1]+' de 8'}</b></span>`:'';
+  return `<section class="tip" id="t-${t.id}">${head()}
+  <div class="kicker">${t.n==='+'?'Tipología del taller':'Tipología '+t.n} · ${esc(t.sesiones)}</div>
+  <h1>${esc(t.nombre)}</h1>
+  <p class="sub">${esc(t.lema)}</p>
+  <div class="meta"><span class="tag">Canal más expuesto <b>${t.canal}</b></span><span class="tag">Suele detectarla <b>${t.detecta}</b></span><span class="tag">Delito precedente <b>${esc(t.delito)}</b></span>${rad}</div>
+  <div class="g2">
+    <div class="card"><h3>Cómo opera</h3><p>${esc(t.opera)}</p></div>
+    <div class="card"><h3>Por qué la SOFIPO es vulnerable</h3><p>${esc(t.vulnerable)}</p></div>
+  </div>
+  <div class="card"><h3>Señales de alerta</h3><div class="g2">
+    <div><div class="lbl">En el comportamiento del cliente</div>${li(t.scli)}</div>
+    <div><div class="lbl">En las operaciones</div>${li(t.sop)}</div></div></div>
+  <div class="g2">
+    <div class="card"><h3>Parámetros de referencia</h3>${li(t.param)}<p style="font-size:13px;color:var(--tx3)">Ilustrativos: cada institución los calibra con su matriz de riesgo.</p></div>
+    <div class="card"><h3>Qué revisar antes de decidir</h3>${li(t.revisar)}</div>
+  </div>
+  ${t.narr?`<div class="card"><h3>Cómo narrarlo en el reporte</h3><div class="narr">${esc(t.narr)}</div><p style="font-size:13px;color:var(--tx3);margin-top:8px">Ejemplo ficticio. Referencia: ${esc(t.ref)}${t.ficha?` · <a href="assets/Compendio_Tipologias_SOFIPOs.pdf#page=${t.ficha}" target="_blank" rel="noopener">ficha del compendio</a>`:''}</p></div>`:(t.ref?`<p style="font-size:13px;color:var(--tx3)">${esc(t.ref)}</p>`:'')}
+  <div class="card com big"><h3>Lo que aportó el comité</h3>${ap}</div>
+  <div class="g2">
+    <div class="card"><h3>Lo que el manual tiene que resolver</h3>${li(t.dudas)}</div>
+    <div class="card uif"><h3>Para llevar a la UIF</h3>${t.uif?`<p>${esc(t.uif)}</p>`:'<p class="vacio">Sin propuesta específica todavía.</p>'}</div>
+  </div>
+  </section>`;
+}
+
+function listas(){
+  return `<section class="tip" id="t-listas">${head()}
+  <div class="kicker">Apartado transversal · sesión 2</div>
+  <h1>Listas y jurisdicciones</h1>
+  <p class="sub">No es una tipología: es un alertamiento. Es donde más consultas llegan a la Comisión, porque no todas las listas obligan lo mismo ni se documentan igual.</p>
+  <div class="g2">${LISTAS.puntos.map(([t,d])=>`<div class="card"><h3>${esc(t)}</h3><p>${esc(d)}</p></div>`).join('')}</div>
+  <div class="card"><h3>Lo que el manual tiene que resolver</h3>${li(LISTAS.dudas)}</div>
+  </section>`;
+}
+
+function radar(){
+  const tabla=(tit,l)=>`<div class="card"><h3>${tit}</h3><table><thead><tr><th>Respuesta</th><th>Comité (14)</th><th>Convención (8)</th></tr></thead><tbody>${l.map(([t,c,v])=>`<tr><td>${esc(t)}</td><td>${c==null?'—':c}</td><td>${v==null?'—':v}</td></tr>`).join('')}</tbody></table></div>`;
+  return `<section class="tip" id="t-radar">${head()}
+  <div class="kicker">Radar de Tipologías · Convención (30 sep – 1 oct) y comité (sesión 3)</div>
+  <h1>Lo que dice el Radar</h1>
+  <p class="sub">Muestras pequeñas: son un indicio para orientar el manual, no una estadística del sector. Se excluyen las respuestas de prueba del equipo facilitador. El guion (—) indica que la opción no estaba en ese levantamiento o no tuvo respuestas.</p>
+  <div class="card"><h3>Comportamientos vistos en el último año · comité</h3>${barras(RADAR.vistos)}</div>
+  <div class="g2">${tabla('El paso más complicado',RADAR.paso)}${tabla('La alerta que más trabajo da y menos resultado',RADAR.alerta)}</div>
+  <div class="card com"><h3>Lectura</h3><ul>
+   <li>El problema no es detectar: es <b>decidir si se reporta</b> y <b>juntar la evidencia</b>. Es lo que el manual tiene que resolver.</li>
+   <li>Las alertas por monto o frecuencia generan volumen, pero no casos.</li>
+   <li>El crédito con prepago atípico encabeza en ambos levantamientos y es el principal hueco del catálogo que señala el sector.</li>
+   <li>La suplantación aparece en el comité con el mismo peso que tentativas y cuentas mula.</li></ul></div>
+  </section>`;
+}
+
+function reporte(){
+  return `<section class="tip" id="t-reporte">${head()}
+  <div class="kicker">Cierre del compendio</div>
+  <h1>Un reporte que la UIF sí pueda usar</h1>
+  <p class="sub">La descripción de la operación es lo único que el analista de la autoridad lee sin el expediente a la mano. Tiene que sostenerse sola.</p>
+  <div class="card"><h3>Cinco bloques, en este orden</h3><table><thead><tr><th>Quién</th><th>Qué</th><th>Cómo se detectó</th><th>Por qué es inusual</th><th>Qué se hizo</th></tr></thead>
+  <tbody><tr><td>Cliente, perfil declarado, antigüedad, producto y canal.</td><td>Operaciones, montos, número, periodo y contrapartes.</td><td>Alerta del sistema, analista, sucursal o requerimiento.</td><td>La diferencia concreta frente al perfil y a la conducta esperada.</td><td>Consultas, contacto con el cliente, medidas y estado de la relación.</td></tr></tbody></table></div>
+  <div class="card"><h3>Lo que debilita un reporte y cómo corregirlo</h3><table><thead><tr><th>Frecuente</th><th>Mejor</th></tr></thead><tbody>
+   <tr><td>«Monto elevado para el perfil del cliente.»</td><td>«$412,300 en 14 días frente a un ingreso declarado de $6,000 mensuales.»</td></tr>
+   <tr><td>Copiar el nombre de la alerta del sistema.</td><td>Describir la conducta que la alerta encontró.</td></tr>
+   <tr><td>Omitir a quién se transfirió o de quién se recibió.</td><td>Nombrar contrapartes, instituciones y cuentas relevantes.</td></tr>
+   <tr><td>Un reporte por cuenta cuando hay una red.</td><td>Describir el grupo y los datos que lo vinculan.</td></tr>
+   <tr><td>«El cliente no justificó.»</td><td>Qué se le pidió, cuándo, qué respondió y qué no presentó.</td></tr></tbody></table></div>
+  <div class="card uif"><h3>Tiempos</h3><p>Las Disposiciones de carácter general aplicables a las sociedades financieras populares establecen sesenta días naturales para remitir el reporte de operación inusual, contados a partir de que se genera la alerta, y prevén además el reporte dentro de las 24 horas cuando hay información o indicios de que los recursos pueden provenir de actividades ilícitas o destinarse a ellas. Documente la fecha de la alerta: es la que cuenta. Consulte el texto vigente.</p></div>
+  <p class="pie">Fuentes: Ley de Ahorro y Crédito Popular, art. 124, y sus Disposiciones de carácter general; CFF art. 69-B; GAFI, Recomendaciones 10, 20 y 24; GAFI, Illicit Financial Flows from Cyber-Enabled Fraud (2023); GAFI y Egmont, Concealment of Beneficial Ownership (2018); GAFI, Guidance on Digital Identity (2020); GAFILAT, informes de tipologías.</p>
+  </section>`;
+}
+
+function pintar(){
+  document.getElementById('main').innerHTML=portada()+T.map(ficha).join('')+listas()+radar()+reporte();
+  const it=[['portada','·','Inicio','Índice y cómo leer'],...T.map(t=>[t.id,t.n,t.nombre,t.canal+' · '+t.detecta.toLowerCase()]),
+    ['listas','★','Listas y jurisdicciones','Apartado transversal'],['radar','◎','Lo que dice el Radar','Comité y Convención'],['reporte','✎','Un reporte útil','Cinco bloques']];
+  document.getElementById('nav').innerHTML='<div class="lab">Consulta</div>'+it.map(([id,n,t,s])=>
+    `<button data-id="${id}" onclick="ver('${id}')"><span class="n">${esc(n)}</span><span><b>${esc(t)}</b><small>${esc(s)}</small></span></button>`).join('');
+  const h=(location.hash||'').slice(1);
+  ver(h&&document.getElementById('t-'+h)?h:'portada',true);
+}
+function ver(id,silencio){
+  document.querySelectorAll('.tip').forEach(s=>s.classList.toggle('on',s.id==='t-'+id));
+  document.querySelectorAll('nav button').forEach(b=>b.classList.toggle('on',b.dataset.id===id));
+  if(!silencio)history.replaceState(null,'','#'+id);
+  window.scrollTo(0,0);
+}
+pintar();
+</script>
+</body>
+</html>
